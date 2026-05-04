@@ -1108,6 +1108,11 @@
        PRINT STYLES — EDITORIAL MAGAZINE LAYOUT WITH COVER
        Navy / Gold / Ivory · Inspired by og-image
        ═══════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════
+       PRINT STYLES — EDITORIAL MAGAZINE LAYOUT WITH COVER
+       Navy / Gold / Ivory · Inspired by og-image
+       Class names verified against actual HTML
+       ═══════════════════════════════════════════════════════ */
     @media print {
       @page {
         size: A4 portrait;
@@ -1117,25 +1122,27 @@
         margin: 0;
       }
       
-      /* === COLOR ADJUSTMENT — only where needed === */
+      /* === COLOR ADJUSTMENT === */
       .pdf-cover, .pdf-cover *,
-      .price-box, .owner-card, .bkk-distance, .deed-img,
-      .hero-img img, .gallery-item img, .gallery-grid img,
-      .op-img-block img, .deed-img img, .card-img img,
-      .pull-quote, .editorial-divider, .section-num::before,
-      .pdf-footer-brand, .pdf-footer-brand * {
+      .price-box, .owner-card, .bkk-distance,
+      .hero-img img, .g-item img, .gallery-grid img,
+      .op-img-block img, .docs-img img, .overview-img img,
+      .loc-img img, .dim-img img,
+      .section-num::before {
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
       
       /* === HIDE NON-PRINT ELEMENTS === */
-      .nav, .scroll-cue, .float-toolbar, .lightbox,
+      .nav, .nav-inner, .nav-menu, .nav-toggle, .nav-back, .nav-meta,
+      .scroll-cue, .scroll-down, .float-toolbar, .float-btn, .float-btn-tooltip,
+      .lightbox, .lightbox-close,
       .nav-drawer-backdrop, .mobile-drawer, .menu-toggle,
-      .lang-switcher, .filter-pills, .map-embed-wrap,
-      .nav-back, .nav-meta, .scroll-down,
-      .brochure-action, .contact-actions, .faq,
-      .hero-cta, .float-toast, .lightbox-close,
-      .ig-btn, .nav-toggle, .map-btn, .btn,
+      .lang-switcher, .lang-btn, .filter-pills, 
+      .map-embed-wrap, .map-embed-overlay, .map-btn,
+      .brochure-action, .contact-actions, .faq, .faq-item,
+      .hero-cta, .float-toast, 
+      .ig-btn, .btn, .btn-primary, .btn-ghost, .btn-line, .btn-brochure,
       .price-fx-note, .hero-foot { 
         display: none !important; 
       }
@@ -1145,7 +1152,7 @@
       .page.active { display: block !important; }
       
       /* === RESET ANIMATIONS === */
-      .reveal { 
+      .reveal, .reveal-delay-1, .reveal-delay-2, .reveal-delay-3 { 
         opacity: 1 !important; 
         transform: none !important; 
         transition: none !important; 
@@ -1167,13 +1174,11 @@
         -webkit-font-smoothing: antialiased;
       }
       
-      /* === KILL ALL DARK BACKGROUNDS (except cover) === */
+      /* === KILL DARK BACKGROUNDS === */
       .gallery, .contact, footer {
         background: #ffffff !important;
         color: #0a1f44 !important;
       }
-      .gallery .section-title,
-      .gallery .section-num,
       .gallery * {
         color: #0a1f44 !important;
       }
@@ -1199,14 +1204,10 @@
         box-sizing: border-box !important;
       }
       
-      /* Grid pattern background */
       .pdf-cover::before {
         content: "" !important;
         position: absolute !important;
-        top: 0 !important;
-        left: 0 !important;
-        right: 0 !important;
-        bottom: 0 !important;
+        top: 0; left: 0; right: 0; bottom: 0 !important;
         background-image: 
           linear-gradient(rgba(201,169,97,0.06) 1px, transparent 1px),
           linear-gradient(90deg, rgba(201,169,97,0.06) 1px, transparent 1px) !important;
@@ -1214,7 +1215,6 @@
         pointer-events: none !important;
       }
       
-      /* Corner brackets — top left */
       .pdf-cover-corners {
         position: absolute !important;
         top: 18mm !important;
@@ -1235,7 +1235,6 @@
         border-radius: 50% !important;
       }
       
-      /* Corner brackets — bottom right */
       .pdf-cover-corners-br {
         position: absolute !important;
         bottom: 32mm !important;
@@ -1256,7 +1255,6 @@
         border-radius: 50% !important;
       }
       
-      /* Cover content - centered */
       .pdf-cover-content {
         position: absolute !important;
         top: 50% !important;
@@ -1267,7 +1265,6 @@
         z-index: 2 !important;
       }
       
-      /* Eyebrow */
       .pdf-cover-eyebrow {
         font-family: 'Sarabun', sans-serif !important;
         font-size: 9pt !important;
@@ -1277,8 +1274,6 @@
         text-transform: uppercase !important;
         font-weight: 400 !important;
       }
-      
-      /* Eyebrow divider line */
       .pdf-cover-eyebrow::after {
         content: "" !important;
         display: block !important;
@@ -1288,7 +1283,6 @@
         margin: 4mm auto 0 auto !important;
       }
       
-      /* SUKMART logo */
       .pdf-cover-logo {
         font-family: 'Cormorant Garamond', Georgia, serif !important;
         font-weight: 400 !important;
@@ -1298,14 +1292,12 @@
         line-height: 1 !important;
         margin-bottom: 6mm !important;
       }
-      
       .pdf-cover-logo .dot {
         color: #c9a961 !important;
         font-style: italic !important;
         margin-right: 0.05em !important;
       }
       
-      /* Land Estate sub-title */
       .pdf-cover-tagline {
         font-family: 'Cormorant Garamond', Georgia, serif !important;
         font-style: italic !important;
@@ -1316,7 +1308,6 @@
         letter-spacing: 0.02em !important;
       }
       
-      /* Property description */
       .pdf-cover-desc-th {
         font-family: 'Noto Serif Thai', serif !important;
         font-size: 14pt !important;
@@ -1334,7 +1325,6 @@
         margin-bottom: 14mm !important;
       }
       
-      /* Mid divider */
       .pdf-cover-divider {
         width: 36mm !important;
         height: 0.3mm !important;
@@ -1342,7 +1332,6 @@
         margin: 0 auto 10mm auto !important;
       }
       
-      /* Key stats */
       .pdf-cover-stats {
         font-family: 'Sarabun', sans-serif !important;
         font-size: 8pt !important;
@@ -1352,7 +1341,6 @@
         margin-bottom: 5mm !important;
       }
       
-      /* URL */
       .pdf-cover-url {
         font-family: 'Cormorant Garamond', Georgia, serif !important;
         font-style: italic !important;
@@ -1360,7 +1348,7 @@
         color: #c9a961 !important;
       }
       
-      /* === HERO / FIRST PAGE AFTER COVER === */
+      /* === HERO / DETAIL FIRST PAGE === */
       .hero-detail { 
         min-height: auto !important;
         height: auto !important;
@@ -1378,20 +1366,14 @@
         max-width: 100% !important;
         padding: 0 !important;
       }
-      .hero-content {
+      .hero-content, .hero-wrap {
         display: block !important;
         max-width: 100% !important;
         gap: 0 !important;
       }
-      .hero-detail-grid {
-        display: block !important;
-        grid-template-columns: none !important;
-        gap: 0 !important;
-      }
       
       /* Hero image */
-      .hero-img,
-      .hero-detail .hero-img {
+      .hero-img {
         width: 100% !important;
         margin: 0 0 18pt 0 !important;
         padding: 0 !important;
@@ -1400,8 +1382,7 @@
         overflow: hidden;
         border-radius: 0 !important;
       }
-      .hero-img img,
-      .hero-detail .hero-img img {
+      .hero-img img {
         width: 100% !important;
         height: 280pt !important;
         max-height: 280pt !important;
@@ -1409,18 +1390,18 @@
         border-radius: 0 !important;
         display: block !important;
       }
-      .hero-img::after, .hero-img-tag {
+      .hero-img-tag {
         display: none !important;
       }
       
       /* Hero text */
-      .hero-info, .hero-text {
+      .hero-text {
         padding: 0 14mm !important;
         text-align: center !important;
         display: block !important;
         max-width: 100% !important;
       }
-      .hero-eyebrow {
+      .hero-eyebrow, .eyebrow {
         font-family: 'Cormorant Garamond', serif !important;
         font-style: italic !important;
         font-size: 9pt !important;
@@ -1428,23 +1409,21 @@
         color: #c9a961 !important;
         margin: 0 auto 12pt auto !important;
         display: inline-block !important;
-        text-transform: uppercase;
+        text-transform: uppercase !important;
       }
-      .hero-eyebrow::before, .hero-eyebrow::after {
+      .hero-eyebrow::before, .hero-eyebrow::after,
+      .eyebrow::before, .eyebrow::after {
         display: none !important;
       }
-      .hero-title,
-      h1.hero-title { 
+      .hero-title { 
         font-family: 'Noto Serif Thai', serif !important;
         font-weight: 400 !important;
         font-size: 26pt !important; 
         line-height: 1.2 !important; 
         margin: 0 0 12pt 0 !important;
         color: #0a1f44 !important;
-        letter-spacing: -0.01em !important;
       }
-      .hero-title em,
-      .hero-title .ital {
+      .hero-title em, .hero-title .ital {
         font-family: 'Cormorant Garamond', serif !important;
         font-style: italic !important;
         color: #c9a961 !important;
@@ -1460,7 +1439,7 @@
         opacity: 0.78;
       }
       
-      /* Hero stats - inline on cover-adjacent page */
+      /* Hero stats */
       .hero-stats {
         display: flex !important;
         justify-content: center !important;
@@ -1497,27 +1476,15 @@
         opacity: 0.65 !important;
         letter-spacing: 0.15em !important;
         margin-top: 4pt !important;
-        text-transform: uppercase;
+        text-transform: uppercase !important;
       }
       
-      /* Editorial divider */
-      .hero-info::before {
-        content: "" !important;
-        display: block !important;
-        width: 60pt !important;
-        height: 0.75pt !important;
-        background: #c9a961 !important;
-        margin: 0 auto 14pt auto !important;
-      }
-      
-      /* === PRICE BOX — REFINED === */
+      /* === PRICE BOX === */
       .price-box {
         background: #faf8f1 !important;
         border: none !important;
         border-top: 0.75pt solid #c9a961 !important;
         border-bottom: 0.75pt solid #c9a961 !important;
-        border-left: none !important;
-        border-right: none !important;
         page-break-inside: avoid;
         max-width: 380pt !important;
         margin: 0 auto 14pt auto !important;
@@ -1531,16 +1498,17 @@
         letter-spacing: 0.3em !important;
         color: #0a1f44 !important;
         opacity: 0.65 !important;
-        text-transform: uppercase;
+        text-transform: uppercase !important;
         margin-bottom: 6pt !important;
+      }
+      .price-box-main {
+        line-height: 1.1 !important;
       }
       .price-box-amount { 
         font-family: 'Noto Serif Thai', serif !important;
         font-weight: 400 !important;
         font-size: 24pt !important;
         color: #0a1f44 !important;
-        line-height: 1.1 !important;
-        letter-spacing: -0.01em !important;
       }
       .price-box-unit { 
         font-family: 'Cormorant Garamond', serif !important;
@@ -1560,33 +1528,6 @@
         color: #0a1f44 !important;
         opacity: 0.7 !important;
         margin-top: 6pt !important;
-      }
-      .price-includes {
-        margin-top: 10pt !important;
-        padding-top: 10pt !important;
-        border-top: 0.5pt dotted rgba(10,31,68,0.2) !important;
-        text-align: left !important;
-      }
-      .price-includes-title {
-        font-family: 'Cormorant Garamond', serif !important;
-        font-style: italic !important;
-        font-size: 9pt !important;
-        color: #c9a961 !important;
-        letter-spacing: 0.2em !important;
-        text-transform: uppercase;
-        margin-bottom: 6pt !important;
-      }
-      .price-includes-list li {
-        font-size: 9pt !important;
-        line-height: 1.6 !important;
-        padding-left: 12pt !important;
-        color: #0a1f44 !important;
-      }
-      .price-includes-note {
-        font-family: 'Cormorant Garamond', serif !important;
-        font-style: italic !important;
-        font-size: 8.5pt !important;
-        color: #c9a961 !important;
       }
       
       /* === DISTANCE CARD === */
@@ -1615,16 +1556,14 @@
         width: 14pt !important;
         height: 14pt !important;
       }
-      .bkk-distance-content {
-        text-align: left !important;
-      }
+      .bkk-distance-content { text-align: left !important; }
       .bkk-distance-label {
         font-family: 'Cormorant Garamond', serif !important;
         font-style: italic !important;
         font-size: 8pt !important;
         letter-spacing: 0.25em !important;
         color: #c9a961 !important;
-        text-transform: uppercase;
+        text-transform: uppercase !important;
       }
       .bkk-distance-value {
         font-family: 'Noto Serif Thai', serif !important;
@@ -1657,7 +1596,7 @@
       .section-head { 
         margin-bottom: 14pt !important; 
         page-break-after: avoid;
-        text-align: left;
+        text-align: left !important;
       }
       .section-num { 
         font-family: 'Cormorant Garamond', serif !important;
@@ -1665,7 +1604,7 @@
         font-size: 8.5pt !important; 
         letter-spacing: 0.35em !important;
         color: #c9a961 !important;
-        text-transform: uppercase;
+        text-transform: uppercase !important;
         display: inline-flex !important;
         align-items: center !important;
         gap: 10pt !important;
@@ -1685,7 +1624,6 @@
         line-height: 1.25 !important;
         margin: 0 0 8pt 0 !important;
         color: #0a1f44 !important;
-        letter-spacing: -0.01em !important;
       }
       .section-title em {
         font-family: 'Cormorant Garamond', serif !important;
@@ -1699,11 +1637,10 @@
         line-height: 1.7 !important;
         color: #0a1f44 !important;
         opacity: 0.78 !important;
-        max-width: 100% !important;
         margin-bottom: 4pt !important;
       }
       
-      /* === OVERVIEW SECTION === */
+      /* === OVERVIEW === */
       .overview-grid {
         display: grid !important;
         grid-template-columns: 1fr !important;
@@ -1753,19 +1690,24 @@
         border-left: 0.5pt solid rgba(10,31,68,0.2) !important;
         margin-top: 8pt !important;
       }
-      .spec-item { 
+      .spec, .spec-item { 
         padding: 12pt 10pt !important;
         border: none !important;
         border-right: 0.5pt solid rgba(10,31,68,0.2) !important;
         border-bottom: 0.5pt solid rgba(10,31,68,0.2) !important;
         background: transparent !important;
-        page-break-inside: avoid;
+        page-break-inside: avoid !important;
         text-align: left !important;
+        display: block !important;
+        height: auto !important;
+        min-height: 0 !important;
       }
-      .spec-item svg, .spec-icon {
+      .spec svg, .spec-icon {
         color: #c9a961 !important;
         opacity: 0.8;
         margin-bottom: 4pt !important;
+        width: 14pt !important;
+        height: 14pt !important;
       }
       .spec-label { 
         font-family: 'Cormorant Garamond', serif !important;
@@ -1773,7 +1715,7 @@
         font-size: 8pt !important;
         letter-spacing: 0.25em !important;
         color: #c9a961 !important;
-        text-transform: uppercase;
+        text-transform: uppercase !important;
         margin-bottom: 4pt !important;
       }
       .spec-value { 
@@ -1789,29 +1731,51 @@
         color: #c9a961 !important;
         font-size: 9.5pt !important;
       }
+      .spec-note {
+        font-size: 8.5pt !important;
+        color: #0a1f44 !important;
+        opacity: 0.7 !important;
+        margin-top: 3pt !important;
+      }
       
-      /* === GALLERIES === */
+      /* === GALLERY === */
       .gallery-grid { 
         display: grid !important;
         grid-template-columns: repeat(2, 1fr) !important; 
         gap: 8pt !important;
-        page-break-inside: avoid;
+        page-break-inside: avoid !important;
         margin: 12pt 0 !important;
       }
-      .gallery-item {
-        page-break-inside: avoid;
+      .g-item {
+        page-break-inside: avoid !important;
         background: transparent !important;
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        display: block !important;
+        position: relative !important;
+        overflow: visible !important;
+        margin: 0 !important;
+        padding: 0 !important;
       }
-      .gallery-grid img,
-      .gallery-item img { 
+      .g-item::before, .g-item::after {
+        display: none !important;
+        content: none !important;
+      }
+      .g-item img,
+      .gallery-grid img { 
         width: 100% !important;
-        height: 130pt !important;
-        max-height: 130pt !important;
+        height: 150pt !important;
+        max-height: 150pt !important;
+        min-height: 0 !important;
         object-fit: cover !important;
         border-radius: 0 !important;
         display: block !important;
+        position: static !important;
+        margin: 0 !important;
+        padding: 0 !important;
       }
-      .gallery-cap { 
+      .g-cap { 
         font-family: 'Cormorant Garamond', serif !important;
         font-style: italic !important;
         font-size: 8.5pt !important;
@@ -1820,11 +1784,18 @@
         opacity: 0.75 !important;
         background: transparent !important;
         letter-spacing: 0.05em !important;
+        position: static !important;
+        height: auto !important;
+        display: block !important;
       }
-      .gallery-cap-num {
+      .g-cap small {
         color: #c9a961 !important;
         font-style: italic !important;
         margin-right: 6pt !important;
+        font-size: 7pt !important;
+        letter-spacing: 0.2em !important;
+        text-transform: uppercase !important;
+        display: inline-block !important;
       }
       
       /* === OPERATION === */
@@ -1835,14 +1806,18 @@
         margin-bottom: 10pt !important;
       }
       .op-img-block {
-        page-break-inside: avoid;
+        page-break-inside: avoid !important;
+        height: auto !important;
+        max-height: none !important;
       }
       .op-img-block img { 
         width: 100% !important;
         height: 140pt !important;
         max-height: 140pt !important;
+        min-height: 0 !important;
         object-fit: cover !important;
         border-radius: 0 !important;
+        display: block !important;
       }
       .op-img-cap {
         font-family: 'Cormorant Garamond', serif !important;
@@ -1855,7 +1830,7 @@
       }
       .op-stats { 
         padding: 10pt !important;
-        page-break-inside: avoid;
+        page-break-inside: avoid !important;
         background: #faf8f1 !important;
         border: none !important;
         border-top: 0.5pt solid #c9a961 !important;
@@ -1877,7 +1852,7 @@
         padding: 4pt 2pt !important;
         font-size: 7pt !important;
         background: transparent !important;
-        text-align: center;
+        text-align: center !important;
       }
       .op-cell-no { 
         font-family: 'Cormorant Garamond', serif !important;
@@ -1885,9 +1860,21 @@
         font-size: 7pt !important;
         color: #c9a961 !important;
       }
+      .op-cell-tag {
+        font-size: 6.5pt !important;
+        color: #0a1f44 !important;
+        opacity: 0.6 !important;
+      }
       .op-cell-v { 
         font-size: 9pt !important;
         color: #0a1f44 !important;
+      }
+      .op-total, .op-total-row {
+        margin-top: 8pt !important;
+        padding-top: 8pt !important;
+        border-top: 0.5pt solid rgba(10,31,68,0.2) !important;
+        font-size: 10pt !important;
+        text-align: right !important;
       }
       
       /* === LOCATION === */
@@ -1898,12 +1885,12 @@
       }
       .loc-card {
         padding: 14pt 0 !important;
-        page-break-inside: avoid;
+        page-break-inside: avoid !important;
         background: transparent !important;
         border: none !important;
         border-top: 0.5pt solid rgba(10,31,68,0.15) !important;
       }
-      .loc-title {
+      .loc-card h3 {
         font-family: 'Noto Serif Thai', serif !important;
         font-size: 13pt !important;
         margin-bottom: 8pt !important;
@@ -1921,51 +1908,43 @@
         border-bottom: 0.25pt dotted rgba(10,31,68,0.15) !important;
         display: flex !important;
         justify-content: space-between !important;
+        align-items: center !important;
       }
       .loc-list li::before {
         display: none !important;
       }
-      .loc-list li em, .loc-distance {
+      .loc-list .dot {
+        display: none !important;
+      }
+      .loc-list .name {
+        flex: 1 !important;
+      }
+      .loc-list .dist {
         font-family: 'Cormorant Garamond', serif !important;
         font-style: italic !important;
         color: #c9a961 !important;
       }
-      
-      /* === DEED === */
-      .deed-grid {
-        display: grid !important;
-        grid-template-columns: 1fr !important;
-        gap: 12pt !important;
-      }
-      .deed-card {
-        page-break-inside: avoid;
-        background: transparent !important;
-      }
-      .deed-img {
-        background: #faf8f1 !important;
-      }
-      .deed-img img {
-        width: 100% !important;
-        height: 200pt !important;
-        max-height: 200pt !important;
-        object-fit: contain !important;
-        background: #faf8f1 !important;
-        padding: 8pt !important;
-      }
-      .deed-cap {
-        font-family: 'Cormorant Garamond', serif !important;
-        font-style: italic !important;
-        font-size: 9pt !important;
-        padding: 6pt 0 !important;
-        background: transparent !important;
-        color: #0a1f44 !important;
-        opacity: 0.75 !important;
-      }
-      .deed-list {
+      .loc-img {
+        page-break-inside: avoid !important;
         margin-top: 12pt !important;
       }
-      .deed-list-item {
-        page-break-inside: avoid;
+      .loc-img img {
+        width: 100% !important;
+        height: 220pt !important;
+        max-height: 220pt !important;
+        object-fit: cover !important;
+        display: block !important;
+      }
+      
+      /* === DOCS / DEED === */
+      .docs {
+        page-break-before: always !important;
+      }
+      .docs-list {
+        margin-top: 12pt !important;
+      }
+      .docs-row, .docs-item {
+        page-break-inside: avoid !important;
         padding: 10pt 0 !important;
         border-top: 0.5pt solid rgba(10,31,68,0.15) !important;
         display: grid !important;
@@ -1973,30 +1952,35 @@
         gap: 12pt !important;
         align-items: start !important;
       }
-      .deed-list-num {
+      .docs-num {
         font-family: 'Cormorant Garamond', serif !important;
         font-style: italic !important;
         font-size: 16pt !important;
         color: #c9a961 !important;
         line-height: 1 !important;
       }
-      .deed-list-title {
-        font-family: 'Noto Serif Thai', serif !important;
-        font-size: 11pt !important;
-        font-weight: 400 !important;
-        color: #0a1f44 !important;
-        margin-bottom: 4pt !important;
+      .docs-img {
+        page-break-inside: avoid !important;
       }
-      .deed-list-desc {
-        font-size: 9pt !important;
-        line-height: 1.6 !important;
-        color: #0a1f44 !important;
-        opacity: 0.78 !important;
+      .docs-img img {
+        width: 100% !important;
+        height: 240pt !important;
+        max-height: 240pt !important;
+        object-fit: contain !important;
+        background: #faf8f1 !important;
+        padding: 8pt !important;
+        display: block !important;
+      }
+      .dim-img img {
+        width: 100% !important;
+        max-height: 280pt !important;
+        object-fit: contain !important;
+        display: block !important;
       }
       
       /* === OWNER CARD === */
       .owner-card {
-        page-break-inside: avoid;
+        page-break-inside: avoid !important;
         background: #faf8f1 !important;
         border: none !important;
         border-top: 0.75pt solid #c9a961 !important;
@@ -2028,36 +2012,19 @@
         font-size: 8.5pt !important;
         letter-spacing: 0.3em !important;
         opacity: 0.65 !important;
-        text-transform: uppercase;
-        border-top: none !important;
+        text-transform: uppercase !important;
         margin-top: 8pt !important;
         padding-top: 8pt !important;
-        position: relative !important;
-      }
-      .owner-title::before {
-        content: "" !important;
-        display: block !important;
-        width: 30pt !important;
-        height: 0.5pt !important;
-        background: rgba(10,31,68,0.3) !important;
-        margin: 0 auto 8pt auto !important;
-        position: absolute !important;
-        top: 0 !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
       }
       
       /* === CONTACT === */
       .contact {
         background: #ffffff !important;
         color: #0a1f44 !important;
-        page-break-inside: avoid;
+        page-break-inside: avoid !important;
         padding: 20pt 0 !important;
       }
       .contact * {
-        color: #0a1f44 !important;
-      }
-      .contact .section-title {
         color: #0a1f44 !important;
       }
       .contact .section-title em {
@@ -2072,11 +2039,11 @@
       
       /* === FOOTER === */
       footer { 
-        page-break-before: avoid;
-        page-break-inside: avoid;
+        page-break-before: avoid !important;
+        page-break-inside: avoid !important;
         padding: 20pt 0 8pt !important;
         font-family: 'Sarabun', sans-serif !important;
-        font-size: 8.5pt;
+        font-size: 8.5pt !important;
         background: #ffffff !important;
         color: #0a1f44 !important;
         border-top: 0.5pt solid #c9a961 !important;
@@ -2086,46 +2053,6 @@
       footer * {
         color: #0a1f44 !important;
       }
-      .footer-sukmart { 
-        font-family: 'Cormorant Garamond', serif !important;
-        font-size: 16pt !important;
-        color: #0a1f44 !important;
-        font-weight: 400 !important;
-        letter-spacing: 0.05em !important;
-        margin-bottom: 6pt !important;
-      }
-      .footer-sukmart em { 
-        font-style: italic !important;
-        color: #c9a961 !important; 
-      }
-      .footer-cols, .footer-row {
-        display: block !important;
-        text-align: center !important;
-      }
-      .footer-info, .contact-info {
-        font-size: 8.5pt !important;
-        line-height: 1.6 !important;
-        opacity: 0.75 !important;
-      }
-      
-      /* === HOMEPAGE PRINT === */
-      .cards-grid {
-        display: grid !important;
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 12pt !important;
-      }
-      .card {
-        page-break-inside: avoid;
-        padding: 12pt !important;
-        background: transparent !important;
-        border: 0.5pt solid rgba(10,31,68,0.15) !important;
-      }
-      .card-img img {
-        width: 100% !important;
-        height: 130pt !important;
-        max-height: 130pt !important;
-        object-fit: cover !important;
-      }
       
       /* === GLOBAL TEXT OVERRIDES === */
       h1, h2, h3, h4, h5, h6 { 
@@ -2133,16 +2060,13 @@
         font-family: 'Noto Serif Thai', serif !important;
         font-weight: 400 !important;
       }
-      em, i, .italic { 
+      em, i { 
         font-family: 'Cormorant Garamond', serif !important;
         font-style: italic !important;
         color: #c9a961 !important; 
       }
-      p, li, span, div {
-        color: #0a1f44 !important;
-      }
       
-      /* === TYPOGRAPHY POLISH === */
+      /* === TYPOGRAPHY === */
       p, li {
         orphans: 3;
         widows: 3;
@@ -2151,13 +2075,15 @@
         page-break-after: avoid;
       }
       
-      /* === PAGE BREAK CONTROL === */
-      .specs {
-        page-break-before: always;
+      /* === PAGE BREAKS === */
+      .specs, .gallery {
+        page-break-before: always !important;
       }
-      .gallery, .deed {
-        page-break-before: always;
-      }
+    }
+    
+    /* Hide cover on screen, show only on print */
+    .pdf-cover {
+      display: none;
     }
     
     /* Hide cover on screen, show only on print */
@@ -2919,6 +2845,18 @@
       }
     });
   </script>
+
+  
+  <!-- Favicons -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#0a1f44">
+  <meta name="msapplication-TileColor" content="#0a1f44">
 </head>
 <body>
 
@@ -3047,7 +2985,7 @@
           <div class="card-img">
             <span class="card-tag">เปิดขาย</span>
             <div class="card-price">฿690K <em>/ ไร่</em></div>
-            <img src="images/home/main-01.jpg" alt="ที่ดิน 110 ไร่ บึงสามพัน เพชรบูรณ์" loading="lazy" width="600" height="337" decoding="async">
+            <img src="images/home/main-01.jpg" alt="ที่ดิน 110 ไร่ บึงสามพัน เพชรบูรณ์" loading="eager" width="600" height="337" decoding="async">
             <div class="card-area">110<em> ไร่</em></div>
           </div>
           <div class="card-body">
@@ -3078,7 +3016,7 @@
           <div class="card-img">
             <span class="card-tag">เปิดขาย</span>
             <div class="card-price">฿35M <em>/ ไร่</em></div>
-            <img src="images/home/main-02.jpg" alt="ที่ดิน 10 ไร่ ศาลายา นครปฐม" loading="lazy" width="600" height="449" decoding="async">
+            <img src="images/home/main-02.jpg" alt="ที่ดิน 10 ไร่ ศาลายา นครปฐม" loading="eager" width="600" height="449" decoding="async">
             <div class="card-area">10<em> ไร่</em></div>
           </div>
           <div class="card-body">
@@ -3109,7 +3047,7 @@
           <div class="card-img">
             <span class="card-tag">เปิดขาย</span>
             <div class="card-price">PRICE ON REQUEST</div>
-            <img src="images/home/main-03.jpg" alt="ที่ดิน 9 ไร่ กาญจนบุรี เดิมรีสอร์ท" loading="lazy" width="600" height="359" decoding="async">
+            <img src="images/home/main-03.jpg" alt="ที่ดิน 9 ไร่ กาญจนบุรี เดิมรีสอร์ท" loading="eager" width="600" height="359" decoding="async">
             <div class="card-area">9<em> ไร่</em></div>
           </div>
           <div class="card-body">
@@ -3140,7 +3078,7 @@
           <div class="card-img">
             <span class="card-tag">เปิดขาย</span>
             <div class="card-price">฿89M <em>เหมา</em></div>
-            <img src="images/home/main-04.jpg" alt="ฟาร์มไก่ดำ 8 ไร่ กาญจนบุรี" loading="lazy" width="600" height="336" decoding="async">
+            <img src="images/home/main-04.jpg" alt="ฟาร์มไก่ดำ 8 ไร่ กาญจนบุรี" loading="eager" width="600" height="336" decoding="async">
             <div class="card-area">8<em> ไร่</em></div>
           </div>
           <div class="card-body">
@@ -3171,7 +3109,7 @@
           <div class="card-img">
             <span class="card-tag">เปิดขาย</span>
             <div class="card-price">฿89M <em>เหมา</em></div>
-            <img src="images/home/main-05.jpg" alt="ฟาร์มไก่ไทย 31 ไร่ กาญจนบุรี" loading="lazy" width="600" height="336" decoding="async">
+            <img src="images/home/main-05.jpg" alt="ฟาร์มไก่ไทย 31 ไร่ กาญจนบุรี" loading="eager" width="600" height="336" decoding="async">
             <div class="card-area">31<em> ไร่</em></div>
           </div>
           <div class="card-body">
@@ -3438,7 +3376,7 @@
 
       <div class="overview-grid">
         <div class="overview-img reveal">
-          <img src="images/phetchabun/overview-01.jpg" alt="ภาพมุมกว้างของที่ดิน" loading="lazy" width="600" height="337" decoding="async">
+          <img src="images/phetchabun/overview-01.jpg" alt="ภาพมุมกว้างของที่ดิน" loading="eager" width="600" height="337" decoding="async">
         </div>
         <div class="overview-text reveal reveal-delay-1">
           <div class="overview-quote">
@@ -3530,7 +3468,7 @@
 
       <div class="dim-wrap">
         <div class="dim-img reveal" data-zoom>
-          <img src="images/phetchabun/dim-01.jpg" alt="โฉนดที่ดิน 3 แปลง" loading="lazy" width="600" height="337" decoding="async">
+          <img src="images/phetchabun/dim-01.jpg" alt="โฉนดที่ดิน 3 แปลง" loading="eager" width="600" height="337" decoding="async">
         </div>
         <div class="dim-list reveal reveal-delay-1">
           <div class="dim-row"><div class="lbl">หน้ากว้างถนน 2275</div><div class="val">250 <em>ม.</em></div></div>
@@ -3556,19 +3494,19 @@
       <div class="gallery-grid reveal">
         
         <div class="g-item g1" data-zoom>
-          <img src="images/phetchabun/gallery-01.jpg" alt="ภาพมุมสูง บริเวณข้างถนน 2275" loading="lazy" width="600" height="337" decoding="async">
+          <img src="images/phetchabun/gallery-01.jpg" alt="ภาพมุมสูง บริเวณข้างถนน 2275" loading="eager" width="600" height="337" decoding="async">
           <div class="g-cap"><small>VIEW 01</small>มุมสูงด้านถนน 2275</div>
         </div>
         <div class="g-item g3" data-zoom>
-          <img src="images/phetchabun/gallery-02.jpg" alt="ภาพรายละเอียดในแปลง" loading="lazy" width="600" height="337" decoding="async">
+          <img src="images/phetchabun/gallery-02.jpg" alt="ภาพรายละเอียดในแปลง" loading="eager" width="600" height="337" decoding="async">
           <div class="g-cap"><small>VIEW 03</small>รายละเอียดในแปลง</div>
         </div>
         <div class="g-item g4" data-zoom>
-          <img src="images/phetchabun/gallery-03.jpg" alt="ภาพมุมสูงจากโดรนแสดงเขตที่ดิน" loading="lazy" width="600" height="337" decoding="async">
+          <img src="images/phetchabun/gallery-03.jpg" alt="ภาพมุมสูงจากโดรนแสดงเขตที่ดิน" loading="eager" width="600" height="337" decoding="async">
           <div class="g-cap"><small>DRONE</small>มุมมองมุมสูงจากโดรน</div>
         </div>
         <div class="g-item g5" data-zoom>
-          <img src="images/phetchabun/gallery-04.jpg" alt="ภาพมุมสูงของที่ดิน" loading="lazy" width="600" height="337" decoding="async">
+          <img src="images/phetchabun/gallery-04.jpg" alt="ภาพมุมสูงของที่ดิน" loading="eager" width="600" height="337" decoding="async">
           <div class="g-cap"><small>AERIAL</small>ภาพมุมสูง</div>
         </div>
       </div>
@@ -3599,10 +3537,10 @@
 
         <div class="map-embed-wrap reveal reveal-delay-2">
           <div class="map-embed-overlay">Live Map · พิกัดจริง</div>
-          <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1532.9638627051697!2d101.11831182497535!3d15.862299501256626!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2sth!4v1777829407927!5m2!1sen!2sth" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Google Maps · phetchabun" allowfullscreen></iframe>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1532.9638627051697!2d101.11831182497535!3d15.862299501256626!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2sth!4v1777829407927!5m2!1sen!2sth" loading="eager" referrerpolicy="no-referrer-when-downgrade" title="Google Maps · phetchabun" allowfullscreen></iframe>
         </div>
         <div class="loc-img reveal reveal-delay-1" data-zoom>
-          <img src="images/phetchabun/loc-01.jpg" alt="ภาพมุมสูงแสดงทำเลและสภาพแวดล้อมโดยรอบที่ดิน" loading="lazy" width="600" height="337" decoding="async">
+          <img src="images/phetchabun/loc-01.jpg" alt="ภาพมุมสูงแสดงทำเลและสภาพแวดล้อมโดยรอบที่ดิน" loading="eager" width="600" height="337" decoding="async">
         </div>
       </div>
     </div>
@@ -3620,7 +3558,7 @@
 
       <div class="docs-row">
         <div class="docs-img reveal" data-zoom>
-          <img src="images/phetchabun/docs-01.jpg" alt="ผังแปลงที่ดินพร้อมระยะ 350 / 700 / 250 เมตร" loading="lazy" width="600" height="337" decoding="async">
+          <img src="images/phetchabun/docs-01.jpg" alt="ผังแปลงที่ดินพร้อมระยะ 350 / 700 / 250 เมตร" loading="eager" width="600" height="337" decoding="async">
         </div>
         <div class="docs-list reveal reveal-delay-1">
           <div class="docs-item">
@@ -3767,7 +3705,7 @@
       </div>
 
       <div class="hero-img reveal in reveal-delay-2">
-        <img src="images/salaya/main-01.jpg" alt="ภาพมุมสูงที่ดิน 10 ไร่ ศาลายา" loading="lazy" width="600" height="449" decoding="async">
+        <img src="images/salaya/main-01.jpg" alt="ภาพมุมสูงที่ดิน 10 ไร่ ศาลายา" loading="eager" width="600" height="449" decoding="async">
         <div class="hero-img-tag">ten <em>rai</em> in salaya</div>
       </div>
     </div>
@@ -3790,7 +3728,7 @@
 
       <div class="overview-grid">
         <div class="overview-img reveal">
-          <img src="images/salaya/overview-01.jpg" alt="ภาพมุมสูงเฉียงของที่ดินศาลายา" loading="lazy" width="600" height="449" decoding="async">
+          <img src="images/salaya/overview-01.jpg" alt="ภาพมุมสูงเฉียงของที่ดินศาลายา" loading="eager" width="600" height="449" decoding="async">
         </div>
         <div class="overview-text reveal reveal-delay-1">
           <div class="overview-quote">
@@ -3882,7 +3820,7 @@
 
       <div class="dim-wrap">
         <div class="dim-img reveal" data-zoom>
-          <img src="images/salaya/dim-01.jpg" alt="โฉนดที่ดินศาลายา" loading="lazy" width="416" height="600" decoding="async">
+          <img src="images/salaya/dim-01.jpg" alt="โฉนดที่ดินศาลายา" loading="eager" width="416" height="600" decoding="async">
         </div>
         <div class="dim-list reveal reveal-delay-1">
           <div class="dim-row"><div class="lbl">เนื้อที่รวม</div><div class="val">10 - 2 - 16 <em>ไร่</em></div></div>
@@ -3907,19 +3845,19 @@
 
       <div class="gallery-grid reveal">
         <div class="g-item g1" data-zoom>
-          <img src="images/salaya/gallery-01.jpg" alt="ภาพมุมสูงด้านหน้าที่ดิน" loading="lazy" width="600" height="449" decoding="async">
+          <img src="images/salaya/gallery-01.jpg" alt="ภาพมุมสูงด้านหน้าที่ดิน" loading="eager" width="600" height="449" decoding="async">
           <div class="g-cap"><small>VIEW 01</small>มุมสูงด้านหน้าที่ดิน</div>
         </div>
         <div class="g-item g3" data-zoom>
-          <img src="images/salaya/gallery-02.jpg" alt="ภาพมุมสูงตั้งฉากของที่ดิน" loading="lazy" width="405" height="600" decoding="async">
+          <img src="images/salaya/gallery-02.jpg" alt="ภาพมุมสูงตั้งฉากของที่ดิน" loading="eager" width="405" height="600" decoding="async">
           <div class="g-cap"><small>DRONE</small>มุมมองตั้งฉากจากโดรน</div>
         </div>
         <div class="g-item g4" data-zoom>
-          <img src="images/salaya/gallery-03.jpg" alt="ภาพในที่ดินบริเวณอาคาร" loading="lazy" width="600" height="449" decoding="async">
+          <img src="images/salaya/gallery-03.jpg" alt="ภาพในที่ดินบริเวณอาคาร" loading="eager" width="600" height="449" decoding="async">
           <div class="g-cap"><small>INTERIOR</small>ภายในที่ดิน · อาคาร</div>
         </div>
         <div class="g-item g5" data-zoom>
-          <img src="images/salaya/gallery-04.jpg" alt="ภาพในที่ดินบริเวณสวนต้นไม้" loading="lazy" width="600" height="449" decoding="async">
+          <img src="images/salaya/gallery-04.jpg" alt="ภาพในที่ดินบริเวณสวนต้นไม้" loading="eager" width="600" height="449" decoding="async">
           <div class="g-cap"><small>GREEN</small>ภายในที่ดิน · ต้นไม้</div>
         </div>
       </div>
@@ -3951,10 +3889,10 @@
 
         <div class="map-embed-wrap reveal reveal-delay-2">
           <div class="map-embed-overlay">Live Map · พิกัดจริง</div>
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d398.24250985080863!2d100.27263452913063!3d13.803725021053367!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e293453bd2cc23%3A0x208ab5b871159d6d!2z4Lia4LiI4LiBLiDguJ_guLLguKPguYzguKHguYTguIHguYjguJTguLMgKOC4geC4suC4jeC4iOC4meC4muC4uOC4o-C4tSkgKOC4quC4suC4guC4siDguJnguITguKPguJvguJDguKEp!5e1!3m2!1sen!2sth!4v1777829438585!5m2!1sen!2sth" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Google Maps · salaya" allowfullscreen></iframe>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d398.24250985080863!2d100.27263452913063!3d13.803725021053367!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e293453bd2cc23%3A0x208ab5b871159d6d!2z4Lia4LiI4LiBLiDguJ_guLLguKPguYzguKHguYTguIHguYjguJTguLMgKOC4geC4suC4jeC4iOC4meC4muC4uOC4o-C4tSkgKOC4quC4suC4guC4siDguJnguITguKPguJvguJDguKEp!5e1!3m2!1sen!2sth!4v1777829438585!5m2!1sen!2sth" loading="eager" referrerpolicy="no-referrer-when-downgrade" title="Google Maps · salaya" allowfullscreen></iframe>
         </div>
         <div class="loc-img reveal reveal-delay-1" data-zoom>
-          <img src="images/salaya/loc-01.jpg" alt="ภาพมุมสูงแสดงทำเลและสภาพแวดล้อมโดยรอบที่ดิน" loading="lazy" width="600" height="449" decoding="async">
+          <img src="images/salaya/loc-01.jpg" alt="ภาพมุมสูงแสดงทำเลและสภาพแวดล้อมโดยรอบที่ดิน" loading="eager" width="600" height="449" decoding="async">
         </div>
       </div>
     </div>
@@ -3972,7 +3910,7 @@
 
       <div class="docs-row">
         <div class="docs-img reveal" data-zoom>
-          <img src="images/salaya/docs-01.jpg" alt="แผนที่ดาวเทียมแสดงเขตที่ดินศาลายา" loading="lazy" width="600" height="449" decoding="async">
+          <img src="images/salaya/docs-01.jpg" alt="แผนที่ดาวเทียมแสดงเขตที่ดินศาลายา" loading="eager" width="600" height="449" decoding="async">
         </div>
         <div class="docs-list reveal reveal-delay-1">
           <div class="docs-item">
@@ -4114,7 +4052,7 @@
       </div>
 
       <div class="hero-img reveal in reveal-delay-2">
-        <img src="images/kanchanaburi/main-01.jpg" alt="ภาพมุมสูงที่ดินกาญจนบุรี 9 ไร่ พร้อมการแบ่งโฉนด" loading="lazy" width="600" height="359" decoding="async">
+        <img src="images/kanchanaburi/main-01.jpg" alt="ภาพมุมสูงที่ดินกาญจนบุรี 9 ไร่ พร้อมการแบ่งโฉนด" loading="eager" width="600" height="359" decoding="async">
         <div class="hero-img-tag">nine <em>rai</em> in kanchanaburi</div>
       </div>
     </div>
@@ -4137,7 +4075,7 @@
 
       <div class="overview-grid">
         <div class="overview-img reveal">
-          <img src="images/kanchanaburi/overview-01.jpg" alt="ภาพมุมสูงด้านหน้ารีสอร์ท" loading="lazy" width="600" height="336" decoding="async">
+          <img src="images/kanchanaburi/overview-01.jpg" alt="ภาพมุมสูงด้านหน้ารีสอร์ท" loading="eager" width="600" height="336" decoding="async">
         </div>
         <div class="overview-text reveal reveal-delay-1">
           <div class="overview-quote">
@@ -4229,7 +4167,7 @@
 
       <div class="dim-wrap">
         <div class="dim-img reveal" data-zoom>
-          <img src="images/kanchanaburi/dim-01.jpg" alt="ภาพดาวเทียมแสดงเขตที่ดิน 9 ไร่ กาญจนบุรี" loading="lazy" width="600" height="552" decoding="async">
+          <img src="images/kanchanaburi/dim-01.jpg" alt="ภาพดาวเทียมแสดงเขตที่ดิน 9 ไร่ กาญจนบุรี" loading="eager" width="600" height="552" decoding="async">
         </div>
         <div class="dim-list reveal reveal-delay-1">
           <div class="dim-row"><div class="lbl">เนื้อที่รวม</div><div class="val">9 - 0 - 36 <em>ไร่</em></div></div>
@@ -4254,19 +4192,19 @@
 
       <div class="gallery-grid reveal">
         <div class="g-item g1" data-zoom>
-          <img src="images/kanchanaburi/gallery-01.jpg" alt="ภาพมุมสูงรีสอร์ทพร้อมภูเขาไกล" loading="lazy" width="600" height="336" decoding="async">
+          <img src="images/kanchanaburi/gallery-01.jpg" alt="ภาพมุมสูงรีสอร์ทพร้อมภูเขาไกล" loading="eager" width="600" height="336" decoding="async">
           <div class="g-cap"><small>VIEW 01</small>มุมสูงรีสอร์ท</div>
         </div>
         <div class="g-item g3" data-zoom>
-          <img src="images/kanchanaburi/gallery-02.jpg" alt="ภาพมุมสูงตั้งฉาก" loading="lazy" width="600" height="336" decoding="async">
+          <img src="images/kanchanaburi/gallery-02.jpg" alt="ภาพมุมสูงตั้งฉาก" loading="eager" width="600" height="336" decoding="async">
           <div class="g-cap"><small>DRONE</small>มุมตั้งฉากจากโดรน</div>
         </div>
         <div class="g-item g4" data-zoom>
-          <img src="images/kanchanaburi/gallery-03.jpg" alt="บ้านพักรีสอร์ท" loading="lazy" width="600" height="336" decoding="async">
+          <img src="images/kanchanaburi/gallery-03.jpg" alt="บ้านพักรีสอร์ท" loading="eager" width="600" height="336" decoding="async">
           <div class="g-cap"><small>BUNGALOWS</small>บ้านพัก 10 หลัง</div>
         </div>
         <div class="g-item g5" data-zoom>
-          <img src="images/kanchanaburi/gallery-04.jpg" alt="ภาพมุมสูงด้านหน้ารีสอร์ท" loading="lazy" width="600" height="336" decoding="async">
+          <img src="images/kanchanaburi/gallery-04.jpg" alt="ภาพมุมสูงด้านหน้ารีสอร์ท" loading="eager" width="600" height="336" decoding="async">
           <div class="g-cap"><small>AERIAL</small>ภาพมุมสูง</div>
         </div>
       </div>
@@ -4296,10 +4234,10 @@
 
         <div class="map-embed-wrap reveal reveal-delay-2">
           <div class="map-embed-overlay">Live Map · พิกัดจริง</div>
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1615753.1860476693!2d99.89972957812502!3d15.862191000000006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e30b00153c1f69%3A0xa9232ddae86125e!2sNong%20Khao%2C%20Tha%20Muang%20District%2C%20Kanchanaburi%2071110!5e1!3m2!1sen!2sth!4v1777829108646!5m2!1sen!2sth" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Google Maps · kanchanaburi" allowfullscreen></iframe>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1615753.1860476693!2d99.89972957812502!3d15.862191000000006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e30b00153c1f69%3A0xa9232ddae86125e!2sNong%20Khao%2C%20Tha%20Muang%20District%2C%20Kanchanaburi%2071110!5e1!3m2!1sen!2sth!4v1777829108646!5m2!1sen!2sth" loading="eager" referrerpolicy="no-referrer-when-downgrade" title="Google Maps · kanchanaburi" allowfullscreen></iframe>
         </div>
         <div class="loc-img reveal reveal-delay-1" data-zoom>
-          <img src="images/kanchanaburi/loc-01.jpg" alt="แผนที่แสดงตำแหน่งและระยะทางสู่ถนนสายหลัก" loading="lazy" width="600" height="398" decoding="async">
+          <img src="images/kanchanaburi/loc-01.jpg" alt="แผนที่แสดงตำแหน่งและระยะทางสู่ถนนสายหลัก" loading="eager" width="600" height="398" decoding="async">
         </div>
       </div>
     </div>
@@ -4317,7 +4255,7 @@
 
       <div class="docs-row">
         <div class="docs-img reveal" data-zoom>
-          <img src="images/kanchanaburi/docs-01.jpg" alt="หนังสือรับรองการทำประโยชน์ น.ส. 3 ก. จำนวน 3 ฉบับ" loading="lazy" width="1000" height="465" decoding="async">
+          <img src="images/kanchanaburi/docs-01.jpg" alt="หนังสือรับรองการทำประโยชน์ น.ส. 3 ก. จำนวน 3 ฉบับ" loading="eager" width="1000" height="465" decoding="async">
         </div>
         <div class="docs-list reveal reveal-delay-1">
           <div class="docs-item">
@@ -4476,7 +4414,7 @@
       </div>
 
       <div class="hero-img reveal in reveal-delay-2">
-        <img src="images/farm1/main-01.jpg" alt="ภาพมุมสูงฟาร์มไก่ดำพร้อมภูเขาเป็นฉากหลัง" loading="lazy" width="600" height="336" decoding="async">
+        <img src="images/farm1/main-01.jpg" alt="ภาพมุมสูงฟาร์มไก่ดำพร้อมภูเขาเป็นฉากหลัง" loading="eager" width="600" height="336" decoding="async">
         <div class="hero-img-tag">black <em>chicken</em> farm</div>
       </div>
     </div>
@@ -4499,7 +4437,7 @@
 
       <div class="overview-grid">
         <div class="overview-img reveal">
-          <img src="images/farm1/overview-01.jpg" alt="ภาพมุมสูงฟาร์มไก่ดำ" loading="lazy" width="600" height="336" decoding="async">
+          <img src="images/farm1/overview-01.jpg" alt="ภาพมุมสูงฟาร์มไก่ดำ" loading="eager" width="600" height="336" decoding="async">
         </div>
         <div class="overview-text reveal reveal-delay-1">
           <div class="overview-quote">
@@ -4591,15 +4529,15 @@
 
       <div class="op-grid reveal">
         <div class="op-img-block" data-zoom>
-          <img src="images/farm1/operation-01.jpg" alt="โรงเรือนตาข่าย และโรงเรือนอีแว๊บ ฟาร์มไก่ดำ" loading="lazy" width="459" height="650" decoding="async">
+          <img src="images/farm1/operation-01.jpg" alt="โรงเรือนตาข่าย และโรงเรือนอีแว๊บ ฟาร์มไก่ดำ" loading="eager" width="459" height="650" decoding="async">
           <div class="op-img-cap">โรงเรือน 14 โรง · ตาข่าย 8 + อีแว๊บ 6</div>
         </div>
         <div class="op-img-block" data-zoom>
-          <img src="images/farm1/operation-02.jpg" alt="พ่อพันธุ์ แม่พันธุ์ โรงฟักไข่ และฟาร์มเลี้ยง" loading="lazy" width="459" height="650" decoding="async">
+          <img src="images/farm1/operation-02.jpg" alt="พ่อพันธุ์ แม่พันธุ์ โรงฟักไข่ และฟาร์มเลี้ยง" loading="eager" width="459" height="650" decoding="async">
           <div class="op-img-cap">ครบวงจร · พ่อแม่พันธุ์ ฟักไข่ และเลี้ยง</div>
         </div>
         <div class="op-img-block" data-zoom>
-          <img src="images/farm1/operation-03.jpg" alt="ผังเล้า 14 โรงเรือน ฟาร์มไก่ดำ" loading="lazy" width="459" height="650" decoding="async">
+          <img src="images/farm1/operation-03.jpg" alt="ผังเล้า 14 โรงเรือน ฟาร์มไก่ดำ" loading="eager" width="459" height="650" decoding="async">
           <div class="op-img-cap">ผังเล้า 14 โรง · ความจุไก่ดำ 36,700 ตัว</div>
         </div>
       </div>
@@ -4656,7 +4594,7 @@
 
       <div class="dim-wrap">
         <div class="dim-img reveal" data-zoom>
-          <img src="images/farm1/dim-01.jpg" alt="ภาพดาวเทียมแสดงเขตที่ดินฟาร์มไก่ดำ" loading="lazy" width="597" height="600" decoding="async">
+          <img src="images/farm1/dim-01.jpg" alt="ภาพดาวเทียมแสดงเขตที่ดินฟาร์มไก่ดำ" loading="eager" width="597" height="600" decoding="async">
         </div>
         <div class="dim-list reveal reveal-delay-1">
           <div class="dim-row"><div class="lbl">เนื้อที่รวม</div><div class="val">8 - 2 - 21.2 <em>ไร่</em></div></div>
@@ -4681,19 +4619,19 @@
 
       <div class="gallery-grid reveal">
         <div class="g-item g1" data-zoom>
-          <img src="images/farm1/gallery-01.jpg" alt="ฟาร์มมุมสูงพร้อมเทือกเขา" loading="lazy" width="600" height="336" decoding="async">
+          <img src="images/farm1/gallery-01.jpg" alt="ฟาร์มมุมสูงพร้อมเทือกเขา" loading="eager" width="600" height="336" decoding="async">
           <div class="g-cap"><small>VIEW 01</small>มุมสูงพร้อมเขา</div>
         </div>
         <div class="g-item g3" data-zoom>
-          <img src="images/farm1/gallery-02.jpg" alt="ภาพมุมสูงตั้งฉากแสดงโรงเรือน" loading="lazy" width="600" height="336" decoding="async">
+          <img src="images/farm1/gallery-02.jpg" alt="ภาพมุมสูงตั้งฉากแสดงโรงเรือน" loading="eager" width="600" height="336" decoding="async">
           <div class="g-cap"><small>DRONE</small>ตั้งฉากจากโดรน</div>
         </div>
         <div class="g-item g4" data-zoom>
-          <img src="images/farm1/gallery-03.jpg" alt="ภาพมุมเฉียงแสดงผังฟาร์ม" loading="lazy" width="600" height="336" decoding="async">
+          <img src="images/farm1/gallery-03.jpg" alt="ภาพมุมเฉียงแสดงผังฟาร์ม" loading="eager" width="600" height="336" decoding="async">
           <div class="g-cap"><small>AERIAL</small>มุมเฉียงผังฟาร์ม</div>
         </div>
         <div class="g-item g5" data-zoom>
-          <img src="images/farm1/gallery-04.jpg" alt="ภาพหน้าฟาร์มติดถนน" loading="lazy" width="600" height="336" decoding="async">
+          <img src="images/farm1/gallery-04.jpg" alt="ภาพหน้าฟาร์มติดถนน" loading="eager" width="600" height="336" decoding="async">
           <div class="g-cap"><small>STREET</small>หน้าฟาร์มติดถนน</div>
         </div>
       </div>
@@ -4725,10 +4663,10 @@
 
         <div class="map-embed-wrap reveal reveal-delay-2">
           <div class="map-embed-overlay">Live Map · พิกัดจริง</div>
-          <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d531.0333040608766!2d99.51381409095359!3d14.045850007515337!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2sth!4v1777829223048!5m2!1sen!2sth" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Google Maps · farm1" allowfullscreen></iframe>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d531.0333040608766!2d99.51381409095359!3d14.045850007515337!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2sth!4v1777829223048!5m2!1sen!2sth" loading="eager" referrerpolicy="no-referrer-when-downgrade" title="Google Maps · farm1" allowfullscreen></iframe>
         </div>
         <div class="loc-img reveal reveal-delay-1" data-zoom>
-          <img src="images/farm1/loc-01.jpg" alt="แผนที่ดาวเทียมแสดงทำเลฟาร์ม" loading="lazy" width="597" height="600" decoding="async">
+          <img src="images/farm1/loc-01.jpg" alt="แผนที่ดาวเทียมแสดงทำเลฟาร์ม" loading="eager" width="597" height="600" decoding="async">
         </div>
       </div>
     </div>
@@ -4746,7 +4684,7 @@
 
       <div class="docs-row">
         <div class="docs-img reveal" data-zoom>
-          <img src="images/farm1/docs-01.jpg" alt="โฉนดที่ดิน 5 ฉบับ ฟาร์มไก่ดำ" loading="lazy" width="1000" height="279" decoding="async">
+          <img src="images/farm1/docs-01.jpg" alt="โฉนดที่ดิน 5 ฉบับ ฟาร์มไก่ดำ" loading="eager" width="1000" height="279" decoding="async">
         </div>
         <div class="docs-list reveal reveal-delay-1">
           <div class="docs-item">
@@ -4902,7 +4840,7 @@
       </div>
 
       <div class="hero-img reveal in reveal-delay-2">
-        <img src="images/farm3/main-01.jpg" alt="ภาพมุมสูงฟาร์มไก่ไทย 31 ไร่" loading="lazy" width="600" height="336" decoding="async">
+        <img src="images/farm3/main-01.jpg" alt="ภาพมุมสูงฟาร์มไก่ไทย 31 ไร่" loading="eager" width="600" height="336" decoding="async">
         <div class="hero-img-tag">thai <em>chicken</em> farm</div>
       </div>
     </div>
@@ -4925,7 +4863,7 @@
 
       <div class="overview-grid">
         <div class="overview-img reveal">
-          <img src="images/farm3/overview-01.jpg" alt="ภาพมุมสูงตั้งฉากของฟาร์มไก่ไทย" loading="lazy" width="600" height="336" decoding="async">
+          <img src="images/farm3/overview-01.jpg" alt="ภาพมุมสูงตั้งฉากของฟาร์มไก่ไทย" loading="eager" width="600" height="336" decoding="async">
         </div>
         <div class="overview-text reveal reveal-delay-1">
           <div class="overview-quote">
@@ -5017,11 +4955,11 @@
 
       <div class="op-grid reveal op-grid-2">
         <div class="op-img-block" data-zoom>
-          <img src="images/farm3/operation-01.jpg" alt="ฟาร์มไก่ไทย และลูกไก่" loading="lazy" width="459" height="650" decoding="async">
+          <img src="images/farm3/operation-01.jpg" alt="ฟาร์มไก่ไทย และลูกไก่" loading="eager" width="459" height="650" decoding="async">
           <div class="op-img-cap">ไก่ไทย (ไก่สามสาย) · เนื้อสีขาวนวล อมเหลือง</div>
         </div>
         <div class="op-img-block" data-zoom>
-          <img src="images/farm3/operation-02.jpg" alt="ผังเล้า 12 โรงเรือน ฟาร์มไก่ไทย" loading="lazy" width="459" height="650" decoding="async">
+          <img src="images/farm3/operation-02.jpg" alt="ผังเล้า 12 โรงเรือน ฟาร์มไก่ไทย" loading="eager" width="459" height="650" decoding="async">
           <div class="op-img-cap">ผังเล้า 12 โรง · รวม 66,000 ตัว</div>
         </div>
       </div>
@@ -5076,7 +5014,7 @@
 
       <div class="dim-wrap">
         <div class="dim-img reveal" data-zoom>
-          <img src="images/farm3/dim-01.jpg" alt="ภาพดาวเทียมแสดงเขตฟาร์มไก่ไทย" loading="lazy" width="600" height="544" decoding="async">
+          <img src="images/farm3/dim-01.jpg" alt="ภาพดาวเทียมแสดงเขตฟาร์มไก่ไทย" loading="eager" width="600" height="544" decoding="async">
         </div>
         <div class="dim-list reveal reveal-delay-1">
           <div class="dim-row"><div class="lbl">เนื้อที่รวม</div><div class="val">31 - 2 - 50 <em>ไร่</em></div></div>
@@ -5101,19 +5039,19 @@
 
       <div class="gallery-grid reveal">
         <div class="g-item g1" data-zoom>
-          <img src="images/farm3/gallery-01.jpg" alt="ภาพมุมสูงพร้อมป้ายขนาด" loading="lazy" width="600" height="336" decoding="async">
+          <img src="images/farm3/gallery-01.jpg" alt="ภาพมุมสูงพร้อมป้ายขนาด" loading="eager" width="600" height="336" decoding="async">
           <div class="g-cap"><small>VIEW 01</small>มุมสูงผังฟาร์ม</div>
         </div>
         <div class="g-item g3" data-zoom>
-          <img src="images/farm3/gallery-02.jpg" alt="ภาพมุมสูงตั้งฉาก" loading="lazy" width="600" height="336" decoding="async">
+          <img src="images/farm3/gallery-02.jpg" alt="ภาพมุมสูงตั้งฉาก" loading="eager" width="600" height="336" decoding="async">
           <div class="g-cap"><small>DRONE</small>ตั้งฉากจากโดรน</div>
         </div>
         <div class="g-item g4" data-zoom>
-          <img src="images/farm3/gallery-03.jpg" alt="ภาพมุมเฉียงแสดงโรงเรือน" loading="lazy" width="600" height="336" decoding="async">
+          <img src="images/farm3/gallery-03.jpg" alt="ภาพมุมเฉียงแสดงโรงเรือน" loading="eager" width="600" height="336" decoding="async">
           <div class="g-cap"><small>AERIAL</small>มุมเฉียงโรงเรือน</div>
         </div>
         <div class="g-item g5" data-zoom>
-          <img src="images/farm3/gallery-04.jpg" alt="ภาพหน้าฟาร์มและโกดัง" loading="lazy" width="600" height="336" decoding="async">
+          <img src="images/farm3/gallery-04.jpg" alt="ภาพหน้าฟาร์มและโกดัง" loading="eager" width="600" height="336" decoding="async">
           <div class="g-cap"><small>STREET</small>หน้าฟาร์ม</div>
         </div>
       </div>
@@ -5145,10 +5083,10 @@
 
         <div class="map-embed-wrap reveal reveal-delay-2">
           <div class="map-embed-overlay">Live Map · พิกัดจริง</div>
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1623900.0655352722!2d99.65830431249998!3d14.811512160299772!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e30b2995801bd1%3A0xc7feb22f302c050e!2z4LmE4LiB4LmI4LmE4LiX4LiiIEJDRiAo4Lif4Liy4Lij4LmM4LihIDMp!5e1!3m2!1sen!2sth!4v1777829247543!5m2!1sen!2sth" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Google Maps · farm3" allowfullscreen></iframe>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1623900.0655352722!2d99.65830431249998!3d14.811512160299772!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e30b2995801bd1%3A0xc7feb22f302c050e!2z4LmE4LiB4LmI4LmE4LiX4LiiIEJDRiAo4Lif4Liy4Lij4LmM4LihIDMp!5e1!3m2!1sen!2sth!4v1777829247543!5m2!1sen!2sth" loading="eager" referrerpolicy="no-referrer-when-downgrade" title="Google Maps · farm3" allowfullscreen></iframe>
         </div>
         <div class="loc-img reveal reveal-delay-1" data-zoom>
-          <img src="images/farm3/loc-01.jpg" alt="ภาพมุมสูงแสดงทำเลและบริบทใกล้เคียง" loading="lazy" width="600" height="336" decoding="async">
+          <img src="images/farm3/loc-01.jpg" alt="ภาพมุมสูงแสดงทำเลและบริบทใกล้เคียง" loading="eager" width="600" height="336" decoding="async">
         </div>
       </div>
     </div>
@@ -5166,7 +5104,7 @@
 
       <div class="docs-row">
         <div class="docs-img reveal" data-zoom>
-          <img src="images/farm3/docs-01.jpg" alt="หนังสือรับรองการทำประโยชน์ น.ส. 3 ก." loading="lazy" width="424" height="600" decoding="async">
+          <img src="images/farm3/docs-01.jpg" alt="หนังสือรับรองการทำประโยชน์ น.ส. 3 ก." loading="eager" width="424" height="600" decoding="async">
         </div>
         <div class="docs-list reveal reveal-delay-1">
           <div class="docs-item">
@@ -5566,6 +5504,7 @@ if (document.readyState === 'loading') {
 }
 </script>
 
+
 <script>
   async function downloadBrochure() {
     const btn = event.currentTarget;
@@ -5580,74 +5519,36 @@ if (document.readyState === 'loading') {
       const activePage = document.querySelector('.page.active');
       if (!activePage) { window.print(); return; }
       
-      // Step 1: Force eager loading on all images
       const imgs = Array.from(activePage.querySelectorAll('img'));
-      imgs.forEach(img => {
-        img.loading = 'eager';
-        img.fetchPriority = 'high';
-      });
       
-      // Step 2: Save current scroll position
-      const savedScroll = window.scrollY;
-      
-      // Step 3: SCROLL through the entire page to force browser to render
-      // This is the key — browsers only paint images in/near viewport
-      const docHeight = document.documentElement.scrollHeight;
-      const viewportHeight = window.innerHeight;
-      const steps = Math.ceil(docHeight / viewportHeight) + 1;
-      
-      if (span) span.textContent = 'กำลังโหลดภาพ... (1/' + steps + ')';
-      
-      for (let i = 0; i <= steps; i++) {
-        window.scrollTo({ top: i * viewportHeight, behavior: 'instant' });
-        if (span) span.textContent = 'กำลังโหลดภาพ... (' + (i+1) + '/' + steps + ')';
-        // Wait for browser to render
-        await new Promise(r => setTimeout(r, 300));
-      }
-      
-      // Step 4: Wait for all images to load
-      if (span) span.textContent = 'รอภาพโหลดครบ...';
+      // Wait for all images to load
       const loadPromises = imgs.map(img => {
         if (img.complete && img.naturalHeight > 0) return Promise.resolve();
         return new Promise(resolve => {
-          const t = setTimeout(resolve, 8000);
+          const t = setTimeout(resolve, 10000);
           img.addEventListener('load', () => { clearTimeout(t); resolve(); }, { once: true });
           img.addEventListener('error', () => { clearTimeout(t); resolve(); }, { once: true });
         });
       });
       await Promise.all(loadPromises);
       
-      // Step 5: Decode images to ensure pixels are ready
+      // Decode for paint readiness
       const decodePromises = imgs.map(img => 
         img.decode ? img.decode().catch(() => null) : Promise.resolve()
       );
       await Promise.all(decodePromises);
       
-      // Step 6: Scroll back to top
-      window.scrollTo({ top: 0, behavior: 'instant' });
-      await new Promise(r => setTimeout(r, 500));
+      await new Promise(r => setTimeout(r, 300));
       
-      // Step 7: Restore original position so user doesn't lose context after
-      // (will happen after print dialog closes)
-      
-      if (span) span.textContent = 'พร้อมพิมพ์ ✓';
-      await new Promise(r => setTimeout(r, 200));
-      
-      // Step 8: Trigger print
       window.print();
-      
-      // Restore scroll after print dialog
-      setTimeout(() => window.scrollTo({ top: savedScroll, behavior: 'instant' }), 100);
-      
     } catch (err) {
-      console.error('Brochure error:', err);
       window.print();
     } finally {
       setTimeout(() => {
         if (span) span.textContent = originalText;
         btn.disabled = false;
         btn.style.opacity = '';
-      }, 1500);
+      }, 1000);
     }
   }
 </script>
