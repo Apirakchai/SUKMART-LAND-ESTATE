@@ -1158,7 +1158,7 @@
         transition: none !important; 
         animation: none !important;
       }
-      /* === GLOBAL IMAGE CONTAINER RESET — override aspect-ratio & box-shadow === */
+      /* === GLOBAL IMAGE CONTAINER RESET === */
       .hero-img, .overview-img, .op-img-block, .docs-img, 
       .loc-img, .dim-img, .g-item, .gallery-grid > * {
         aspect-ratio: auto !important;
@@ -1182,8 +1182,55 @@
         content: none !important;
         background: none !important;
       }
-
       
+      /* === GALLERY GRID RESET — override mosaic layout === */
+      .gallery-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        grid-auto-rows: auto !important;
+        grid-template-rows: none !important;
+        gap: 8pt !important;
+      }
+      .g-item, .g1, .g2, .g3, .g4, .g5 {
+        grid-column: auto !important;
+        grid-row: auto !important;
+        grid-column-start: auto !important;
+        grid-column-end: auto !important;
+        grid-row-start: auto !important;
+        grid-row-end: auto !important;
+      }
+      .g-item img {
+        width: 100% !important;
+        height: 150pt !important;
+        max-height: 150pt !important;
+        min-height: 150pt !important;
+        object-fit: cover !important;
+        display: block !important;
+        transform: none !important;
+      }
+      
+      /* === DIM-IMG / DOCS-IMG — natural height === */
+      .dim-img, .docs-img {
+        page-break-inside: avoid !important;
+      }
+      .dim-img img {
+        width: 100% !important;
+        height: auto !important;
+        max-height: 280pt !important;
+        object-fit: contain !important;
+        display: block !important;
+        margin: 0 auto !important;
+      }
+      .docs-img img {
+        width: 100% !important;
+        height: auto !important;
+        max-height: 280pt !important;
+        object-fit: contain !important;
+        display: block !important;
+        background: #faf8f1 !important;
+        padding: 8pt !important;
+        margin: 0 auto !important;
+      }
       /* === GLOBAL — IVORY PAPER === */
       html, body {
         background: #ffffff !important;
@@ -2119,10 +2166,191 @@
         page-break-after: avoid;
       }
       
+      
+      /* === FORCE OVERRIDE — Grid layout & image heights === */
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        grid-template-rows: none !important;
+        grid-auto-rows: auto !important;
+        grid-auto-flow: row !important;
+        gap: 8pt !important;
+      }
+      
+      /* Force image heights — image MUST be size we want, not container */
+      .hero-img img,
+      .overview-img img,
+      .op-img-block img,
+      .docs-img img,
+      .loc-img img,
+      .dim-img img,
+      .g-item img,
+      .gallery-grid img {
+        height: auto !important;  /* let it size naturally */
+        max-height: none !important;
+      }
+      
+      /* Then constrain via specific rules */
+      .hero-img img { 
+        width: 100% !important; 
+        height: 280pt !important; 
+        object-fit: cover !important; 
+      }
+      .overview-img img { 
+        width: 100% !important; 
+        height: 200pt !important; 
+        object-fit: cover !important; 
+      }
+      .op-img-block img { 
+        width: 100% !important; 
+        height: 140pt !important; 
+        object-fit: cover !important;
+        box-shadow: none !important;
+      }
+      .g-item img,
+      .gallery-grid img { 
+        width: 100% !important; 
+        height: 150pt !important; 
+        object-fit: cover !important; 
+      }
+      .loc-img img { 
+        width: 100% !important; 
+        height: 220pt !important; 
+        object-fit: cover !important; 
+      }
+      .docs-img img { 
+        width: 100% !important; 
+        height: 240pt !important; 
+        max-height: 240pt !important;
+        object-fit: contain !important; 
+      }
+      .dim-img img { 
+        width: 100% !important; 
+        max-height: 280pt !important; 
+        object-fit: contain !important; 
+      }
+      
+      /* Containers — let them auto-size to content */
+      .g-item, .gallery-item,
+      .overview-img, .op-img-block,
+      .docs-img, .loc-img, .dim-img,
+      .hero-img {
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        aspect-ratio: auto !important;
+      }
+
       /* === PAGE BREAKS === */
       .specs, .gallery {
         page-break-before: always !important;
       }
+    
+      /* ═══════════════════════════════════════════════════════
+         NUCLEAR OVERRIDE — defeat ALL screen-mode CSS conflicts
+         ═══════════════════════════════════════════════════════ */
+      
+      /* All image containers — kill aspect-ratio, position, shadows, overflow */
+      .hero-img, .overview-img, .op-img-block, .docs-img, 
+      .loc-img, .dim-img, .g-item, .gallery-item, .card-img,
+      .gallery-grid > * {
+        aspect-ratio: auto !important;
+        box-shadow: none !important;
+        position: static !important;
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        overflow: visible !important;
+        border-radius: 0 !important;
+        background: transparent !important;
+        transform: none !important;
+        transition: none !important;
+        filter: none !important;
+      }
+      
+      /* All overlay/positioned children — make them inline so they don't overlap */
+      .hero-img-tag, .card-area, .card-tag, .card-soon, .card-soon-mark,
+      .g-cap, .gallery-cap, .lb-close, .drawer-close, .op-cell-tag {
+        position: static !important;
+        display: block !important;
+        background: transparent !important;
+        color: #0a1f44 !important;
+      }
+      
+      /* Hide overlay elements that would obstruct images in print */
+      .hero-img-tag, .card-area, .card-tag {
+        display: none !important;
+      }
+      
+      /* Gallery grid — force 2 columns, auto rows */
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        grid-template-rows: none !important;
+        grid-auto-rows: auto !important;
+        grid-auto-flow: row !important;
+        grid-auto-columns: auto !important;
+        gap: 8pt !important;
+        display: grid !important;
+      }
+      
+      /* All image elements — height auto first to remove "100%" inheritance */
+      .hero-img img, .overview-img img, .op-img-block img,
+      .docs-img img, .loc-img img, .dim-img img,
+      .g-item img, .gallery-item img, .gallery-grid img,
+      .card-img img {
+        height: auto !important;
+        max-height: none !important;
+        min-height: 0 !important;
+        width: 100% !important;
+        transform: none !important;
+        transition: none !important;
+        position: static !important;
+        display: block !important;
+      }
+      
+      /* Then re-apply specific heights using object-fit */
+      .hero-img img { 
+        height: 280pt !important; 
+        max-height: 280pt !important;
+        object-fit: cover !important; 
+      }
+      .overview-img img { 
+        height: 200pt !important; 
+        max-height: 200pt !important;
+        object-fit: cover !important; 
+      }
+      .op-img-block img { 
+        height: 140pt !important; 
+        max-height: 140pt !important;
+        object-fit: cover !important; 
+      }
+      .g-item img, .gallery-item img, .gallery-grid img { 
+        height: 150pt !important; 
+        max-height: 150pt !important;
+        object-fit: cover !important; 
+      }
+      .loc-img img { 
+        height: 220pt !important; 
+        max-height: 220pt !important;
+        object-fit: cover !important; 
+      }
+      .docs-img img { 
+        height: 240pt !important; 
+        max-height: 240pt !important;
+        object-fit: contain !important;
+        background: #faf8f1 !important;
+        padding: 8pt !important;
+      }
+      .dim-img img { 
+        height: auto !important;
+        max-height: 280pt !important; 
+        object-fit: contain !important; 
+      }
+      .card-img img {
+        height: 130pt !important;
+        max-height: 130pt !important;
+        object-fit: cover !important;
+      }
+
     }
     
     /* Hide cover on screen, show only on print */
@@ -2891,6 +3119,8 @@
   </script>
 
   
+    <link rel="canonical" href="https://sukmartland.com/">
+
   <!-- Favicons -->
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
