@@ -1213,24 +1213,8 @@
       .dim-img, .docs-img {
         page-break-inside: avoid !important;
       }
-      .dim-img img {
-        width: 100% !important;
-        height: auto !important;
-        max-height: 280pt !important;
-        object-fit: contain !important;
-        display: block !important;
-        margin: 0 auto !important;
-      }
-      .docs-img img {
-        width: 100% !important;
-        height: auto !important;
-        max-height: 280pt !important;
-        object-fit: contain !important;
-        display: block !important;
-        background: #faf8f1 !important;
-        padding: 8pt !important;
-        margin: 0 auto !important;
-      }
+      
+      
       /* === GLOBAL — IVORY PAPER === */
       html, body {
         background: #ffffff !important;
@@ -1427,7 +1411,6 @@
         padding: 0 !important;
         margin: 0 !important;
         background: #ffffff !important;
-        page-break-after: always;
         display: block !important;
         overflow: visible !important;
       }
@@ -1733,22 +1716,32 @@
       
       /* === OVERVIEW === */
       .overview-grid {
-        display: grid !important;
-        grid-template-columns: 1fr !important;
-        gap: 14pt !important;
+        display: block !important;
+        grid-template-columns: none !important;
+        gap: 0 !important;
         margin-top: 8pt !important;
       }
       .overview-img {
         width: 100% !important;
+        height: 170pt !important;
+        max-height: 170pt !important;
+        margin-bottom: 12pt !important;
         page-break-inside: avoid !important;
+        page-break-after: avoid !important;
+        aspect-ratio: auto !important;
+        overflow: hidden !important;
       }
       .overview-img img {
         width: 100% !important;
-        height: 200pt !important;
-        max-height: 200pt !important;
+        height: 170pt !important;
+        max-height: 170pt !important;
         object-fit: cover !important;
         border-radius: 0 !important;
         display: block !important;
+        position: static !important;
+      }
+      .overview-text {
+        page-break-before: avoid !important;
       }
       .overview-quote {
         font-family: 'Noto Serif Thai', serif !important;
@@ -2028,45 +2021,66 @@
       }
       
       /* === DOCS / DEED === */
-      .docs {
-        page-break-before: always !important;
+      /* docs section flows naturally */
+      
+      /* docs-row = wrapper containing docs-img + docs-list (NOT docs-item) */
+      .docs-row {
+        display: block !important;
+        grid-template-columns: none !important;
+        page-break-inside: auto !important;
+        padding: 0 !important;
+        border-top: none !important;
+        gap: 0 !important;
+      }
+      .docs-img {
+        page-break-after: avoid !important;
       }
       .docs-list {
-        margin-top: 12pt !important;
+        page-break-before: avoid !important;
       }
-      .docs-row, .docs-item {
+      .docs-img {
+        width: 100% !important;
+        margin-bottom: 16pt !important;
         page-break-inside: avoid !important;
-        padding: 10pt 0 !important;
-        border-top: 0.5pt solid rgba(10,31,68,0.15) !important;
+        background: #faf8f1 !important;
+      }
+      
+      .docs-list {
+        display: block !important;
+        margin-top: 16pt !important;
+      }
+      
+      /* docs-item = each numbered item in the list (01, 02, 03) */
+      .docs-item {
         display: grid !important;
         grid-template-columns: 30pt 1fr !important;
-        gap: 12pt !important;
+        gap: 14pt !important;
         align-items: start !important;
+        padding: 10pt 0 !important;
+        border-bottom: 0.5pt solid rgba(10,31,68,0.15) !important;
+        page-break-inside: avoid !important;
       }
       .docs-num {
         font-family: 'Cormorant Garamond', serif !important;
         font-style: italic !important;
-        font-size: 16pt !important;
+        font-size: 18pt !important;
         color: #c9a961 !important;
         line-height: 1 !important;
+        font-weight: 400 !important;
       }
-      .docs-img {
-        page-break-inside: avoid !important;
+      .docs-item h4 {
+        font-family: 'Noto Serif Thai', serif !important;
+        font-size: 12pt !important;
+        font-weight: 400 !important;
+        color: #0a1f44 !important;
+        margin: 0 0 4pt 0 !important;
       }
-      .docs-img img {
-        width: 100% !important;
-        height: 240pt !important;
-        max-height: 240pt !important;
-        object-fit: contain !important;
-        background: #faf8f1 !important;
-        padding: 8pt !important;
-        display: block !important;
-      }
-      .dim-img img {
-        width: 100% !important;
-        max-height: 280pt !important;
-        object-fit: contain !important;
-        display: block !important;
+      .docs-item p {
+        font-size: 9.5pt !important;
+        line-height: 1.6 !important;
+        color: #0a1f44 !important;
+        opacity: 0.8 !important;
+        margin: 0 !important;
       }
       
       /* === OWNER CARD === */
@@ -2167,86 +2181,49 @@
       }
       
       
-      /* === FORCE OVERRIDE — Grid layout & image heights === */
-      .gallery-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        grid-template-rows: none !important;
-        grid-auto-rows: auto !important;
-        grid-auto-flow: row !important;
-        gap: 8pt !important;
-      }
-      
-      /* Force image heights — image MUST be size we want, not container */
-      .hero-img img,
-      .overview-img img,
-      .op-img-block img,
-      .docs-img img,
-      .loc-img img,
-      .dim-img img,
-      .g-item img,
-      .gallery-grid img {
-        height: auto !important;  /* let it size naturally */
-        max-height: none !important;
-      }
-      
-      /* Then constrain via specific rules */
-      .hero-img img { 
-        width: 100% !important; 
-        height: 280pt !important; 
-        object-fit: cover !important; 
-      }
-      .overview-img img { 
-        width: 100% !important; 
-        height: 200pt !important; 
-        object-fit: cover !important; 
-      }
-      .op-img-block img { 
-        width: 100% !important; 
-        height: 140pt !important; 
-        object-fit: cover !important;
-        box-shadow: none !important;
-      }
-      .g-item img,
-      .gallery-grid img { 
-        width: 100% !important; 
-        height: 150pt !important; 
-        object-fit: cover !important; 
-      }
-      .loc-img img { 
-        width: 100% !important; 
-        height: 220pt !important; 
-        object-fit: cover !important; 
-      }
-      .docs-img img { 
-        width: 100% !important; 
-        height: 240pt !important; 
-        max-height: 240pt !important;
-        object-fit: contain !important; 
-      }
-      .dim-img img { 
-        width: 100% !important; 
-        max-height: 280pt !important; 
-        object-fit: contain !important; 
-      }
-      
-      /* Containers — let them auto-size to content */
-      .g-item, .gallery-item,
-      .overview-img, .op-img-block,
-      .docs-img, .loc-img, .dim-img,
-      .hero-img {
-        height: auto !important;
-        min-height: 0 !important;
-        max-height: none !important;
-        aspect-ratio: auto !important;
-      }
-
       /* === PAGE BREAKS === */
-      .specs, .gallery {
-        page-break-before: always !important;
-      }
+      /* Removed forced page break before specs/gallery — let content flow naturally */
     
       /* ═══════════════════════════════════════════════════════
          NUCLEAR OVERRIDE — defeat ALL screen-mode CSS conflicts
+      .page.active .docs-row .docs-img img {
+        width: auto !important;
+        max-width: 95% !important;
+        height: 280pt !important;
+        max-height: 280pt !important;
+        object-fit: contain !important;
+        background: #faf8f1 !important;
+        padding: 8pt !important;
+        display: block !important;
+        margin: 0 auto !important;
+      }
+      .page.active .docs-row .docs-img {
+        height: 300pt !important;
+        max-height: 300pt !important;
+        text-align: center !important;
+        display: block !important;
+        overflow: hidden !important;
+        page-break-inside: avoid !important;
+        margin: 0 auto 14pt auto !important;
+      }
+      .page.active .dim-wrap .dim-img img {
+        width: auto !important;
+        max-width: 90% !important;
+        height: 200pt !important;
+        max-height: 200pt !important;
+        object-fit: contain !important;
+        display: block !important;
+        margin: 0 auto !important;
+      }
+      .page.active .dim-wrap .dim-img {
+        height: 220pt !important;
+        max-height: 220pt !important;
+        text-align: center !important;
+        display: block !important;
+        overflow: hidden !important;
+        page-break-inside: avoid !important;
+        margin: 0 auto 14pt auto !important;
+      }
          ═══════════════════════════════════════════════════════ */
       
       /* All image containers — kill aspect-ratio, position, shadows, overflow */
@@ -2297,8 +2274,6 @@
       .docs-img img, .loc-img img, .dim-img img,
       .g-item img, .gallery-item img, .gallery-grid img,
       .card-img img {
-        height: auto !important;
-        max-height: none !important;
         min-height: 0 !important;
         width: 100% !important;
         transform: none !important;
@@ -2313,10 +2288,14 @@
         max-height: 280pt !important;
         object-fit: cover !important; 
       }
-      .overview-img img { 
-        height: 200pt !important; 
-        max-height: 200pt !important;
-        object-fit: cover !important; 
+      .overview-img img {
+        width: 100% !important;
+        height: 170pt !important;
+        max-height: 170pt !important;
+        object-fit: cover !important;
+        border-radius: 0 !important;
+        display: block !important;
+        position: static !important;
       }
       .op-img-block img { 
         height: 140pt !important; 
@@ -2328,27 +2307,170 @@
         max-height: 150pt !important;
         object-fit: cover !important; 
       }
+      
+      
       .loc-img img { 
         height: 220pt !important; 
         max-height: 220pt !important;
         object-fit: cover !important; 
       }
-      .docs-img img { 
-        height: 240pt !important; 
-        max-height: 240pt !important;
-        object-fit: contain !important;
-        background: #faf8f1 !important;
-        padding: 8pt !important;
-      }
-      .dim-img img { 
-        height: auto !important;
-        max-height: 280pt !important; 
-        object-fit: contain !important; 
-      }
+      
+      
       .card-img img {
         height: 130pt !important;
         max-height: 130pt !important;
         object-fit: cover !important;
+      }
+      
+      /* === DIM SECTION (รูปแปลง) === */
+      .dim-wrap {
+        display: block !important;
+        grid-template-columns: none !important;
+        gap: 12pt !important;
+      }
+      .dim-img {
+        text-align: center !important;
+        width: 100% !important;
+        margin: 0 auto !important;
+        page-break-inside: avoid !important;
+      }
+      
+      .dim-list {
+        display: block !important;
+        border-top: 0.5pt solid rgba(10,31,68,0.2) !important;
+        margin-top: 0 !important;
+      }
+      .dim-row {
+        display: grid !important;
+        grid-template-columns: 1fr auto !important;
+        gap: 12pt !important;
+        padding: 8pt 0 !important;
+        border-bottom: 0.5pt solid rgba(10,31,68,0.15) !important;
+        page-break-inside: avoid !important;
+      }
+      .dim-row .lbl {
+        font-family: 'Cormorant Garamond', serif !important;
+        font-style: italic !important;
+        font-size: 9pt !important;
+        letter-spacing: 0.2em !important;
+        color: #0a1f44 !important;
+        opacity: 0.7 !important;
+        text-transform: uppercase !important;
+      }
+      .dim-row .val {
+        font-family: 'Noto Serif Thai', serif !important;
+        font-size: 12pt !important;
+        font-weight: 400 !important;
+        color: #0a1f44 !important;
+        text-align: right !important;
+      }
+      .dim-row .val em {
+        font-family: 'Cormorant Garamond', serif !important;
+        font-style: italic !important;
+        color: #c9a961 !important;
+        font-size: 10pt !important;
+      }
+      
+      /* === GALLERY (4 รูป — 2x2 grid) — NEVER SPLIT === */
+      .gallery-grid {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+      .g-item {
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
+      }
+
+    
+      
+      /* === FINAL OVERRIDE: Force container heights too === */
+      .overview-img {
+        width: 100% !important;
+        height: 170pt !important;
+        max-height: 170pt !important;
+        margin-bottom: 12pt !important;
+        page-break-inside: avoid !important;
+        page-break-after: avoid !important;
+        aspect-ratio: auto !important;
+        overflow: hidden !important;
+      }
+      .hero-img {
+        height: 280pt !important;
+        max-height: 280pt !important;
+        min-height: 280pt !important;
+        aspect-ratio: auto !important;
+        overflow: hidden !important;
+      }
+      .loc-img {
+        height: 220pt !important;
+        max-height: 220pt !important;
+        min-height: 220pt !important;
+        aspect-ratio: auto !important;
+        overflow: hidden !important;
+      }
+      .op-img-block {
+        height: auto !important;
+        max-height: 160pt !important;
+        overflow: hidden !important;
+      }
+      .g-item {
+        height: auto !important;
+        max-height: 170pt !important;
+        overflow: hidden !important;
+      }
+      .card-img {
+        height: 130pt !important;
+        max-height: 130pt !important;
+        aspect-ratio: auto !important;
+        overflow: hidden !important;
+      }
+
+    
+      
+      /* === SMART PAGE BREAK CONTROLS === */
+      /* Allow these wrappers to break across pages */
+      .overview-grid,
+      .docs-row,
+      .dim-wrap {
+        page-break-inside: auto !important;
+        break-inside: auto !important;
+      }
+      
+      /* But these elements MUST stay together */
+      .gallery-grid,
+      .specs-grid,
+      .loc-card,
+      .owner-card,
+      .price-box,
+      .op-stats,
+      .g-item,
+      .spec,
+      .docs-item {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+      
+      /* Image stays with caption/text below */
+      .overview-img,
+      .dim-img,
+      .docs-img,
+      .loc-img,
+      .op-img-block {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        page-break-after: avoid !important;
+      }
+      
+      /* Section heads stick to content */
+      .section-head {
+        page-break-after: avoid !important;
+        break-after: avoid !important;
+      }
+      
+      /* Keep heading with content */
+      h1, h2, h3, h4, .section-title {
+        page-break-after: avoid !important;
+        break-after: avoid !important;
       }
 
     }
