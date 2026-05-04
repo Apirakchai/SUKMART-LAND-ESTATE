@@ -1183,7 +1183,9 @@
         color: #0a1f44 !important;
       }
       .gallery .section-num::before {
-        background: #c9a961 !important;
+        /* Already uses border-top from main rule — just adjust color if needed */
+        border-top-color: #c9a961 !important;
+        background: transparent !important;
       }
       
       /* ═══════════════════════════════════════════════
@@ -1196,22 +1198,27 @@
         height: 297mm !important;
         margin: 0 !important;
         padding: 0 !important;
-        background: #0a1f44 !important;
+        /* No CSS background — SVG element handles this so it prints without "background graphics" option */
+        background: transparent !important;
         color: #f7f4ec !important;
         page-break-after: always !important;
         page-break-inside: avoid !important;
         overflow: hidden !important;
         box-sizing: border-box !important;
       }
-      .pdf-cover::before {
-        content: "" !important;
+      /* SVG inside pdf-cover acts as the printable background */
+      .pdf-cover-svg-bg {
         position: absolute !important;
-        top: 0; left: 0; right: 0; bottom: 0 !important;
-        background-image: 
-          linear-gradient(rgba(201,169,97,0.06) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(201,169,97,0.06) 1px, transparent 1px) !important;
-        background-size: 30mm 30mm !important;
+        top: 0 !important; left: 0 !important;
+        width: 210mm !important;
+        height: 297mm !important;
+        z-index: 0 !important;
+        display: block !important;
         pointer-events: none !important;
+      }
+      .pdf-cover::before {
+        /* No longer needed - SVG handles grid */
+        display: none !important;
       }
       .pdf-cover-corners {
         position: absolute !important;
@@ -1219,13 +1226,16 @@
         width: 14mm !important; height: 14mm !important;
         border-top: 0.4mm solid #c9a961 !important;
         border-left: 0.4mm solid #c9a961 !important;
+        z-index: 2 !important;
       }
       .pdf-cover-corners::after {
         content: "" !important;
         position: absolute !important;
         top: 12mm !important; left: -0.4mm !important;
         width: 1mm !important; height: 1mm !important;
-        background: #c9a961 !important;
+        /* Use border instead of background — prints without background graphics option */
+        border: 0.5mm solid #c9a961 !important;
+        background: transparent !important;
         border-radius: 50% !important;
       }
       .pdf-cover-corners-br {
@@ -1234,13 +1244,16 @@
         width: 14mm !important; height: 14mm !important;
         border-bottom: 0.4mm solid #c9a961 !important;
         border-right: 0.4mm solid #c9a961 !important;
+        z-index: 2 !important;
       }
       .pdf-cover-corners-br::before {
         content: "" !important;
         position: absolute !important;
         bottom: 12mm !important; right: -0.4mm !important;
         width: 1mm !important; height: 1mm !important;
-        background: #c9a961 !important;
+        /* Use border instead of background */
+        border: 0.5mm solid #c9a961 !important;
+        background: transparent !important;
         border-radius: 50% !important;
       }
       .pdf-cover-content {
@@ -1264,8 +1277,10 @@
         content: "" !important;
         display: block !important;
         width: 14mm !important;
-        height: 0.3mm !important;
-        background: #c9a961 !important;
+        height: 0 !important;
+        /* Use border instead of background for printing without bg graphics */
+        border-top: 0.3mm solid #c9a961 !important;
+        background: transparent !important;
         margin: 4mm auto 0 auto !important;
       }
       .pdf-cover-logo {
@@ -1307,8 +1322,10 @@
       }
       .pdf-cover-divider {
         width: 36mm !important;
-        height: 0.3mm !important;
-        background: #c9a961 !important;
+        height: 0 !important;
+        /* Use border instead of background */
+        border-top: 0.3mm solid #c9a961 !important;
+        background: transparent !important;
         margin: 0 auto 10mm auto !important;
       }
       .pdf-cover-stats {
@@ -1526,7 +1543,8 @@
       
       /* Price box */
       .price-box {
-        background: #faf8f1 !important;
+        /* No background — uses borders only to print without bg graphics */
+        background: transparent !important;
         border: none !important;
         border-top: 0.75pt solid #c9a961 !important;
         border-bottom: 0.75pt solid #c9a961 !important;
@@ -1644,9 +1662,12 @@
       .section-num::before { 
         content: "" !important;
         width: 28pt !important;
-        height: 0.5pt !important;
-        background: #c9a961 !important;
+        height: 0 !important;
+        /* Use border instead of background */
+        border-top: 0.5pt solid #c9a961 !important;
+        background: transparent !important;
         display: inline-block !important;
+        vertical-align: middle !important;
       }
       .section-title { 
         font-family: 'Noto Serif Thai', serif !important;
@@ -1819,7 +1840,8 @@
       .op-stats { 
         padding: 10pt !important;
         page-break-inside: avoid !important;
-        background: #faf8f1 !important;
+        /* No background — borders only */
+        background: transparent !important;
         border: none !important;
         border-top: 0.5pt solid #c9a961 !important;
         border-bottom: 0.5pt solid #c9a961 !important;
@@ -1914,7 +1936,9 @@
         margin-bottom: 16pt !important;
         page-break-inside: avoid !important;
         page-break-after: avoid !important;
-        background: #faf8f1 !important;
+        /* No background — uses thin border for the framed deed look */
+        background: transparent !important;
+        border: 0.3pt solid rgba(201, 169, 97, 0.4) !important;
         padding: 12pt !important;
       }
       .docs-list {
@@ -1954,7 +1978,8 @@
       /* === OWNER CARD === */
       .owner-card {
         page-break-inside: avoid !important;
-        background: #faf8f1 !important;
+        /* No background — uses borders only */
+        background: transparent !important;
         border: none !important;
         border-top: 0.75pt solid #c9a961 !important;
         border-bottom: 0.75pt solid #c9a961 !important;
@@ -2543,6 +2568,270 @@
       }
       .owner-card {
         margin: 12pt auto !important;
+      }
+
+      /* --- CONTACT page: center vertically when alone, no orphan ugliness --- */
+      .contact {
+        page-break-before: auto !important;
+        break-before: auto !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        text-align: center !important;
+        padding: 40pt 0 !important;
+      }
+      .contact-content {
+        max-width: 480pt !important;
+        margin: 0 auto !important;
+      }
+      .contact .eyebrow {
+        margin-bottom: 12pt !important;
+      }
+      .contact h2 {
+        font-size: 18pt !important;
+        margin-bottom: 14pt !important;
+      }
+      .contact p {
+        font-size: 10pt !important;
+        line-height: 1.7 !important;
+        margin-bottom: 18pt !important;
+      }
+
+      /* ═══════════════════════════════════════════════════════════
+         🔧 LAYOUT FIX V2 — canonical overrides (final pass)
+         Solves:
+         · farm3 dim square image leaving blank space below
+         · Section headings appearing alone before content (orphans)
+         · Hero/docs images floating mid-page with empty padding
+         ═══════════════════════════════════════════════════════════ */
+
+      /* --- HERO IMAGE: fixed cover, no overflow, no orphan after --- */
+      .hero-img {
+        width: 100% !important;
+        max-height: 240pt !important;
+        height: 240pt !important;
+        margin: 0 0 14pt 0 !important;
+        overflow: hidden !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        /* Allow next section to flow right after — no avoid-after */
+        page-break-after: auto !important;
+        break-after: auto !important;
+      }
+      .hero-img img {
+        width: 100% !important;
+        height: 100% !important;
+        max-height: 240pt !important;
+        object-fit: cover !important;
+        object-position: center !important;
+        display: block !important;
+      }
+      /* Hero-detail: don't force min-height on print */
+      .hero-detail {
+        min-height: auto !important;
+        height: auto !important;
+        page-break-after: auto !important;
+        break-after: auto !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+      /* Hero content: ALLOW break inside - text can be long, don't force everything to fit */
+      .hero-content {
+        page-break-inside: auto !important;
+        break-inside: auto !important;
+        display: block !important;
+      }
+      .hero-text {
+        page-break-before: auto !important;
+        break-before: auto !important;
+        page-break-after: auto !important;
+        break-after: auto !important;
+      }
+
+      /* CRITICAL FIX: hero-img + overview-section must flow together */
+      /* If hero-img orphans on its own page, force overview to follow on same page */
+      .hero-img {
+        page-break-after: auto !important;
+        break-after: auto !important;
+      }
+      .hero-img + * {
+        page-break-before: auto !important;
+        break-before: auto !important;
+      }
+      /* Allow flow to continue right after header.hero-detail closes */
+      header.hero-detail + section {
+        page-break-before: auto !important;
+        break-before: auto !important;
+      }
+
+      /* --- SECTIONS FLOW NATURALLY: don't force them onto new pages --- */
+      /* Override any earlier rule that may push sections to new page */
+      section.overview,
+      section.specs,
+      section.dim,
+      section.gallery,
+      section.docs,
+      section.loc,
+      section.operation {
+        page-break-before: auto !important;
+        break-before: auto !important;
+        page-break-inside: auto !important;
+        break-inside: auto !important;
+      }
+      header.hero-detail {
+        page-break-after: auto !important;
+        break-after: auto !important;
+      }
+      /* Hero foot — small footer text after hero, allow flow */
+      .hero-foot {
+        page-break-before: auto !important;
+        break-before: auto !important;
+        page-break-after: auto !important;
+        break-after: auto !important;
+        margin-top: 4pt !important;
+      }
+
+      /* --- DIM IMAGE: cap by both width AND height, center, contain --- */
+      /* Square/portrait images (like farm3 600x544) get width-limited so they don't dominate */
+      .dim-img {
+        max-height: 240pt !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+        text-align: center !important;
+        margin: 0 auto 12pt auto !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+      .dim-img img {
+        max-height: 240pt !important;
+        max-width: 380pt !important;  /* cap width — square images stay reasonable */
+        width: auto !important;
+        height: auto !important;
+        object-fit: contain !important;
+        margin: 0 auto !important;
+        display: block !important;
+      }
+      /* Keep dim-img + dim-list as one unit when possible */
+      .dim-wrap {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+
+      /* --- DOCS IMAGE: smaller, no orphan space below --- */
+      .docs-img {
+        max-height: 280pt !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+        text-align: center !important;
+        margin: 0 auto 12pt auto !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        page-break-after: avoid !important;
+        break-after: avoid !important;
+      }
+      .docs-img img {
+        max-height: 280pt !important;
+        max-width: 220pt !important;  /* deeds are portrait, cap width */
+        width: auto !important;
+        height: auto !important;
+        object-fit: contain !important;
+        margin: 0 auto !important;
+        display: block !important;
+      }
+      .docs-row {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+
+      /* --- SECTION HEADING ORPHAN PREVENTION (strongest rule) --- */
+      /* Glue section-head to its immediate sibling content */
+      .section-head {
+        page-break-after: avoid !important;
+        break-after: avoid !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        margin-bottom: 10pt !important;
+      }
+      /* Every section's first child after section-head MUST stay glued */
+      .section-head + * {
+        page-break-before: avoid !important;
+        break-before: avoid !important;
+      }
+      /* Specific section content blocks - keep with their heading */
+      .overview-grid,
+      .specs-grid,
+      .dim-wrap,
+      .gallery-grid,
+      .docs-row,
+      .loc-grid,
+      .op-grid,
+      .op-grid-2 {
+        page-break-before: avoid !important;
+        break-before: avoid !important;
+      }
+
+      /* Operation grid: keep together - fits one page with reduced image heights */
+      .op-grid, .op-grid-2 {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        page-break-before: avoid !important;
+        break-before: avoid !important;
+      }
+      /* But the FIRST image after heading must stay with heading */
+      .op-grid > .op-img-block:first-child,
+      .gallery-grid > .g-item:first-child {
+        page-break-before: avoid !important;
+        break-before: avoid !important;
+      }
+
+      /* --- OVERVIEW IMAGE: cover, fixed height to prevent gap --- */
+      .overview-img {
+        max-height: 230pt !important;
+        height: 230pt !important;
+        overflow: hidden !important;
+        margin-bottom: 10pt !important;
+      }
+      .overview-img img {
+        width: 100% !important;
+        height: 100% !important;
+        max-height: 230pt !important;
+        object-fit: cover !important;
+        display: block !important;
+      }
+
+      /* --- LOC IMAGE: cover, fixed height --- */
+      .loc-img {
+        max-height: 220pt !important;
+        height: 220pt !important;
+        overflow: hidden !important;
+        margin-bottom: 10pt !important;
+      }
+      .loc-img img {
+        width: 100% !important;
+        height: 100% !important;
+        max-height: 220pt !important;
+        object-fit: cover !important;
+        display: block !important;
+      }
+
+      /* --- OPERATION IMAGES: smaller, allow heading + 3 images on same page --- */
+      /* A4 usable ≈ 795pt; section-head ~70pt + 3×(180+caption+gap) ≈ 670pt = fits */
+      .op-img-block {
+        max-height: 180pt !important;
+        height: 180pt !important;
+        overflow: hidden !important;
+        margin-bottom: 6pt !important;
+      }
+      .op-img-block img {
+        width: 100% !important;
+        height: 100% !important;
+        max-height: 180pt !important;
+        object-fit: cover !important;
+        display: block !important;
+      }
+      .op-img-cap {
+        font-size: 7.5pt !important;
+        margin-top: 2pt !important;
+        padding: 2pt 0 !important;
       }
 
     }
@@ -3739,6 +4028,22 @@
 
 
   <div class="pdf-cover">
+    <svg class="pdf-cover-svg-bg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 297" preserveAspectRatio="none" aria-hidden="true">
+      <rect width="210" height="297" fill="#0a1f44"/>
+      <defs>
+        <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+          <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#c9a961" stroke-width="0.04" opacity="0.35"/>
+        </pattern>
+      </defs>
+      <rect width="210" height="297" fill="url(#grid)" mask="url(#cornerMask)"/>
+      <defs>
+        <radialGradient id="goldGlow" cx="80%" cy="20%" r="50%">
+          <stop offset="0%" stop-color="#c9a961" stop-opacity="0.10"/>
+          <stop offset="100%" stop-color="#c9a961" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <rect width="210" height="297" fill="url(#goldGlow)"/>
+    </svg>
     <div class="pdf-cover-corners"></div>
     <div class="pdf-cover-corners-br"></div>
     <div class="pdf-cover-content">
@@ -4091,6 +4396,22 @@
 
 
   <div class="pdf-cover">
+    <svg class="pdf-cover-svg-bg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 297" preserveAspectRatio="none" aria-hidden="true">
+      <rect width="210" height="297" fill="#0a1f44"/>
+      <defs>
+        <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+          <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#c9a961" stroke-width="0.04" opacity="0.35"/>
+        </pattern>
+      </defs>
+      <rect width="210" height="297" fill="url(#grid)" mask="url(#cornerMask)"/>
+      <defs>
+        <radialGradient id="goldGlow" cx="80%" cy="20%" r="50%">
+          <stop offset="0%" stop-color="#c9a961" stop-opacity="0.10"/>
+          <stop offset="100%" stop-color="#c9a961" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <rect width="210" height="297" fill="url(#goldGlow)"/>
+    </svg>
     <div class="pdf-cover-corners"></div>
     <div class="pdf-cover-corners-br"></div>
     <div class="pdf-cover-content">
@@ -4443,6 +4764,22 @@
 
 
   <div class="pdf-cover">
+    <svg class="pdf-cover-svg-bg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 297" preserveAspectRatio="none" aria-hidden="true">
+      <rect width="210" height="297" fill="#0a1f44"/>
+      <defs>
+        <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+          <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#c9a961" stroke-width="0.04" opacity="0.35"/>
+        </pattern>
+      </defs>
+      <rect width="210" height="297" fill="url(#grid)" mask="url(#cornerMask)"/>
+      <defs>
+        <radialGradient id="goldGlow" cx="80%" cy="20%" r="50%">
+          <stop offset="0%" stop-color="#c9a961" stop-opacity="0.10"/>
+          <stop offset="100%" stop-color="#c9a961" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <rect width="210" height="297" fill="url(#goldGlow)"/>
+    </svg>
     <div class="pdf-cover-corners"></div>
     <div class="pdf-cover-corners-br"></div>
     <div class="pdf-cover-content">
@@ -4788,6 +5125,22 @@
 
 
   <div class="pdf-cover">
+    <svg class="pdf-cover-svg-bg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 297" preserveAspectRatio="none" aria-hidden="true">
+      <rect width="210" height="297" fill="#0a1f44"/>
+      <defs>
+        <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+          <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#c9a961" stroke-width="0.04" opacity="0.35"/>
+        </pattern>
+      </defs>
+      <rect width="210" height="297" fill="url(#grid)" mask="url(#cornerMask)"/>
+      <defs>
+        <radialGradient id="goldGlow" cx="80%" cy="20%" r="50%">
+          <stop offset="0%" stop-color="#c9a961" stop-opacity="0.10"/>
+          <stop offset="100%" stop-color="#c9a961" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <rect width="210" height="297" fill="url(#goldGlow)"/>
+    </svg>
     <div class="pdf-cover-corners"></div>
     <div class="pdf-cover-corners-br"></div>
     <div class="pdf-cover-content">
@@ -5216,6 +5569,22 @@
 
 
   <div class="pdf-cover">
+    <svg class="pdf-cover-svg-bg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 297" preserveAspectRatio="none" aria-hidden="true">
+      <rect width="210" height="297" fill="#0a1f44"/>
+      <defs>
+        <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+          <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#c9a961" stroke-width="0.04" opacity="0.35"/>
+        </pattern>
+      </defs>
+      <rect width="210" height="297" fill="url(#grid)" mask="url(#cornerMask)"/>
+      <defs>
+        <radialGradient id="goldGlow" cx="80%" cy="20%" r="50%">
+          <stop offset="0%" stop-color="#c9a961" stop-opacity="0.10"/>
+          <stop offset="100%" stop-color="#c9a961" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <rect width="210" height="297" fill="url(#goldGlow)"/>
+    </svg>
     <div class="pdf-cover-corners"></div>
     <div class="pdf-cover-corners-br"></div>
     <div class="pdf-cover-content">
