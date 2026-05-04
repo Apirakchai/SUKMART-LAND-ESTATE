@@ -1158,6 +1158,31 @@
         transition: none !important; 
         animation: none !important;
       }
+      /* === GLOBAL IMAGE CONTAINER RESET — override aspect-ratio & box-shadow === */
+      .hero-img, .overview-img, .op-img-block, .docs-img, 
+      .loc-img, .dim-img, .g-item, .gallery-grid > * {
+        aspect-ratio: auto !important;
+        box-shadow: none !important;
+        position: static !important;
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        overflow: visible !important;
+        border-radius: 0 !important;
+        background: transparent !important;
+      }
+      .hero-img::before, .hero-img::after,
+      .overview-img::before, .overview-img::after,
+      .op-img-block::before, .op-img-block::after,
+      .g-item::before, .g-item::after,
+      .docs-img::before, .docs-img::after,
+      .loc-img::before, .loc-img::after,
+      .dim-img::before, .dim-img::after {
+        display: none !important;
+        content: none !important;
+        background: none !important;
+      }
+
       
       /* === GLOBAL — IVORY PAPER === */
       html, body {
@@ -1372,23 +1397,42 @@
         gap: 0 !important;
       }
       
-      /* Hero image */
+      /* Hero image — overrides aspect-ratio and box-shadow from screen CSS */
       .hero-img {
         width: 100% !important;
         margin: 0 0 18pt 0 !important;
         padding: 0 !important;
-        page-break-inside: avoid;
-        max-height: 280pt;
-        overflow: hidden;
+        page-break-inside: avoid !important;
+        height: auto !important;
+        max-height: none !important;
+        min-height: 0 !important;
+        aspect-ratio: auto !important;
+        overflow: visible !important;
         border-radius: 0 !important;
+        box-shadow: none !important;
+        position: static !important;
+        display: block !important;
+        background: transparent !important;
+      }
+      .hero-img::before, .hero-img::after {
+        display: none !important;
+        content: none !important;
+        background: none !important;
       }
       .hero-img img {
         width: 100% !important;
         height: 280pt !important;
         max-height: 280pt !important;
+        min-height: 280pt !important;
         object-fit: cover !important;
         border-radius: 0 !important;
         display: block !important;
+        position: static !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        transform: none !important;
+        transition: none !important;
+        opacity: 1 !important;
       }
       .hero-img-tag {
         display: none !important;
