@@ -2082,6 +2082,469 @@
         break-after: avoid !important;
       }
 
+    
+      
+      /* ═══════════════════════════════════════════════════════
+         📐 LAYOUT REFINEMENTS — Better content density
+         ═══════════════════════════════════════════════════════ */
+      
+      /* === HERO PAGE: tighter layout, content fits one page === */
+      .hero-detail {
+        min-height: auto !important;
+        padding: 14pt 0 !important;
+      }
+      .hero-content {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0 !important;
+      }
+      
+      /* Hero image: compact, fit on same page as text */
+      .hero-img {
+        width: 100% !important;
+        max-height: 220pt !important;
+        margin: 0 0 12pt 0 !important;
+        overflow: hidden !important;
+        page-break-inside: avoid !important;
+        page-break-after: avoid !important;
+      }
+      .hero-img img {
+        width: 100% !important;
+        height: auto !important;
+        max-height: 220pt !important;
+        object-fit: cover !important;
+        display: block !important;
+      }
+      
+      /* Hero text: more compact */
+      .hero-text {
+        padding: 0 14mm !important;
+        text-align: center !important;
+      }
+      .hero-title {
+        font-size: 22pt !important;
+        margin: 0 0 8pt 0 !important;
+      }
+      .hero-sub {
+        font-size: 9.5pt !important;
+        margin: 0 auto 10pt auto !important;
+      }
+      .hero-stats {
+        margin: 8pt auto 10pt auto !important;
+        padding: 8pt 0 !important;
+        gap: 18pt !important;
+      }
+      .hero-stat .v { font-size: 16pt !important; }
+      .hero-stat .l { font-size: 7.5pt !important; }
+      
+      /* Price box: compact */
+      .price-box {
+        margin: 8pt auto !important;
+        padding: 10pt 18pt !important;
+      }
+      .price-box-amount { font-size: 22pt !important; }
+      .price-box-onrequest { font-size: 16pt !important; }
+      .price-box-sub { font-size: 8.5pt !important; }
+      .price-box-label { font-size: 8pt !important; }
+      
+      /* Distance: even more compact */
+      .bkk-distance {
+        margin: 8pt auto 0 auto !important;
+        padding: 8pt 14pt !important;
+      }
+      .bkk-distance-label { font-size: 7.5pt !important; }
+      .bkk-distance-value { font-size: 10pt !important; }
+      .bkk-distance-note { font-size: 8pt !important; }
+      
+      /* === SECTION CONTENT FLOWS NATURALLY === */
+      section {
+        padding: 12pt 0 !important;
+      }
+      .section-head {
+        margin-bottom: 10pt !important;
+        page-break-after: auto !important;  /* allow content right after */
+      }
+      
+      /* === OVERVIEW: image + text together === */
+      .overview-img {
+        max-height: 260pt !important;
+        overflow: hidden !important;
+        margin-bottom: 12pt !important;
+      }
+      .overview-img img {
+        max-height: 260pt !important;
+        object-fit: cover !important;
+      }
+      .overview-quote {
+        font-size: 13pt !important;
+        padding-left: 12pt !important;
+        margin-bottom: 10pt !important;
+      }
+      .overview-detail {
+        font-size: 9.5pt !important;
+        margin-bottom: 6pt !important;
+      }
+      
+      /* === DIM: image + list together === */
+      .dim-img {
+        max-height: 280pt !important;
+        overflow: hidden !important;
+        margin-bottom: 10pt !important;
+        text-align: center !important;
+      }
+      .dim-img img {
+        max-height: 280pt !important;
+        max-width: 100% !important;
+        width: auto !important;
+        object-fit: contain !important;
+        margin: 0 auto !important;
+      }
+      .dim-row {
+        padding: 6pt 0 !important;
+      }
+      
+      /* === GALLERY: 2x2 grid (each image natural ratio in 2-col) === */
+      .gallery-grid { 
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10pt !important;
+        margin: 10pt 0 !important;
+      }
+      .g-item {
+        page-break-inside: avoid !important;
+        margin-bottom: 0 !important;
+      }
+      .g-item img {
+        width: 100% !important;
+        height: auto !important;
+        max-height: 200pt !important;
+        object-fit: cover !important;
+        display: block !important;
+      }
+      .g-cap {
+        font-size: 8pt !important;
+        padding: 4pt 0 !important;
+      }
+      .g-cap small {
+        font-size: 7pt !important;
+      }
+      
+      /* === LOCATION: list + map together === */
+      .loc-grid {
+        display: block !important;
+      }
+      .loc-card {
+        padding: 10pt 0 !important;
+        margin-bottom: 10pt !important;
+      }
+      .loc-card h3 {
+        font-size: 12pt !important;
+      }
+      .loc-list li {
+        font-size: 9.5pt !important;
+        padding: 3pt 0 !important;
+      }
+      .loc-img {
+        max-height: 280pt !important;
+        overflow: hidden !important;
+        margin-top: 10pt !important;
+      }
+      .loc-img img {
+        max-height: 280pt !important;
+        object-fit: cover !important;
+      }
+      
+      /* === DOCS: image + list more compact === */
+      .docs-img {
+        max-height: 320pt !important;
+        margin-bottom: 12pt !important;
+        padding: 8pt !important;
+      }
+      .docs-img img {
+        max-height: 300pt !important;
+        max-width: 100% !important;
+        width: auto !important;
+        object-fit: contain !important;
+        margin: 0 auto !important;
+        display: block !important;
+      }
+      .docs-list {
+        margin-top: 12pt !important;
+      }
+      .docs-item {
+        padding: 8pt 0 !important;
+      }
+      
+      /* === OPERATION: smaller image, more compact === */
+      .op-img-block {
+        max-height: 220pt !important;
+        overflow: hidden !important;
+        margin-bottom: 10pt !important;
+      }
+      .op-img-block img {
+        max-height: 220pt !important;
+        object-fit: cover !important;
+      }
+      .op-img-cap {
+        font-size: 7.5pt !important;
+        padding: 3pt 0 !important;
+      }
+      
+      /* === PREVENT WIDOW SECTIONS === */
+      /* Section-head + first child must stay together */
+      section .section-head + * {
+        page-break-before: avoid !important;
+      }
+      
+      /* Allow content to flow naturally — don't force section to new page === */
+      .specs, .gallery, .docs {
+        page-break-before: auto !important;
+      }
+      
+      /* Specs grid: keep together if possible */
+      .specs-grid {
+        page-break-inside: auto !important;
+      }
+      .spec {
+        page-break-inside: avoid !important;
+      }
+
+    
+      
+      /* ═══════════════════════════════════════════════════════
+         🎨 FINAL POLISH — Tighter content, no awkward gaps
+         ═══════════════════════════════════════════════════════ */
+      
+      /* === LET CONTENT FLOW — no forced page breaks === */
+      .specs, .gallery, .docs, .loc, .dim, .operation, .overview, .contact {
+        page-break-before: auto !important;
+        break-before: auto !important;
+      }
+      section {
+        padding: 10pt 0 !important;
+      }
+      
+      /* === IMAGES: balanced — natural ratio with reasonable max === */
+      /* A4 page = 297mm = ~835pt high. Usable area ~770pt. */
+      /* Setting max-height ~340pt = ~40% of page lets text fit too */
+      
+      /* Smaller image heights so content can fit better on each page */
+      .overview-img,
+      .op-img-block,
+      .loc-img,
+      .hero-img {
+        max-height: 260pt !important;
+        overflow: hidden !important;
+      }
+      
+      .overview-img img,
+      .op-img-block img,
+      .loc-img img,
+      .hero-img img {
+        width: 100% !important;
+        height: auto !important;
+        max-height: 260pt !important;
+        object-fit: cover !important;
+      }
+      
+      /* Dim image: contain to preserve diagrams */
+      .dim-img {
+        max-height: 280pt !important;
+        overflow: hidden !important;
+        text-align: center !important;
+      }
+      .dim-img img {
+        max-height: 280pt !important;
+        max-width: 100% !important;
+        width: auto !important;
+        height: auto !important;
+        object-fit: contain !important;
+        margin: 0 auto !important;
+        display: block !important;
+      }
+      
+      /* Docs image: contain — preserve deed details */
+      .docs-img {
+        max-height: 320pt !important;
+        overflow: hidden !important;
+        text-align: center !important;
+      }
+      .docs-img img {
+        max-height: 300pt !important;
+        max-width: 100% !important;
+        width: auto !important;
+        height: auto !important;
+        object-fit: contain !important;
+        margin: 0 auto !important;
+        display: block !important;
+      }
+      
+      /* Gallery: smaller for 2x2 grid */
+      .g-item img {
+        max-height: 200pt !important;
+        height: auto !important;
+        object-fit: cover !important;
+        width: 100% !important;
+      }
+      
+      /* === COMPACT MARGINS — tighter spacing === */
+      .section-head {
+        margin-bottom: 8pt !important;
+      }
+      .overview-img,
+      .dim-img,
+      .docs-img,
+      .loc-img,
+      .op-img-block {
+        margin-bottom: 10pt !important;
+      }
+      
+      /* === HERO PAGE: keep tight === */
+      .hero-detail {
+        padding: 0 !important;
+      }
+      .hero-img {
+        max-height: 280pt !important;
+        page-break-inside: avoid !important;
+      }
+      .hero-img img {
+        max-height: 280pt !important;
+      }
+      
+      /* === OVERVIEW TEXT: reduce paragraph margins === */
+      .overview-detail {
+        margin-bottom: 5pt !important;
+      }
+      .overview-quote {
+        margin-bottom: 8pt !important;
+      }
+      
+      /* === SPECS GRID: compact === */
+      .spec, .spec-item {
+        padding: 10pt 8pt !important;
+      }
+      .spec-value {
+        font-size: 10.5pt !important;
+      }
+      .spec-note {
+        font-size: 8pt !important;
+      }
+      
+      /* === DIM ROW: compact === */
+      .dim-row {
+        padding: 5pt 0 !important;
+      }
+      
+      /* === DOCS ITEMS: compact === */
+      .docs-item {
+        padding: 6pt 0 !important;
+      }
+      .docs-item h4 {
+        font-size: 11pt !important;
+      }
+      .docs-item p {
+        font-size: 9pt !important;
+      }
+      
+      /* === LOC LIST: compact === */
+      .loc-card {
+        padding: 8pt 0 !important;
+        margin-bottom: 6pt !important;
+      }
+      .loc-list li {
+        padding: 2.5pt 0 !important;
+      }
+      
+      /* === OPERATION STATS: tighter === */
+      .op-stats {
+        padding: 8pt !important;
+      }
+      .op-stats-grid {
+        gap: 3pt !important;
+      }
+      .op-cell {
+        padding: 3pt 1pt !important;
+      }
+      .op-total, .op-total-row {
+        margin-top: 6pt !important;
+        padding-top: 6pt !important;
+        font-size: 9.5pt !important;
+      }
+      
+      /* === ALLOW SECTIONS TO FLOW NATURALLY === */
+      /* Don't force page breaks - let content fill pages */
+      section + section {
+        page-break-before: auto !important;
+      }
+      
+      /* But keep image+heading together */
+      .section-head {
+        page-break-after: avoid !important;
+      }
+      
+      /* And keep paired content together */
+      .overview-img + .overview-text,
+      .dim-img + .dim-list,
+      .docs-img + .docs-list {
+        page-break-before: avoid !important;
+      }
+      
+      /* Distance card stays with hero */
+      .bkk-distance {
+        margin: 6pt auto 0 auto !important;
+      }
+
+    
+      
+      /* === FIX WIDOW SECTIONS — header sticks with content === */
+      
+      /* Each section: keep heading + first content together */
+      section {
+        page-break-inside: auto !important;
+      }
+      
+      /* Keep section-head with content, but allow flow */
+      .section-head {
+        page-break-after: avoid !important;
+      }
+      
+      /* Hero — image+text stay together (column-reverse means image first) */
+      .hero-content {
+        page-break-inside: avoid !important;
+      }
+      .hero-img {
+        page-break-after: avoid !important;
+      }
+      .hero-text {
+        page-break-before: avoid !important;
+      }
+      
+      /* Owner card stays with contact section */
+      .contact .section-head + p,
+      .contact .section-head ~ * {
+        page-break-before: avoid !important;
+      }
+      
+      /* === HERO IMAGE: don't crop, let it span full natural size === */
+      /* Reverse the column-reverse cropping issue */
+      .hero-img {
+        max-height: none !important;
+        overflow: visible !important;
+      }
+      .hero-img img {
+        max-height: none !important;
+        height: auto !important;
+        object-fit: unset !important;
+      }
+      
+      /* === Compact contact section === */
+      .contact {
+        padding: 14pt 0 !important;
+      }
+      .owner-card {
+        margin: 12pt auto !important;
+      }
+
     }
     
     /* Hide cover on screen, show only on print */
