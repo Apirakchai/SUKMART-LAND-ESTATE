@@ -1143,8 +1143,8 @@
       .brochure-action, .contact-actions, .faq, .faq-item,
       .hero-cta, .float-toast, 
       .ig-btn, .btn, .btn-primary, .btn-ghost, .btn-line, .btn-brochure,
-      .price-fx-note, .hero-foot { 
-        display: none !important; 
+      .price-fx-note, .hero-foot, .hero-img-tag {
+        display: none !important;
       }
       
       /* === SHOW ONLY ACTIVE PAGE === */
@@ -1158,62 +1158,6 @@
         transition: none !important; 
         animation: none !important;
       }
-      /* === GLOBAL IMAGE CONTAINER RESET === */
-      .hero-img, .overview-img, .op-img-block, .docs-img, 
-      .loc-img, .dim-img, .g-item, .gallery-grid > * {
-        aspect-ratio: auto !important;
-        box-shadow: none !important;
-        position: static !important;
-        height: auto !important;
-        min-height: 0 !important;
-        max-height: none !important;
-        overflow: visible !important;
-        border-radius: 0 !important;
-        background: transparent !important;
-      }
-      .hero-img::before, .hero-img::after,
-      .overview-img::before, .overview-img::after,
-      .op-img-block::before, .op-img-block::after,
-      .g-item::before, .g-item::after,
-      .docs-img::before, .docs-img::after,
-      .loc-img::before, .loc-img::after,
-      .dim-img::before, .dim-img::after {
-        display: none !important;
-        content: none !important;
-        background: none !important;
-      }
-      
-      /* === GALLERY GRID RESET — override mosaic layout === */
-      .gallery-grid {
-        display: grid !important;
-        grid-template-columns: repeat(2, 1fr) !important;
-        grid-auto-rows: auto !important;
-        grid-template-rows: none !important;
-        gap: 8pt !important;
-      }
-      .g-item, .g1, .g2, .g3, .g4, .g5 {
-        grid-column: auto !important;
-        grid-row: auto !important;
-        grid-column-start: auto !important;
-        grid-column-end: auto !important;
-        grid-row-start: auto !important;
-        grid-row-end: auto !important;
-      }
-      .g-item img {
-        width: 100% !important;
-        height: 150pt !important;
-        max-height: 150pt !important;
-        min-height: 150pt !important;
-        object-fit: cover !important;
-        display: block !important;
-        transform: none !important;
-      }
-      
-      /* === DIM-IMG / DOCS-IMG — natural height === */
-      .dim-img, .docs-img {
-        page-break-inside: avoid !important;
-      }
-      
       
       /* === GLOBAL — IVORY PAPER === */
       html, body {
@@ -1259,7 +1203,6 @@
         overflow: hidden !important;
         box-sizing: border-box !important;
       }
-      
       .pdf-cover::before {
         content: "" !important;
         position: absolute !important;
@@ -1270,57 +1213,44 @@
         background-size: 30mm 30mm !important;
         pointer-events: none !important;
       }
-      
       .pdf-cover-corners {
         position: absolute !important;
-        top: 18mm !important;
-        left: 18mm !important;
-        width: 14mm !important;
-        height: 14mm !important;
+        top: 18mm !important; left: 18mm !important;
+        width: 14mm !important; height: 14mm !important;
         border-top: 0.4mm solid #c9a961 !important;
         border-left: 0.4mm solid #c9a961 !important;
       }
       .pdf-cover-corners::after {
         content: "" !important;
         position: absolute !important;
-        top: 12mm !important;
-        left: -0.4mm !important;
-        width: 1mm !important;
-        height: 1mm !important;
+        top: 12mm !important; left: -0.4mm !important;
+        width: 1mm !important; height: 1mm !important;
         background: #c9a961 !important;
         border-radius: 50% !important;
       }
-      
       .pdf-cover-corners-br {
         position: absolute !important;
-        bottom: 32mm !important;
-        right: 18mm !important;
-        width: 14mm !important;
-        height: 14mm !important;
+        bottom: 32mm !important; right: 18mm !important;
+        width: 14mm !important; height: 14mm !important;
         border-bottom: 0.4mm solid #c9a961 !important;
         border-right: 0.4mm solid #c9a961 !important;
       }
       .pdf-cover-corners-br::before {
         content: "" !important;
         position: absolute !important;
-        bottom: 12mm !important;
-        right: -0.4mm !important;
-        width: 1mm !important;
-        height: 1mm !important;
+        bottom: 12mm !important; right: -0.4mm !important;
+        width: 1mm !important; height: 1mm !important;
         background: #c9a961 !important;
         border-radius: 50% !important;
       }
-      
       .pdf-cover-content {
         position: absolute !important;
-        top: 50% !important;
-        left: 50% !important;
+        top: 50% !important; left: 50% !important;
         transform: translate(-50%, -50%) !important;
         width: 100% !important;
         text-align: center !important;
         z-index: 2 !important;
       }
-      
       .pdf-cover-eyebrow {
         font-family: 'Sarabun', sans-serif !important;
         font-size: 9pt !important;
@@ -1338,7 +1268,6 @@
         background: #c9a961 !important;
         margin: 4mm auto 0 auto !important;
       }
-      
       .pdf-cover-logo {
         font-family: 'Cormorant Garamond', Georgia, serif !important;
         font-weight: 400 !important;
@@ -1353,7 +1282,6 @@
         font-style: italic !important;
         margin-right: 0.05em !important;
       }
-      
       .pdf-cover-tagline {
         font-family: 'Cormorant Garamond', Georgia, serif !important;
         font-style: italic !important;
@@ -1363,15 +1291,12 @@
         margin-bottom: 12mm !important;
         letter-spacing: 0.02em !important;
       }
-      
       .pdf-cover-desc-th {
         font-family: 'Noto Serif Thai', serif !important;
         font-size: 14pt !important;
         color: #f7f4ec !important;
         margin-bottom: 4mm !important;
-        font-weight: 400 !important;
       }
-      
       .pdf-cover-locations {
         font-family: 'Sarabun', sans-serif !important;
         font-size: 8.5pt !important;
@@ -1380,14 +1305,12 @@
         text-transform: uppercase !important;
         margin-bottom: 14mm !important;
       }
-      
       .pdf-cover-divider {
         width: 36mm !important;
         height: 0.3mm !important;
         background: #c9a961 !important;
         margin: 0 auto 10mm auto !important;
       }
-      
       .pdf-cover-stats {
         font-family: 'Sarabun', sans-serif !important;
         font-size: 8pt !important;
@@ -1396,7 +1319,6 @@
         text-transform: uppercase !important;
         margin-bottom: 5mm !important;
       }
-      
       .pdf-cover-url {
         font-family: 'Cormorant Garamond', Georgia, serif !important;
         font-style: italic !important;
@@ -1404,7 +1326,101 @@
         color: #c9a961 !important;
       }
       
-      /* === HERO / DETAIL FIRST PAGE === */
+      /* ═══════════════════════════════════════════════════════
+         🎯 NEW STRATEGY: Images keep natural aspect ratio
+         No height limit · No cropping · Add pages as needed
+         ═══════════════════════════════════════════════════════ */
+      
+      /* All image containers — no fixed dimensions */
+      .hero-img, .overview-img, .op-img-block, .docs-img, 
+      .loc-img, .dim-img, .g-item, .gallery-item, .card-img,
+      .gallery-grid > * {
+        aspect-ratio: auto !important;
+        box-shadow: none !important;
+        position: static !important;
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        overflow: visible !important;
+        border-radius: 0 !important;
+        background: transparent !important;
+        transform: none !important;
+        transition: none !important;
+        filter: none !important;
+        page-break-inside: avoid !important;
+      }
+      .hero-img::before, .hero-img::after,
+      .overview-img::before, .overview-img::after,
+      .op-img-block::before, .op-img-block::after,
+      .g-item::before, .g-item::after,
+      .docs-img::before, .docs-img::after,
+      .loc-img::before, .loc-img::after,
+      .dim-img::before, .dim-img::after {
+        display: none !important;
+        content: none !important;
+      }
+      
+      /* All overlay/positioned children — make static so they don't overlap */
+      .hero-img-tag, .card-area, .card-tag, .card-soon, .card-soon-mark,
+      .lb-close, .drawer-close, .op-cell-tag {
+        position: static !important;
+        display: block !important;
+        background: transparent !important;
+        color: #0a1f44 !important;
+      }
+      .hero-img-tag, .card-area, .card-tag {
+        display: none !important;
+      }
+      
+      /* Caption stays after image (not absolute) */
+      .g-cap, .gallery-cap {
+        position: static !important;
+        display: block !important;
+        background: transparent !important;
+        color: #0a1f44 !important;
+        font-family: 'Cormorant Garamond', serif !important;
+        font-style: italic !important;
+        font-size: 9pt !important;
+        padding: 6pt 0 !important;
+        opacity: 0.75 !important;
+      }
+      .g-cap small {
+        color: #c9a961 !important;
+        font-style: italic !important;
+        margin-right: 6pt !important;
+        font-size: 7.5pt !important;
+        letter-spacing: 0.2em !important;
+        text-transform: uppercase !important;
+      }
+      
+      /* 🎯 KEY: All images keep natural aspect ratio */
+      img {
+        max-width: 100% !important;
+        height: auto !important;
+        page-break-inside: avoid !important;
+      }
+      
+      .hero-img img,
+      .overview-img img,
+      .op-img-block img,
+      .docs-img img,
+      .loc-img img,
+      .dim-img img,
+      .g-item img,
+      .gallery-item img,
+      .gallery-grid img,
+      .card-img img {
+        width: 100% !important;
+        height: auto !important;
+        max-height: none !important;
+        object-fit: unset !important;
+        display: block !important;
+        page-break-inside: avoid !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+      
+      /* === HERO IMAGE — full width, natural ratio === */
       .hero-detail { 
         min-height: auto !important;
         height: auto !important;
@@ -1426,54 +1442,17 @@
         max-width: 100% !important;
         gap: 0 !important;
       }
-      
-      /* Hero image — overrides aspect-ratio and box-shadow from screen CSS */
       .hero-img {
         width: 100% !important;
-        margin: 0 0 18pt 0 !important;
-        padding: 0 !important;
+        margin: 0 0 20pt 0 !important;
         page-break-inside: avoid !important;
-        height: auto !important;
-        max-height: none !important;
-        min-height: 0 !important;
-        aspect-ratio: auto !important;
-        overflow: visible !important;
-        border-radius: 0 !important;
-        box-shadow: none !important;
-        position: static !important;
-        display: block !important;
-        background: transparent !important;
-      }
-      .hero-img::before, .hero-img::after {
-        display: none !important;
-        content: none !important;
-        background: none !important;
-      }
-      .hero-img img {
-        width: 100% !important;
-        height: 280pt !important;
-        max-height: 280pt !important;
-        min-height: 280pt !important;
-        object-fit: cover !important;
-        border-radius: 0 !important;
-        display: block !important;
-        position: static !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        transform: none !important;
-        transition: none !important;
-        opacity: 1 !important;
-      }
-      .hero-img-tag {
-        display: none !important;
+        page-break-after: avoid !important;
       }
       
       /* Hero text */
       .hero-text {
         padding: 0 14mm !important;
         text-align: center !important;
-        display: block !important;
-        max-width: 100% !important;
       }
       .hero-eyebrow, .eyebrow {
         font-family: 'Cormorant Garamond', serif !important;
@@ -1509,7 +1488,6 @@
         margin: 0 auto 16pt auto !important;
         line-height: 1.7 !important;
         max-width: 80% !important;
-        color: #0a1f44 !important;
         opacity: 0.78;
       }
       
@@ -1524,15 +1502,10 @@
         border-bottom: 0.5pt solid rgba(10,31,68,0.15) !important;
         max-width: 380pt !important;
       }
-      .hero-stat {
-        text-align: center !important;
-        padding: 0 8pt !important;
-      }
+      .hero-stat { text-align: center !important; padding: 0 8pt !important; }
       .hero-stat .v {
         font-family: 'Noto Serif Thai', serif !important;
         font-size: 18pt !important;
-        color: #0a1f44 !important;
-        font-weight: 400 !important;
         line-height: 1 !important;
       }
       .hero-stat .v sup {
@@ -1540,26 +1513,24 @@
         font-style: italic !important;
         font-size: 9pt !important;
         color: #c9a961 !important;
-        margin-left: 1pt !important;
       }
       .hero-stat .l {
         font-family: 'Cormorant Garamond', serif !important;
         font-style: italic !important;
         font-size: 8pt !important;
-        color: #0a1f44 !important;
         opacity: 0.65 !important;
         letter-spacing: 0.15em !important;
         margin-top: 4pt !important;
         text-transform: uppercase !important;
       }
       
-      /* === PRICE BOX === */
+      /* Price box */
       .price-box {
         background: #faf8f1 !important;
         border: none !important;
         border-top: 0.75pt solid #c9a961 !important;
         border-bottom: 0.75pt solid #c9a961 !important;
-        page-break-inside: avoid;
+        page-break-inside: avoid !important;
         max-width: 380pt !important;
         margin: 0 auto 14pt auto !important;
         padding: 14pt 24pt !important;
@@ -1570,19 +1541,13 @@
         font-style: italic !important;
         font-size: 8.5pt !important;
         letter-spacing: 0.3em !important;
-        color: #0a1f44 !important;
         opacity: 0.65 !important;
         text-transform: uppercase !important;
         margin-bottom: 6pt !important;
       }
-      .price-box-main {
-        line-height: 1.1 !important;
-      }
       .price-box-amount { 
         font-family: 'Noto Serif Thai', serif !important;
-        font-weight: 400 !important;
         font-size: 24pt !important;
-        color: #0a1f44 !important;
       }
       .price-box-unit { 
         font-family: 'Cormorant Garamond', serif !important;
@@ -1594,25 +1559,22 @@
         font-family: 'Cormorant Garamond', serif !important;
         font-style: italic !important;
         font-size: 18pt !important;
-        color: #0a1f44 !important;
       }
       .price-box-sub {
         font-family: 'Sarabun', sans-serif !important;
         font-size: 9pt !important;
-        color: #0a1f44 !important;
         opacity: 0.7 !important;
         margin-top: 6pt !important;
       }
       
-      /* === DISTANCE CARD === */
+      /* Distance card */
       .bkk-distance {
         max-width: 380pt !important;
-        page-break-inside: avoid;
+        page-break-inside: avoid !important;
         margin: 12pt auto !important;
         padding: 10pt 18pt !important;
         background: transparent !important;
         border: none !important;
-        text-align: center !important;
         display: flex !important;
         align-items: center !important;
         gap: 14pt !important;
@@ -1642,12 +1604,9 @@
       .bkk-distance-value {
         font-family: 'Noto Serif Thai', serif !important;
         font-size: 11pt !important;
-        color: #0a1f44 !important;
-        margin-top: 2pt !important;
       }
       .bkk-distance-note {
         font-size: 8.5pt !important;
-        color: #0a1f44 !important;
         opacity: 0.65 !important;
         margin-top: 2pt !important;
       }
@@ -1659,18 +1618,16 @@
         margin: 0 !important;
         max-width: 100% !important;
         background: #ffffff !important;
-        color: #0a1f44 !important;
       }
       section .container {
         max-width: 100% !important;
         padding: 0 !important;
       }
       
-      /* === SECTION HEAD === */
+      /* Section head */
       .section-head { 
         margin-bottom: 14pt !important; 
-        page-break-after: avoid;
-        text-align: left !important;
+        page-break-after: avoid !important;
       }
       .section-num { 
         font-family: 'Cormorant Garamond', serif !important;
@@ -1697,48 +1654,27 @@
         font-size: 18pt !important; 
         line-height: 1.25 !important;
         margin: 0 0 8pt 0 !important;
-        color: #0a1f44 !important;
       }
       .section-title em {
         font-family: 'Cormorant Garamond', serif !important;
         font-style: italic !important;
         color: #c9a961 !important;
-        font-weight: 400 !important;
       }
       .section-lead { 
         font-family: 'Sarabun', sans-serif !important;
         font-size: 10pt !important;
         line-height: 1.7 !important;
-        color: #0a1f44 !important;
         opacity: 0.78 !important;
-        margin-bottom: 4pt !important;
       }
       
       /* === OVERVIEW === */
       .overview-grid {
         display: block !important;
-        grid-template-columns: none !important;
         gap: 0 !important;
-        margin-top: 8pt !important;
       }
       .overview-img {
         width: 100% !important;
-        height: 170pt !important;
-        max-height: 170pt !important;
-        margin-bottom: 12pt !important;
-        page-break-inside: avoid !important;
-        page-break-after: avoid !important;
-        aspect-ratio: auto !important;
-        overflow: hidden !important;
-      }
-      .overview-img img {
-        width: 100% !important;
-        height: 170pt !important;
-        max-height: 170pt !important;
-        object-fit: cover !important;
-        border-radius: 0 !important;
-        display: block !important;
-        position: static !important;
+        margin-bottom: 14pt !important;
       }
       .overview-text {
         page-break-before: avoid !important;
@@ -1747,7 +1683,6 @@
         font-family: 'Noto Serif Thai', serif !important;
         font-size: 14pt !important;
         line-height: 1.5 !important;
-        color: #0a1f44 !important;
         padding-left: 14pt !important;
         border-left: 1.5pt solid #c9a961 !important;
         margin-bottom: 12pt !important;
@@ -1760,12 +1695,11 @@
       .overview-detail {
         font-size: 10pt !important;
         line-height: 1.7 !important;
-        color: #0a1f44 !important;
         opacity: 0.85 !important;
         margin-bottom: 8pt !important;
       }
       
-      /* === SPECS GRID === */
+      /* === SPECS === */
       .specs-grid { 
         display: grid !important;
         gap: 0 !important;
@@ -1781,10 +1715,6 @@
         border-bottom: 0.5pt solid rgba(10,31,68,0.2) !important;
         background: transparent !important;
         page-break-inside: avoid !important;
-        text-align: left !important;
-        display: block !important;
-        height: auto !important;
-        min-height: 0 !important;
       }
       .spec svg, .spec-icon {
         color: #c9a961 !important;
@@ -1806,8 +1736,6 @@
         font-family: 'Noto Serif Thai', serif !important;
         font-size: 11pt !important;
         line-height: 1.4 !important;
-        color: #0a1f44 !important;
-        font-weight: 400 !important;
       }
       .spec-value em {
         font-family: 'Cormorant Garamond', serif !important;
@@ -1817,99 +1745,75 @@
       }
       .spec-note {
         font-size: 8.5pt !important;
-        color: #0a1f44 !important;
         opacity: 0.7 !important;
         margin-top: 3pt !important;
       }
       
-      /* === GALLERY === */
+      /* === GALLERY — single column, full natural size === */
       .gallery-grid { 
-        display: grid !important;
-        grid-template-columns: repeat(2, 1fr) !important; 
-        gap: 8pt !important;
-        page-break-inside: avoid !important;
+        display: block !important;
         margin: 12pt 0 !important;
       }
-      .g-item {
-        page-break-inside: avoid !important;
-        background: transparent !important;
-        height: auto !important;
-        min-height: 0 !important;
-        max-height: none !important;
-        display: block !important;
-        position: relative !important;
-        overflow: visible !important;
-        margin: 0 !important;
-        padding: 0 !important;
-      }
-      .g-item::before, .g-item::after {
-        display: none !important;
-        content: none !important;
-      }
-      .g-item img,
-      .gallery-grid img { 
+      .g-item, .gallery-item {
         width: 100% !important;
-        height: 150pt !important;
-        max-height: 150pt !important;
-        min-height: 0 !important;
-        object-fit: cover !important;
-        border-radius: 0 !important;
-        display: block !important;
-        position: static !important;
-        margin: 0 !important;
-        padding: 0 !important;
+        margin-bottom: 12pt !important;
+        page-break-inside: avoid !important;
       }
-      .g-cap { 
+      
+      /* === DIM (รูปแปลง) === */
+      .dim-wrap {
+        display: block !important;
+      }
+      .dim-img {
+        width: 100% !important;
+        margin-bottom: 14pt !important;
+      }
+      .dim-list {
+        display: block !important;
+        border-top: 0.5pt solid rgba(10,31,68,0.2) !important;
+      }
+      .dim-row {
+        display: grid !important;
+        grid-template-columns: 1fr auto !important;
+        gap: 12pt !important;
+        padding: 8pt 0 !important;
+        border-bottom: 0.5pt solid rgba(10,31,68,0.15) !important;
+        page-break-inside: avoid !important;
+      }
+      .dim-row .lbl {
         font-family: 'Cormorant Garamond', serif !important;
         font-style: italic !important;
-        font-size: 8.5pt !important;
-        padding: 5pt 0 !important;
-        color: #0a1f44 !important;
-        opacity: 0.75 !important;
-        background: transparent !important;
-        letter-spacing: 0.05em !important;
-        position: static !important;
-        height: auto !important;
-        display: block !important;
-      }
-      .g-cap small {
-        color: #c9a961 !important;
-        font-style: italic !important;
-        margin-right: 6pt !important;
-        font-size: 7pt !important;
+        font-size: 9pt !important;
         letter-spacing: 0.2em !important;
+        opacity: 0.7 !important;
         text-transform: uppercase !important;
-        display: inline-block !important;
+      }
+      .dim-row .val {
+        font-family: 'Noto Serif Thai', serif !important;
+        font-size: 12pt !important;
+        text-align: right !important;
+      }
+      .dim-row .val em {
+        font-family: 'Cormorant Garamond', serif !important;
+        font-style: italic !important;
+        color: #c9a961 !important;
+        font-size: 10pt !important;
       }
       
       /* === OPERATION === */
       .op-grid, .op-grid-2 { 
-        display: grid !important;
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 8pt !important;
+        display: block !important;
         margin-bottom: 10pt !important;
       }
       .op-img-block {
-        page-break-inside: avoid !important;
-        height: auto !important;
-        max-height: none !important;
-      }
-      .op-img-block img { 
         width: 100% !important;
-        height: 140pt !important;
-        max-height: 140pt !important;
-        min-height: 0 !important;
-        object-fit: cover !important;
-        border-radius: 0 !important;
-        display: block !important;
+        margin-bottom: 12pt !important;
       }
       .op-img-cap {
         font-family: 'Cormorant Garamond', serif !important;
         font-style: italic !important;
         font-size: 8pt !important;
         padding: 4pt 0 !important;
-        background: transparent !important;
-        color: #0a1f44 !important;
         opacity: 0.7 !important;
       }
       .op-stats { 
@@ -1935,7 +1839,6 @@
       .op-cell { 
         padding: 4pt 2pt !important;
         font-size: 7pt !important;
-        background: transparent !important;
         text-align: center !important;
       }
       .op-cell-no { 
@@ -1946,12 +1849,10 @@
       }
       .op-cell-tag {
         font-size: 6.5pt !important;
-        color: #0a1f44 !important;
         opacity: 0.6 !important;
       }
       .op-cell-v { 
         font-size: 9pt !important;
-        color: #0a1f44 !important;
       }
       .op-total, .op-total-row {
         margin-top: 8pt !important;
@@ -1963,9 +1864,7 @@
       
       /* === LOCATION === */
       .loc-grid {
-        display: grid !important;
-        grid-template-columns: 1fr !important;
-        gap: 12pt !important;
+        display: block !important;
       }
       .loc-card {
         padding: 14pt 0 !important;
@@ -1973,13 +1872,12 @@
         background: transparent !important;
         border: none !important;
         border-top: 0.5pt solid rgba(10,31,68,0.15) !important;
+        margin-bottom: 12pt !important;
       }
       .loc-card h3 {
         font-family: 'Noto Serif Thai', serif !important;
         font-size: 13pt !important;
         margin-bottom: 8pt !important;
-        color: #0a1f44 !important;
-        font-weight: 400 !important;
       }
       .loc-list {
         list-style: none !important;
@@ -1988,69 +1886,42 @@
       .loc-list li {
         font-size: 10pt !important;
         padding: 4pt 0 !important;
-        color: #0a1f44 !important;
         border-bottom: 0.25pt dotted rgba(10,31,68,0.15) !important;
         display: flex !important;
         justify-content: space-between !important;
-        align-items: center !important;
       }
-      .loc-list li::before {
-        display: none !important;
-      }
-      .loc-list .dot {
-        display: none !important;
-      }
-      .loc-list .name {
-        flex: 1 !important;
-      }
+      .loc-list li::before { display: none !important; }
+      .loc-list .dot { display: none !important; }
+      .loc-list .name { flex: 1 !important; }
       .loc-list .dist {
         font-family: 'Cormorant Garamond', serif !important;
         font-style: italic !important;
         color: #c9a961 !important;
       }
       .loc-img {
-        page-break-inside: avoid !important;
-        margin-top: 12pt !important;
-      }
-      .loc-img img {
         width: 100% !important;
-        height: 220pt !important;
-        max-height: 220pt !important;
-        object-fit: cover !important;
-        display: block !important;
+        margin-top: 12pt !important;
+        page-break-inside: avoid !important;
       }
       
       /* === DOCS / DEED === */
-      /* docs section flows naturally */
-      
-      /* docs-row = wrapper containing docs-img + docs-list (NOT docs-item) */
       .docs-row {
         display: block !important;
-        grid-template-columns: none !important;
         page-break-inside: auto !important;
-        padding: 0 !important;
-        border-top: none !important;
-        gap: 0 !important;
-      }
-      .docs-img {
-        page-break-after: avoid !important;
-      }
-      .docs-list {
-        page-break-before: avoid !important;
       }
       .docs-img {
         width: 100% !important;
         margin-bottom: 16pt !important;
         page-break-inside: avoid !important;
+        page-break-after: avoid !important;
         background: #faf8f1 !important;
+        padding: 12pt !important;
       }
-      
       .docs-list {
         display: block !important;
         margin-top: 16pt !important;
+        page-break-before: avoid !important;
       }
-      
-      /* docs-item = each numbered item in the list (01, 02, 03) */
       .docs-item {
         display: grid !important;
         grid-template-columns: 30pt 1fr !important;
@@ -2066,19 +1937,16 @@
         font-size: 18pt !important;
         color: #c9a961 !important;
         line-height: 1 !important;
-        font-weight: 400 !important;
       }
       .docs-item h4 {
         font-family: 'Noto Serif Thai', serif !important;
         font-size: 12pt !important;
         font-weight: 400 !important;
-        color: #0a1f44 !important;
         margin: 0 0 4pt 0 !important;
       }
       .docs-item p {
         font-size: 9.5pt !important;
         line-height: 1.6 !important;
-        color: #0a1f44 !important;
         opacity: 0.8 !important;
         margin: 0 !important;
       }
@@ -2097,7 +1965,6 @@
       }
       .owner-name {
         font-family: 'Noto Serif Thai', serif !important;
-        color: #0a1f44 !important;
         font-size: 16pt !important;
         font-weight: 400 !important;
         margin: 0 !important;
@@ -2107,13 +1974,11 @@
         font-style: italic !important;
         color: #c9a961 !important;
         font-size: 13pt !important;
-        font-weight: 400 !important;
         margin: 2pt 0 0 0 !important;
       }
       .owner-title {
         font-family: 'Cormorant Garamond', serif !important;
         font-style: italic !important;
-        color: #0a1f44 !important;
         font-size: 8.5pt !important;
         letter-spacing: 0.3em !important;
         opacity: 0.65 !important;
@@ -2125,350 +1990,94 @@
       /* === CONTACT === */
       .contact {
         background: #ffffff !important;
-        color: #0a1f44 !important;
         page-break-inside: avoid !important;
         padding: 20pt 0 !important;
       }
-      .contact * {
-        color: #0a1f44 !important;
-      }
-      .contact .section-title em {
-        color: #c9a961 !important;
-      }
+      .contact * { color: #0a1f44 !important; }
+      .contact .section-title em { color: #c9a961 !important; }
       
       /* === LINKS === */
-      a { 
-        color: #0a1f44 !important; 
-        text-decoration: none !important; 
-      }
+      a { color: #0a1f44 !important; text-decoration: none !important; }
       
       /* === FOOTER === */
       footer { 
-        page-break-before: avoid !important;
         page-break-inside: avoid !important;
         padding: 20pt 0 8pt !important;
         font-family: 'Sarabun', sans-serif !important;
         font-size: 8.5pt !important;
         background: #ffffff !important;
-        color: #0a1f44 !important;
         border-top: 0.5pt solid #c9a961 !important;
         margin-top: 24pt !important;
         text-align: center !important;
       }
-      footer * {
-        color: #0a1f44 !important;
-      }
+      footer * { color: #0a1f44 !important; }
       
-      /* === GLOBAL TEXT OVERRIDES === */
+      /* === GLOBAL TEXT === */
       h1, h2, h3, h4, h5, h6 { 
         color: #0a1f44 !important; 
         font-family: 'Noto Serif Thai', serif !important;
         font-weight: 400 !important;
+        page-break-after: avoid !important;
       }
       em, i { 
         font-family: 'Cormorant Garamond', serif !important;
         font-style: italic !important;
         color: #c9a961 !important; 
       }
-      
-      /* === TYPOGRAPHY === */
-      p, li {
-        orphans: 3;
-        widows: 3;
-      }
-      h1, h2, h3, h4 {
-        page-break-after: avoid;
-      }
-      
-      
-      /* === PAGE BREAKS === */
-      /* Removed forced page break before specs/gallery — let content flow naturally */
-    
-      /* ═══════════════════════════════════════════════════════
-         NUCLEAR OVERRIDE — defeat ALL screen-mode CSS conflicts
-      .page.active .docs-row .docs-img img {
-        width: auto !important;
-        max-width: 95% !important;
-        height: 280pt !important;
-        max-height: 280pt !important;
-        object-fit: contain !important;
-        background: #faf8f1 !important;
-        padding: 8pt !important;
-        display: block !important;
-        margin: 0 auto !important;
-      }
-      .page.active .docs-row .docs-img {
-        height: 300pt !important;
-        max-height: 300pt !important;
-        text-align: center !important;
-        display: block !important;
-        overflow: hidden !important;
-        page-break-inside: avoid !important;
-        margin: 0 auto 14pt auto !important;
-      }
-      .page.active .dim-wrap .dim-img img {
-        width: auto !important;
-        max-width: 90% !important;
-        height: 200pt !important;
-        max-height: 200pt !important;
-        object-fit: contain !important;
-        display: block !important;
-        margin: 0 auto !important;
-      }
-      .page.active .dim-wrap .dim-img {
-        height: 220pt !important;
-        max-height: 220pt !important;
-        text-align: center !important;
-        display: block !important;
-        overflow: hidden !important;
-        page-break-inside: avoid !important;
-        margin: 0 auto 14pt auto !important;
-      }
-         ═══════════════════════════════════════════════════════ */
-      
-      /* All image containers — kill aspect-ratio, position, shadows, overflow */
-      .hero-img, .overview-img, .op-img-block, .docs-img, 
-      .loc-img, .dim-img, .g-item, .gallery-item, .card-img,
-      .gallery-grid > * {
-        aspect-ratio: auto !important;
-        box-shadow: none !important;
-        position: static !important;
-        height: auto !important;
-        min-height: 0 !important;
-        max-height: none !important;
-        overflow: visible !important;
-        border-radius: 0 !important;
-        background: transparent !important;
-        transform: none !important;
-        transition: none !important;
-        filter: none !important;
-      }
-      
-      /* All overlay/positioned children — make them inline so they don't overlap */
-      .hero-img-tag, .card-area, .card-tag, .card-soon, .card-soon-mark,
-      .g-cap, .gallery-cap, .lb-close, .drawer-close, .op-cell-tag {
-        position: static !important;
-        display: block !important;
-        background: transparent !important;
-        color: #0a1f44 !important;
-      }
-      
-      /* Hide overlay elements that would obstruct images in print */
-      .hero-img-tag, .card-area, .card-tag {
-        display: none !important;
-      }
-      
-      /* Gallery grid — force 2 columns, auto rows */
-      .gallery-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        grid-template-rows: none !important;
-        grid-auto-rows: auto !important;
-        grid-auto-flow: row !important;
-        grid-auto-columns: auto !important;
-        gap: 8pt !important;
-        display: grid !important;
-      }
-      
-      /* All image elements — height auto first to remove "100%" inheritance */
-      .hero-img img, .overview-img img, .op-img-block img,
-      .docs-img img, .loc-img img, .dim-img img,
-      .g-item img, .gallery-item img, .gallery-grid img,
-      .card-img img {
-        min-height: 0 !important;
-        width: 100% !important;
-        transform: none !important;
-        transition: none !important;
-        position: static !important;
-        display: block !important;
-      }
-      
-      /* Then re-apply specific heights using object-fit */
-      .hero-img img { 
-        height: 280pt !important; 
-        max-height: 280pt !important;
-        object-fit: cover !important; 
-      }
-      .overview-img img {
-        width: 100% !important;
-        height: 170pt !important;
-        max-height: 170pt !important;
-        object-fit: cover !important;
-        border-radius: 0 !important;
-        display: block !important;
-        position: static !important;
-      }
-      .op-img-block img { 
-        height: 140pt !important; 
-        max-height: 140pt !important;
-        object-fit: cover !important; 
-      }
-      .g-item img, .gallery-item img, .gallery-grid img { 
-        height: 150pt !important; 
-        max-height: 150pt !important;
-        object-fit: cover !important; 
-      }
-      
-      
-      .loc-img img { 
-        height: 220pt !important; 
-        max-height: 220pt !important;
-        object-fit: cover !important; 
-      }
-      
-      
-      .card-img img {
-        height: 130pt !important;
-        max-height: 130pt !important;
-        object-fit: cover !important;
-      }
-      
-      /* === DIM SECTION (รูปแปลง) === */
-      .dim-wrap {
-        display: block !important;
-        grid-template-columns: none !important;
-        gap: 12pt !important;
-      }
-      .dim-img {
-        text-align: center !important;
-        width: 100% !important;
-        margin: 0 auto !important;
-        page-break-inside: avoid !important;
-      }
-      
-      .dim-list {
-        display: block !important;
-        border-top: 0.5pt solid rgba(10,31,68,0.2) !important;
-        margin-top: 0 !important;
-      }
-      .dim-row {
-        display: grid !important;
-        grid-template-columns: 1fr auto !important;
-        gap: 12pt !important;
-        padding: 8pt 0 !important;
-        border-bottom: 0.5pt solid rgba(10,31,68,0.15) !important;
-        page-break-inside: avoid !important;
-      }
-      .dim-row .lbl {
-        font-family: 'Cormorant Garamond', serif !important;
-        font-style: italic !important;
-        font-size: 9pt !important;
-        letter-spacing: 0.2em !important;
-        color: #0a1f44 !important;
-        opacity: 0.7 !important;
-        text-transform: uppercase !important;
-      }
-      .dim-row .val {
-        font-family: 'Noto Serif Thai', serif !important;
-        font-size: 12pt !important;
-        font-weight: 400 !important;
-        color: #0a1f44 !important;
-        text-align: right !important;
-      }
-      .dim-row .val em {
-        font-family: 'Cormorant Garamond', serif !important;
-        font-style: italic !important;
-        color: #c9a961 !important;
-        font-size: 10pt !important;
-      }
-      
-      /* === GALLERY (4 รูป — 2x2 grid) — NEVER SPLIT === */
-      .gallery-grid {
-        page-break-inside: avoid !important;
-        break-inside: avoid !important;
-      }
-      .g-item {
-        break-inside: avoid !important;
-        page-break-inside: avoid !important;
-      }
-
+      p, li { orphans: 3; widows: 3; }
     
       
-      /* === FINAL OVERRIDE: Force container heights too === */
-      .overview-img {
-        width: 100% !important;
-        height: 170pt !important;
-        max-height: 170pt !important;
-        margin-bottom: 12pt !important;
-        page-break-inside: avoid !important;
-        page-break-after: avoid !important;
-        aspect-ratio: auto !important;
-        overflow: hidden !important;
-      }
-      .hero-img {
-        height: 280pt !important;
-        max-height: 280pt !important;
-        min-height: 280pt !important;
-        aspect-ratio: auto !important;
-        overflow: hidden !important;
-      }
-      .loc-img {
-        height: 220pt !important;
-        max-height: 220pt !important;
-        min-height: 220pt !important;
-        aspect-ratio: auto !important;
-        overflow: hidden !important;
-      }
-      .op-img-block {
-        height: auto !important;
-        max-height: 160pt !important;
-        overflow: hidden !important;
-      }
-      .g-item {
-        height: auto !important;
-        max-height: 170pt !important;
-        overflow: hidden !important;
-      }
-      .card-img {
-        height: 130pt !important;
-        max-height: 130pt !important;
-        aspect-ratio: auto !important;
-        overflow: hidden !important;
-      }
-
-    
+      /* === PREVENT WIDOW/ORPHAN ELEMENTS === */
       
-      /* === SMART PAGE BREAK CONTROLS === */
-      /* Allow these wrappers to break across pages */
-      .overview-grid,
-      .docs-row,
-      .dim-wrap {
-        page-break-inside: auto !important;
-        break-inside: auto !important;
-      }
-      
-      /* But these elements MUST stay together */
-      .gallery-grid,
-      .specs-grid,
-      .loc-card,
-      .owner-card,
-      .price-box,
-      .op-stats,
-      .g-item,
-      .spec,
-      .docs-item {
-        page-break-inside: avoid !important;
-        break-inside: avoid !important;
-      }
-      
-      /* Image stays with caption/text below */
-      .overview-img,
-      .dim-img,
-      .docs-img,
-      .loc-img,
-      .op-img-block {
-        page-break-inside: avoid !important;
-        break-inside: avoid !important;
-        page-break-after: avoid !important;
-      }
-      
-      /* Section heads stick to content */
+      /* Section heading must stay with first content */
       .section-head {
         page-break-after: avoid !important;
         break-after: avoid !important;
       }
       
-      /* Keep heading with content */
-      h1, h2, h3, h4, .section-title {
+      /* Image after section-head must stay together */
+      .overview-grid, .overview-img,
+      .dim-wrap, .dim-img,
+      .gallery-grid, .g-item:first-child,
+      .docs-row, .docs-img,
+      .loc-grid, .loc-card:first-child,
+      .op-grid, .op-img-block:first-child {
+        page-break-before: avoid !important;
+        break-before: avoid !important;
+      }
+      
+      /* Distance card must stay with hero or price */
+      .bkk-distance {
+        page-break-before: avoid !important;
+        break-before: avoid !important;
+      }
+      
+      /* Hero image + text together */
+      .hero-img {
+        page-break-after: avoid !important;
+        break-after: avoid !important;
+      }
+      
+      /* Section + first child stay together */
+      section {
+        orphans: 2 !important;
+        widows: 2 !important;
+      }
+      
+      /* Section-head + section-title + first content stay together */
+      .section-num, .section-title, .section-lead {
+        page-break-after: avoid !important;
+        break-after: avoid !important;
+      }
+      
+      /* Operation specific - keep image with stats */
+      .op-img-block {
+        page-break-after: avoid !important;
+        break-after: avoid !important;
+      }
+      
+      /* Loc card heading + list stays together */
+      .loc-card h3 {
         page-break-after: avoid !important;
         break-after: avoid !important;
       }
