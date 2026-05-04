@@ -5567,50 +5567,88 @@ if (document.readyState === 'loading') {
 </script>
 
 <script>
-  // Pre-print: force all lazy images to load before printing
   async function downloadBrochure() {
     const btn = event.currentTarget;
-    const originalText = btn.querySelector('span').textContent;
-    btn.querySelector('span').textContent = 'กำลังเตรียมไฟล์...';
+    const span = btn.querySelector('span');
+    const originalText = span ? span.textContent : '';
+    
+    if (span) span.textContent = 'กำลังเตรียมไฟล์...';
     btn.disabled = true;
+    btn.style.opacity = '0.6';
     
-    // Get all lazy images on the active page
-    const activePage = document.querySelector('.page.active');
-    if (!activePage) {
-      window.print();
-      btn.querySelector('span').textContent = originalText;
-      btn.disabled = false;
-      return;
-    }
-    
-    const lazyImgs = activePage.querySelectorAll('img[loading="lazy"]');
-    
-    // Force eager loading
-    lazyImgs.forEach(img => {
-      img.loading = 'eager';
-    });
-    
-    // Wait for all images to load (or timeout after 10s)
-    const imgPromises = Array.from(activePage.querySelectorAll('img')).map(img => {
-      if (img.complete && img.naturalHeight !== 0) return Promise.resolve();
-      return new Promise(resolve => {
-        const timer = setTimeout(resolve, 10000); // safety timeout
-        img.addEventListener('load', () => { clearTimeout(timer); resolve(); }, { once: true });
-        img.addEventListener('error', () => { clearTimeout(timer); resolve(); }, { once: true });
+    try {
+      const activePage = document.querySelector('.page.active');
+      if (!activePage) { window.print(); return; }
+      
+      // Step 1: Force eager loading on all images
+      const imgs = Array.from(activePage.querySelectorAll('img'));
+      imgs.forEach(img => {
+        img.loading = 'eager';
+        img.fetchPriority = 'high';
       });
-    });
-    
-    await Promise.all(imgPromises);
-    
-    // Small delay for browser to render
-    await new Promise(r => setTimeout(r, 500));
-    
-    // Print
-    window.print();
-    
-    // Restore button
-    btn.querySelector('span').textContent = originalText;
-    btn.disabled = false;
+      
+      // Step 2: Save current scroll position
+      const savedScroll = window.scrollY;
+      
+      // Step 3: SCROLL through the entire page to force browser to render
+      // This is the key — browsers only paint images in/near viewport
+      const docHeight = document.documentElement.scrollHeight;
+      const viewportHeight = window.innerHeight;
+      const steps = Math.ceil(docHeight / viewportHeight) + 1;
+      
+      if (span) span.textContent = 'กำลังโหลดภาพ... (1/' + steps + ')';
+      
+      for (let i = 0; i <= steps; i++) {
+        window.scrollTo({ top: i * viewportHeight, behavior: 'instant' });
+        if (span) span.textContent = 'กำลังโหลดภาพ... (' + (i+1) + '/' + steps + ')';
+        // Wait for browser to render
+        await new Promise(r => setTimeout(r, 300));
+      }
+      
+      // Step 4: Wait for all images to load
+      if (span) span.textContent = 'รอภาพโหลดครบ...';
+      const loadPromises = imgs.map(img => {
+        if (img.complete && img.naturalHeight > 0) return Promise.resolve();
+        return new Promise(resolve => {
+          const t = setTimeout(resolve, 8000);
+          img.addEventListener('load', () => { clearTimeout(t); resolve(); }, { once: true });
+          img.addEventListener('error', () => { clearTimeout(t); resolve(); }, { once: true });
+        });
+      });
+      await Promise.all(loadPromises);
+      
+      // Step 5: Decode images to ensure pixels are ready
+      const decodePromises = imgs.map(img => 
+        img.decode ? img.decode().catch(() => null) : Promise.resolve()
+      );
+      await Promise.all(decodePromises);
+      
+      // Step 6: Scroll back to top
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      await new Promise(r => setTimeout(r, 500));
+      
+      // Step 7: Restore original position so user doesn't lose context after
+      // (will happen after print dialog closes)
+      
+      if (span) span.textContent = 'พร้อมพิมพ์ ✓';
+      await new Promise(r => setTimeout(r, 200));
+      
+      // Step 8: Trigger print
+      window.print();
+      
+      // Restore scroll after print dialog
+      setTimeout(() => window.scrollTo({ top: savedScroll, behavior: 'instant' }), 100);
+      
+    } catch (err) {
+      console.error('Brochure error:', err);
+      window.print();
+    } finally {
+      setTimeout(() => {
+        if (span) span.textContent = originalText;
+        btn.disabled = false;
+        btn.style.opacity = '';
+      }, 1500);
+    }
   }
 </script>
 </body>
