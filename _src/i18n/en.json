@@ -151,7 +151,6 @@
 "Live Map · พิกัดจริง": "Live Map · Actual location",
 "เอกสารสิทธิ์ครบถ้วน โฉนดที่ดิน 3 แปลง ออกโดยอำเภอบึงสามพัน จังหวัดเพชรบูรณ์ ถือครองเกิน 5 ปี ได้รับยกเว้นภาษีธุรกิจเฉพาะ สามารถตรวจสอบเอกสารต้นฉบับได้": "Complete title documents: 3 Chanote title deeds issued by Bueng Sam Phan district, Phetchabun province. Held for more than 5 years and exempt from Specific Business Tax. The original documents are available for inspection.",
 "โฉนดเลขที่": "Title deed no.",
-"แสดงเฉพาะด้านหน้าของเอกสาร ปิดชื่อและที่อยู่ของผู้ถือกรรมสิทธิ์ไว้ · ตรวจสอบเอกสารตัวจริงได้เมื่อนัดหมายดูพื้นที่": "Only the front of each document is shown, with the titleholder's name and address concealed · the original documents can be inspected at a scheduled site visit",
 "โฉนดที่ดิน 3 แปลง": "3 Chanote Title Deeds",
 "ออกโดยอำเภอบึงสามพัน จังหวัดเพชรบูรณ์ เป็นเอกสารสิทธิ์ระดับสูงสุด ครอบคลุมพื้นที่ทั้งหมด 110 ไร่ 1 งาน 59 ตารางวา": "Issued by Bueng Sam Phan district, Phetchabun province. The highest grade of land title, covering the full area of 110 rai 1 ngan 59 sq. wah",
 "ถือครองเกิน 5 ปี": "Held for Over 5 Years",
@@ -532,5 +531,6 @@
 "นัดดูพื้นที่จริงได้ไหม?": "Can I visit the site in person?",
 "ฟาร์มเลี้ยงไก่ — รวมอุปกรณ์และไก่ในราคาขายไหม?": "Chicken farms — are the equipment and birds included in the sale price?",
 "คำถามที่พบบ่อย · SUKMART": "Frequently Asked Questions · SUKMART",
-"คัดลอกลิงก์เรียบร้อย": "Link copied"
+"คัดลอกลิงก์เรียบร้อย": "Link copied",
+"แสดงเฉพาะด้านหน้าของเอกสาร · ตรวจสอบเอกสารตัวจริงได้เมื่อนัดหมายดูพื้นที่": "Only the front of each document is shown · the original documents can be inspected at a scheduled site visit"
 }
