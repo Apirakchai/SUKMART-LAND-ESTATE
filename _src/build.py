@@ -263,7 +263,7 @@ def main():
     write('assets/site.js', js)
     shutil.copy(os.path.join(SRC, 'vendor', 'qrcode.js'), os.path.join(ROOT, 'assets', 'qrcode.js'))
     for l in LANGS:
-        used = {k: v for k, v in i18n[l].items() if k in seen}
+        used = i18n[l]
         write(f'i18n/{l}.json', json.dumps(used, ensure_ascii=False, separators=(',', ':')))
         missing = [k for k in keys if k not in i18n[l]]
         print(f'{l}: {len(used)}/{len(keys)} translated, {len(missing)} missing')

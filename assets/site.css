@@ -3733,3 +3733,7 @@ body.solo .more-props{display:none}
 body[data-lang="my"] *{letter-spacing:0 !important;text-transform:none !important}
 body[data-lang="my"] :not(h1):not(h2):not(h3):not(h4):not(h1 *):not(h2 *):not(h3 *):not(h4 *){font-family:'Noto Sans Myanmar','Sarabun',sans-serif !important;font-style:normal !important}
 body[data-lang="my"] em,body[data-lang="my"] .ital,body[data-lang="my"] .price-box-unit,body[data-lang="my"] .price-box-sub{font-style:normal !important;font-family:'Noto Sans Myanmar','Sarabun',sans-serif !important}
+
+/* Longer words in translated headings: step the hero size down so names don't break mid-word */
+body[data-lang="ja"] .hero-title,body[data-lang="ru"] .hero-title,body[data-lang="en"] .hero-title,body[data-lang="ko"] .hero-title,body[data-lang="zh"] .hero-title{font-size:clamp(32px,4.4vw,62px) !important;line-height:1.18 !important}
+body[data-lang="ja"] .hero-title,body[data-lang="ko"] .hero-title,body[data-lang="zh"] .hero-title{word-break:keep-all;line-break:strict}

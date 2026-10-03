@@ -237,15 +237,83 @@
   }
 
   var ATTRS = ['alt', 'aria-label', 'placeholder', 'title'];
+
+  /* Blocks: an element whose Thai text is split by inline tags (<em>, <br>, <span>) is translated
+     as ONE unit, so each language can use its own word order. Key = text with tags as <1>…</1>. */
+  var THAI = /[\u0E00-\u0E7F]/;
+  var INLINE = { EM: 1, B: 1, STRONG: 1, BR: 1, SPAN: 1, SUP: 1, SMALL: 1, I: 1 };
+  var blocks = null;
+  function serialize(el, tags) {
+    var out = '';
+    el.childNodes.forEach(function (n) {
+      if (n.nodeType === 3) out += n.nodeValue;
+      else if (n.nodeType === 1) {
+        if (n.tagName === 'BR') { out += '<br>'; return; }
+        tags.push(n.cloneNode(false).outerHTML.replace(/<\/[^>]+>$/, ''));
+        var i = tags.length;
+        out += '<' + i + '>' + serialize(n, tags) + '</' + i + '>';
+      }
+    });
+    return out;
+  }
+  function findBlocks() {
+    var list = [];
+    document.querySelectorAll('h1,h2,h3,h4,p,li,blockquote,div,span,a,button').forEach(function (el) {
+      if (el.closest('[data-noi18n], .lang-dd, [data-i18n-b], script, style')) return;
+      if (!el.children.length) return;
+      var ok = true, letters = 0;
+      el.querySelectorAll('*').forEach(function (d) {
+        if (!INLINE[d.tagName] || d.hasAttribute('data-noi18n') || d.hasAttribute('data-thb') || d.hasAttribute('onclick')) ok = false;
+      });
+      if (!ok) return;
+      var w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), n;
+      while ((n = w.nextNode())) if (THAI.test(n.nodeValue)) letters++;
+      if (letters < 2) return;
+      var tags = [];
+      var key = serialize(el, tags).replace(/\s+/g, ' ').trim();
+      el.setAttribute('data-i18n-b', '');
+      list.push({ el: el, key: key, tags: tags, html: el.innerHTML });
+    });
+    return list;
+  }
+  function applyBlocks(dict) {
+    if (!blocks) blocks = findBlocks();
+    blocks.forEach(function (b) {
+      var tr = currentLang === 'th' ? null : dict[b.key];
+      if (!tr) { if (b.cur) { b.el.innerHTML = b.html; b.cur = null; } return; }
+      if (b.cur === currentLang) return;
+      b.el.innerHTML = tr.replace(/<(\/?)(\d+)>/g, function (m, close, i) {
+        var t = b.tags[i - 1];
+        if (!t) return '';
+        return close ? '</' + t.match(/^<(\w+)/)[1] + '>' : t;
+      });
+      b.cur = currentLang;
+    });
+  }
+  window.__i18nKeys = function () {
+    if (!blocks) blocks = findBlocks();
+    var keys = blocks.map(function (b) { return b.key; });
+    var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT), n;
+    while ((n = w.nextNode())) {
+      var p = n.parentElement;
+      if (!p || p.closest('script,style,noscript,[data-noi18n],.lang-dd,[data-i18n-b]')) continue;
+      var k = (n._orig !== undefined ? n._orig : n.nodeValue).trim().replace(/\s+/g, ' ');
+      if (k && THAI.test(k)) keys.push(k);
+    }
+    keys.push(THAI_TITLE);
+    return keys;
+  };
+
   function applyTranslations() {
     var dict = dicts[currentLang] || {};
+    applyBlocks(dict);
     var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
       acceptNode: function (node) {
         var p = node.parentElement;
         if (!p) return NodeFilter.FILTER_REJECT;
         var tag = p.tagName;
         if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'NOSCRIPT') return NodeFilter.FILTER_REJECT;
-        if (p.closest('[data-noi18n], .lang-dd')) return NodeFilter.FILTER_REJECT;
+        if (p.closest('[data-noi18n], .lang-dd, [data-i18n-b]')) return NodeFilter.FILTER_REJECT;
         if (!node.nodeValue.trim() && !node._orig) return NodeFilter.FILTER_REJECT;
         return NodeFilter.FILTER_ACCEPT;
       }
