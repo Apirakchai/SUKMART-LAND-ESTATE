@@ -29,28 +29,28 @@ def write(p, s):
 # slug -> page meta.  kind: 'site' (home / brokers / faq) or 'detail' (a property)
 PAGES = {
     'home': dict(path='', kind='site',
-        title='SUKMART · ที่ดินทำเลศักยภาพ 5 แปลง · เจ้าของขายเอง · 081-713-2111',
+        title='ขายที่ดิน เพชรบูรณ์ ศาลายา กาญจนบุรี · เจ้าของขายเอง · SUKMART',
         og_title='SUKMART · ที่ดินทำเลศักยภาพ 5 แปลง',
         desc='คอลเลกชันที่ดินทำเลศักยภาพ 5 แปลง รวม 170+ ไร่ จากตระกูล SUKMART · เพชรบูรณ์ ศาลายา กาญจนบุรี · เจ้าของขายเอง เปิดรับนายหน้า · 081-713-2111',
         og='og-image.jpg'),
     'phetchabun': dict(path='phetchabun/', kind='detail',
-        title='ที่ดินเพชรบูรณ์ 110 ไร่ ติดถนน 2275 · SUKMART',
+        title='ขายที่ดินเพชรบูรณ์ 110 ไร่ บึงสามพัน ติดถนน 2275 · SUKMART',
         desc='ที่ดิน 110-1-59 ไร่ ต.กันจุ อ.บึงสามพัน จ.เพชรบูรณ์ ติดถนนสาย 2275 หน้ากว้าง 250 เมตร โฉนด 3 แปลง · ไร่ละ 700,000 บาท · เจ้าของขายเอง 081-713-2111',
         card=('ที่ดิน 110 ไร่ ติดถนน 2275', 'เพชรบูรณ์ · บึงสามพัน', 'images/home/main-01.jpg')),
     'salaya': dict(path='salaya/', kind='detail',
-        title='ที่ดินศาลายา 10 ไร่ ติดถนน 4006 · SUKMART',
+        title='ขายที่ดินศาลายา 10 ไร่ พุทธมณฑล ติดถนน 4006 · SUKMART',
         desc='ที่ดิน 10-2-16 ไร่ ต.มหาสวัสดิ์ อ.พุทธมณฑล จ.นครปฐม ติดถนนสาย 4006 ถมแล้ว มีรั้วรอบ ใกล้ Central ศาลายา · เจ้าของขายเอง 081-713-2111',
         card=('ที่ดิน 10 ไร่ ติดถนน 4006', 'นครปฐม · ศาลายา', 'images/home/main-02.jpg')),
     'kanchanaburi': dict(path='kanchanaburi/', kind='detail',
-        title='ที่ดินกาญจนบุรี 9 ไร่ เดิมเป็นรีสอร์ท · SUKMART',
+        title='ขายที่ดินกาญจนบุรี 9 ไร่ ท่าม่วง เดิมเป็นรีสอร์ท · SUKMART',
         desc='ที่ดิน 9 ไร่ 36 ตร.ว. ต.หนองขาว อ.ท่าม่วง จ.กาญจนบุรี เดิมเป็นรีสอร์ท บ้านพัก 10 หลัง ใกล้ทางขึ้นมอเตอร์เวย์ M81 · ไร่ละ 2,900,000 บาท · เจ้าของขายเอง 081-713-2111',
         card=('ที่ดิน 9 ไร่ เดิมเป็นรีสอร์ท', 'กาญจนบุรี · ท่าม่วง', 'images/home/main-03.jpg')),
     'farm1': dict(path='farm1/', kind='detail',
-        title='ฟาร์มไก่ดำ 8 ไร่ กาญจนบุรี · SUKMART',
+        title='ขายฟาร์มไก่ดำ 8 ไร่ กาญจนบุรี พร้อมกิจการ · SUKMART',
         desc='ฟาร์มไก่ดำ 8-2-21.2 ไร่ ต.ท่ามะขาม อ.เมือง จ.กาญจนบุรี โรงเรือน 14 โรง พ่อแม่พันธุ์ โรงฟักไข่ครบวงจร · 89 ล้านบาทเหมาทั้งกิจการ · เจ้าของขายเอง 081-713-2111',
         card=('ฟาร์มไก่ดำ ฟาร์ม 1', 'กาญจนบุรี · ท่ามะขาม', 'images/home/main-04.jpg')),
     'farm3': dict(path='farm3/', kind='detail',
-        title='ฟาร์มไก่ไทย 31 ไร่ กาญจนบุรี · SUKMART',
+        title='ขายฟาร์มไก่ 31 ไร่ กาญจนบุรี พร้อมกิจการ · SUKMART',
         desc='ฟาร์มไก่ไทย 31-2-50 ไร่ ต.ปากแพรก อ.เมือง จ.กาญจนบุรี โรงเรือน 12 โรง รองรับ 66,000 ตัว · 89 ล้านบาทเหมาทั้งกิจการ · เจ้าของขายเอง 081-713-2111',
         card=('ฟาร์มไก่ไทย ฟาร์ม 3', 'กาญจนบุรี · ปากแพรก', 'images/home/main-05.jpg')),
     'brokers': dict(path='brokers/', kind='site',
@@ -178,6 +178,66 @@ PRINT_BTN = '''  <button class="float-btn" onclick="downloadBrochure()" aria-lab
 '''
 OLD_CTA = re.compile(r'<a href="#" onclick="event\.preventDefault\(\); const c = document\.querySelector[^"]*"')
 
+# ───── SEO: structured data (schema.org JSON-LD) ─────
+LISTING = {
+    'phetchabun': dict(name='ที่ดิน 110 ไร่ ติดถนนสาย 2275 บึงสามพัน เพชรบูรณ์', price=77278250, per='700,000 บาท/ไร่', area='110-1-59 ไร่',
+                       locality='บึงสามพัน', region='เพชรบูรณ์', street='ตำบลกันจุ', geo=(15.8623, 101.11831)),
+    'salaya': dict(name='ที่ดิน 10 ไร่ ติดถนนสาย 4006 ศาลายา นครปฐม', price=368900000, per='35,000,000 บาท/ไร่', area='10-2-16 ไร่',
+                   locality='พุทธมณฑล', region='นครปฐม', street='9/1 หมู่ 3 ตำบลมหาสวัสดิ์', geo=(13.803725, 100.272635), postal='73170'),
+    'kanchanaburi': dict(name='ที่ดิน 9 ไร่ เดิมเป็นรีสอร์ท ท่าม่วง กาญจนบุรี', price=26361000, per='2,900,000 บาท/ไร่', area='9-0-36 ไร่',
+                         locality='ท่าม่วง', region='กาญจนบุรี', street='ตำบลหนองขาว'),
+    'farm1': dict(name='ฟาร์มไก่ดำ 8 ไร่ ท่ามะขาม กาญจนบุรี', price=89000000, per='เหมารวมทั้งกิจการ', area='8-2-21.2 ไร่',
+                  locality='เมืองกาญจนบุรี', region='กาญจนบุรี', street='88 หมู่ 1 ตำบลท่ามะขาม', geo=(14.04585, 99.513814)),
+    'farm3': dict(name='ฟาร์มไก่ไทย 31 ไร่ ปากแพรก กาญจนบุรี', price=89000000, per='เหมารวมทั้งกิจการ', area='31-2-50 ไร่',
+                  locality='เมืองกาญจนบุรี', region='กาญจนบุรี', street='22/27 หมู่ 8 ตำบลปากแพรก', geo=(14.0503395, 99.5597844)),
+}
+SELLER = {'@type': 'Organization', '@id': SITE + '/#org', 'name': 'SUKMART Land Estate', 'url': SITE + '/',
+          'logo': SITE + '/android-chrome-512x512.png', 'telephone': '+66817132111',
+          'contactPoint': {'@type': 'ContactPoint', 'telephone': '+66817132111', 'contactType': 'sales',
+                           'availableLanguage': ['th', 'en', 'zh', 'ja', 'ko', 'my', 'ru']}}
+
+def strip_tags(h):
+    return ' '.join(re.sub(r'<[^>]+>', ' ', h).split())
+
+def json_ld(slug, m, url, og):
+    out = []
+    if slug in LISTING:
+        L = LISTING[slug]
+        place = {'@type': 'Place', 'name': L['name'],
+                 'address': {'@type': 'PostalAddress', 'streetAddress': L['street'], 'addressLocality': L['locality'],
+                             'addressRegion': L['region'], 'addressCountry': 'TH', **({'postalCode': L['postal']} if 'postal' in L else {})}}
+        if 'geo' in L:
+            place['geo'] = {'@type': 'GeoCoordinates', 'latitude': L['geo'][0], 'longitude': L['geo'][1]}
+        out.append({'@context': 'https://schema.org', '@type': 'RealEstateListing', 'name': L['name'], 'url': url,
+                    'description': m['desc'], 'image': og, 'inLanguage': 'th', 'about': place,
+                    'offers': {'@type': 'Offer', 'price': L['price'], 'priceCurrency': 'THB', 'availability': 'https://schema.org/InStock',
+                               'description': f"เนื้อที่ {L['area']} · {L['per']} · ขายทั้งแปลง", 'seller': {'@id': SITE + '/#org'}, 'url': url},
+                    'provider': SELLER})
+        out.append({'@context': 'https://schema.org', '@type': 'BreadcrumbList', 'itemListElement': [
+            {'@type': 'ListItem', 'position': 1, 'name': 'ที่ดินทั้งหมด', 'item': SITE + '/'},
+            {'@type': 'ListItem', 'position': 2, 'name': L['name'], 'item': url}]})
+    elif slug == 'home':
+        out.append({'@context': 'https://schema.org', **SELLER})
+        out.append({'@context': 'https://schema.org', '@type': 'WebSite', 'name': 'SUKMART Land Estate', 'url': SITE + '/', 'inLanguage': 'th'})
+        out.append({'@context': 'https://schema.org', '@type': 'ItemList', 'name': 'ที่ดินและฟาร์มที่เปิดขาย', 'itemListElement': [
+            {'@type': 'ListItem', 'position': i, 'name': LISTING[k]['name'], 'url': f'{SITE}/{k}/'} for i, k in enumerate(LISTING, 1)]})
+    elif slug == 'faq':
+        faq = read('partials/faq-section.html')
+        qs = re.findall(r'<span class="faq-q-text">(.*?)</span>', faq, re.S)
+        ans = re.findall(r'<div class="faq-a-inner">(.*?)</div>', faq, re.S)
+        out.append({'@context': 'https://schema.org', '@type': 'FAQPage', 'mainEntity': [
+            {'@type': 'Question', 'name': strip_tags(q), 'acceptedAnswer': {'@type': 'Answer', 'text': strip_tags(a)}} for q, a in zip(qs, ans)]})
+    return ''.join('  <script type="application/ld+json">' + json.dumps(o, ensure_ascii=False, separators=(',', ':')) + '</script>\n' for o in out)
+
+def lazy_images(html):
+    """Only the first two images of a page load eagerly; the rest wait until they are near the viewport."""
+    n = [0]
+    def rep(mm):
+        n[0] += 1
+        return mm.group(0) if n[0] <= 2 else mm.group(0).replace('loading="eager"', 'loading="lazy"')
+    html = re.sub(r'<img\b[^>]*>', rep, html)
+    return re.sub(r'(<iframe\b[^>]*?)loading="eager"', r'\1loading="lazy"', html)
+
 def page_html(slug, ver):
     m = PAGES[slug]
     body = read(f'pages/{slug}.html')
@@ -195,13 +255,13 @@ def page_html(slug, ver):
     url = f'{SITE}/{m["path"]}'
     og = f'{SITE}/' + (m.get('og') or f'og/{slug}.jpg')
     head = HEAD.format(title=m['title'], og_title=m.get('og_title', m['title']), desc=m['desc'], url=url, og=og, ver=ver, slug=slug,
-                       body_cls=m['kind'], robots='')
+                       body_cls=m['kind'], robots=json_ld(slug, m, url, og).rstrip('\n'))
     tail = TAIL.format(ver=ver, print_btn=PRINT_BTN if m['kind'] == 'detail' else '',
                        extra_js=f'<script src="/assets/qrcode.js?v={ver}"></script>\n' if slug == 'brokers' else '')
     html = head + nav + '\n' + body + tail
     # root-absolute asset paths so pages work from any folder
     html = re.sub(r'(src|href)="images/', r'\1="/images/', html)
-    return html
+    return lazy_images(html)
 
 class Keys(HTMLParser):
     """Collect translatable text nodes exactly like site.js does."""
@@ -268,7 +328,9 @@ def main():
         missing = [k for k in keys if k not in i18n[l]]
         print(f'{l}: {len(used)}/{len(keys)} translated, {len(missing)} missing')
 
-    urls = ''.join(f'  <url><loc>{SITE}/{m["path"]}</loc></url>\n' for m in PAGES.values())
+    import datetime
+    today = datetime.date.today().isoformat()
+    urls = ''.join(f'  <url><loc>{SITE}/{m["path"]}</loc><lastmod>{today}</lastmod></url>\n' for m in PAGES.values())
     write('sitemap.xml', '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls + '</urlset>\n')
     write('robots.txt', f'User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n')
     write('_headers', '/assets/*\n  Cache-Control: public, max-age=31536000, immutable\n/images/*\n  Cache-Control: public, max-age=604800\n/i18n/*\n  Cache-Control: public, max-age=31536000, immutable\n')
