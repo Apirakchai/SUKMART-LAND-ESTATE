@@ -132,7 +132,7 @@ HEAD = '''<!DOCTYPE html>
   <meta name="twitter:title" content="{og_title}">
   <meta name="twitter:description" content="{desc}">
   <meta name="twitter:image" content="{og}">
-  <script>(function(){{try{{var q=new URLSearchParams(location.search).get('lang'),s=localStorage.getItem('sukmart-lang'),n=(navigator.language||'').slice(0,2).toLowerCase(),l=q||s||(['zh','ja','ko','my','ru'].indexOf(n)>-1?n:'th');if(l!=='th'){{document.documentElement.classList.add('i18n-wait');setTimeout(function(){{document.documentElement.classList.remove('i18n-wait')}},1500)}}}}catch(e){{}}}})();</script>
+  <script>(function(){{try{{var L=['en','zh','ja','ko','my','ru'],p=location.pathname,m=p.match(/^\\/(en|zh|ja|ko|my|ru)\\//),c=m?m[1]:'th',q=new URLSearchParams(location.search),w=q.get('lang');if(!w||(w!=='th'&&L.indexOf(w)<0)){{if(c!=='th')return;w=localStorage.getItem('sukmart-lang');if(!w){{var n=(navigator.language||'').slice(0,2).toLowerCase();w=['zh','ja','ko','my','ru'].indexOf(n)>-1?n:'th'}}}}if(w!==c&&(w==='th'||L.indexOf(w)>-1)){{q.delete('lang');var s=q.toString();location.replace((w==='th'?'':'/'+w)+p.replace(/^\\/(en|zh|ja|ko|my|ru)(?=\\/)/,'')+(s?'?'+s:'')+location.hash)}}}}catch(e){{}}}})();</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300;400;500;600;700&family=Sarabun:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
@@ -148,7 +148,7 @@ HEAD = '''<!DOCTYPE html>
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0a1f44">
 </head>
-<body class="{body_cls}" data-page="{slug}" data-ver="{ver}">
+<body class="{body_cls}" data-page="{slug}" data-ver="{ver}" data-lang="th">
 '''
 
 TAIL = '''
@@ -261,6 +261,7 @@ def page_html(slug, ver):
     html = head + nav + '\n' + body + tail
     # root-absolute asset paths so pages work from any folder
     html = re.sub(r'(src|href)="images/', r'\1="/images/', html)
+    html = html.replace('</head>', hreflang(m['path']) + '</head>', 1)
     return lazy_images(html)
 
 class Keys(HTMLParser):
@@ -295,6 +296,144 @@ def check_balance(slug, html):
     if opens != closes:
         sys.exit(f'{slug}: <div> {opens} vs </div> {closes}')
 
+# ───── Static pages per language (/en/…, /zh/… ) so search engines can index every language ─────
+HREFLANG = {'th': 'th', 'en': 'en', 'zh': 'zh-Hans', 'ja': 'ja', 'ko': 'ko', 'my': 'my', 'ru': 'ru'}
+HTML_LANG = {'en': 'en', 'zh': 'zh-CN', 'ja': 'ja', 'ko': 'ko', 'my': 'my', 'ru': 'ru'}
+OG_LOCALE = {'en': 'en_US', 'zh': 'zh_CN', 'ja': 'ja_JP', 'ko': 'ko_KR', 'my': 'my_MM', 'ru': 'ru_RU'}
+LANG_NAME = {'en': 'English', 'zh': '中文', 'ja': '日本語', 'ko': '한국어', 'my': 'မြန်မာ', 'ru': 'Русский'}
+THAI_RE = re.compile('[฀-๿]')
+INLINE = {'em', 'b', 'strong', 'br', 'span', 'sup', 'small', 'i'}
+JS_STRINGS = ['คัดลอกลิงก์เรียบร้อย']
+
+def lang_url(lang, path):
+    return f'{SITE}/' + ('' if lang == 'th' else lang + '/') + path
+
+def hreflang(path):
+    out = ''.join(f'  <link rel="alternate" hreflang="{HREFLANG[l]}" href="{lang_url(l, path)}">\n' for l in ['th'] + LANGS)
+    return out + f'  <link rel="alternate" hreflang="x-default" href="{lang_url("th", path)}">\n'
+
+def translate_page(html, d, lang, slug):
+    """Apply the Thai→<lang> dictionary to a built page. Mirrors the block / text-node rules the keys were made with:
+    an element whose Thai text is split by inline tags is one key with tags as <1>…</1>; other text nodes are keys by themselves."""
+    from bs4 import BeautifulSoup
+    from bs4.element import Comment, NavigableString, Tag
+    m = PAGES[slug]
+    soup = BeautifulSoup(html, 'html.parser')
+    body = soup.body
+
+    def excluded(node):
+        for a in ([node] if isinstance(node, Tag) else []) + list(node.parents):
+            if a.name in ('script', 'style', 'noscript') or a.has_attr('data-noi18n') or 'lang-dd' in (a.get('class') or []):
+                return True
+        return False
+
+    def norm(t):
+        return ' '.join(t.split())
+
+    def start_tag(el):
+        attrs = ''.join(f' {k}="{" ".join(v) if isinstance(v, list) else v}"' for k, v in el.attrs.items())
+        return f'<{el.name}{attrs}>'
+
+    def serialize(el, tags):
+        out = ''
+        for n in el.children:
+            if isinstance(n, Comment):
+                continue
+            if isinstance(n, NavigableString):
+                out += str(n)
+            elif n.name == 'br':
+                out += '<br>'
+            else:
+                tags.append(n)
+                i = len(tags)
+                out += f'<{i}>' + serialize(n, tags) + f'</{i}>'
+        return out
+
+    missing, blocks = [], set()
+    for el in body.find_all(['h1', 'h2', 'h3', 'h4', 'p', 'li', 'blockquote', 'div', 'span', 'a', 'button']):
+        if all(a is not body for a in el.parents):      # replaced by an earlier block translation
+            continue
+        if excluded(el) or any(id(a) in blocks for a in el.parents):
+            continue
+        desc = el.find_all(True)
+        if not desc or any(x.name not in INLINE or x.has_attr('data-noi18n') or x.has_attr('data-thb') or x.has_attr('onclick') for x in desc):
+            continue
+        letters = sum(1 for t in el.find_all(string=True) if not isinstance(t, Comment) and THAI_RE.search(t))
+        if letters < 2:
+            continue
+        blocks.add(id(el))
+        tags = []
+        key = norm(serialize(el, tags))
+        tr = d.get(key)
+        if not tr:
+            missing.append(key)
+            continue
+        inner = re.sub(r'<(/?)(\d+)>', lambda mm: (f'</{tags[int(mm.group(2)) - 1].name}>' if mm.group(1) else start_tag(tags[int(mm.group(2)) - 1])), tr)
+        el.clear()
+        el.append(BeautifulSoup(inner, 'html.parser'))
+    for t in list(body.find_all(string=True)):
+        if isinstance(t, Comment) or excluded(t) or any(id(a) in blocks for a in t.parents):
+            continue
+        raw = str(t)
+        key = norm(raw)
+        if not key or not THAI_RE.search(key):
+            continue
+        tr = d.get(key)
+        if not tr:
+            missing.append(key)
+            continue
+        lead = raw[:len(raw) - len(raw.lstrip())]
+        trail = raw[len(raw.rstrip()):]
+        t.replace_with(lead + tr + trail)
+
+    # links between pages stay inside the language
+    paths = {'/' + pm['path'] for pm in PAGES.values()}
+    for a in soup.find_all('a', href=True):
+        if a['href'] in paths:
+            a['href'] = '/' + lang + a['href']
+
+    # head
+    title = d.get(m['title'], m['title'])
+    lead_el = body.select_one('.hero-sub') or body.select_one('.lead')
+    desc_txt = norm(lead_el.get_text(' ')) if lead_el else title
+    if len(desc_txt) > 300:
+        desc_txt = desc_txt[:297].rstrip() + '…'
+    url = lang_url(lang, m['path'])
+    soup.html['lang'] = HTML_LANG[lang]
+    body['data-lang'] = lang
+    soup.title.string = title
+    for sel, val in [('meta[name="description"]', desc_txt), ('meta[property="og:description"]', desc_txt), ('meta[name="twitter:description"]', desc_txt),
+                     ('meta[property="og:title"]', title), ('meta[name="twitter:title"]', title), ('meta[property="og:url"]', url),
+                     ('meta[property="og:locale"]', OG_LOCALE[lang])]:
+        soup.select_one(sel)['content'] = val
+    soup.select_one('link[rel="canonical"]')['href'] = url
+    for sc in soup.find_all('script', type='application/ld+json'):
+        sc.decompose()
+    head = soup.head
+    if slug in LISTING:
+        L = LISTING[slug]
+        ld = {'@context': 'https://schema.org', '@type': 'RealEstateListing', 'name': title.replace(' · SUKMART', ''), 'url': url,
+              'description': desc_txt, 'image': f'{SITE}/og/{slug}.jpg', 'inLanguage': HREFLANG[lang],
+              'offers': {'@type': 'Offer', 'price': L['price'], 'priceCurrency': 'THB', 'availability': 'https://schema.org/InStock', 'url': url}}
+        if 'geo' in L:
+            ld['about'] = {'@type': 'Place', 'geo': {'@type': 'GeoCoordinates', 'latitude': L['geo'][0], 'longitude': L['geo'][1]},
+                           'address': {'@type': 'PostalAddress', 'addressCountry': 'TH'}}
+        tag = soup.new_tag('script', type='application/ld+json'); tag.string = json.dumps(ld, ensure_ascii=False, separators=(',', ':'))
+        head.append(tag)
+    strings = {k: d[k] for k in JS_STRINGS if k in d}
+    tag = soup.new_tag('script'); tag.string = 'window.__T=' + json.dumps(strings, ensure_ascii=False, separators=(',', ':')) + ';'
+    head.append(tag)
+    if lang == 'my':
+        head.append(soup.new_tag('link', rel='stylesheet', id='font-my',
+                    href='https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar:wght@300;400;500;600;700&family=Noto+Serif+Myanmar:wght@400;500;600&display=swap'))
+    cur = soup.select_one('#langDdCur')
+    if cur:
+        cur.string = LANG_NAME[lang]
+    for el in soup.select('[data-thb-short]'):       # static fallback; site.js re-renders with live currency
+        v = int(el['data-thb-short'])
+        el.string = '฿' + (('%.1f' % (v / 1e6)).rstrip('0').rstrip('.') + 'M' if v >= 1e6 else format(v, ','))
+    return soup.decode(formatter='minimal'), missing
+
 def main():
     css = read('site.css') + '\n' + read('extra.css')
     js = read('site.js')
@@ -322,15 +461,22 @@ def main():
     write('assets/site.css', css)
     write('assets/site.js', js)
     shutil.copy(os.path.join(SRC, 'vendor', 'qrcode.js'), os.path.join(ROOT, 'assets', 'qrcode.js'))
+    thai_pages = {slug: open(os.path.join(ROOT, m['path'], 'index.html'), encoding='utf8').read() for slug, m in PAGES.items()}
+    for l in LANGS:
+        miss = set()
+        for slug, m in PAGES.items():
+            out, missing = translate_page(thai_pages[slug], i18n[l], l, slug)
+            write(f"{l}/{m['path']}index.html", out)
+            miss.update(missing)
+        print(f'{l}: {len(PAGES)} static pages, {len(miss)} untranslated strings', *[f'\n     - {k[:70]}' for k in sorted(miss)[:6]])
     for l in LANGS:
         used = i18n[l]
         write(f'i18n/{l}.json', json.dumps(used, ensure_ascii=False, separators=(',', ':')))
         missing = [k for k in keys if k not in i18n[l]]
-        print(f'{l}: {len(used)}/{len(keys)} translated, {len(missing)} missing')
 
     import datetime
     today = datetime.date.today().isoformat()
-    urls = ''.join(f'  <url><loc>{SITE}/{m["path"]}</loc><lastmod>{today}</lastmod></url>\n' for m in PAGES.values())
+    urls = ''.join(f'  <url><loc>{lang_url(l, m["path"])}</loc><lastmod>{today}</lastmod></url>\n' for l in ['th'] + LANGS for m in PAGES.values())
     write('sitemap.xml', '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls + '</urlset>\n')
     write('robots.txt', f'User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n')
     write('_headers', '/assets/*\n  Cache-Control: public, max-age=31536000, immutable\n/images/*\n  Cache-Control: public, max-age=604800\n/i18n/*\n  Cache-Control: public, max-age=31536000, immutable\n')

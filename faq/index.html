@@ -23,11 +23,11 @@
   <meta name="twitter:title" content="คำถามที่พบบ่อย · SUKMART">
   <meta name="twitter:description" content="คำถามที่พบบ่อยเรื่องราคา เอกสารสิทธิ์ ค่านายหน้า การชำระเงิน และการนัดดูพื้นที่ · SUKMART 081-713-2111">
   <meta name="twitter:image" content="https://sukmartland.com/og-image.jpg">
-  <script>(function(){try{var q=new URLSearchParams(location.search).get('lang'),s=localStorage.getItem('sukmart-lang'),n=(navigator.language||'').slice(0,2).toLowerCase(),l=q||s||(['zh','ja','ko','my','ru'].indexOf(n)>-1?n:'th');if(l!=='th'){document.documentElement.classList.add('i18n-wait');setTimeout(function(){document.documentElement.classList.remove('i18n-wait')},1500)}}catch(e){}})();</script>
+  <script>(function(){try{var L=['en','zh','ja','ko','my','ru'],p=location.pathname,m=p.match(/^\/(en|zh|ja|ko|my|ru)\//),c=m?m[1]:'th',q=new URLSearchParams(location.search),w=q.get('lang');if(!w||(w!=='th'&&L.indexOf(w)<0)){if(c!=='th')return;w=localStorage.getItem('sukmart-lang');if(!w){var n=(navigator.language||'').slice(0,2).toLowerCase();w=['zh','ja','ko','my','ru'].indexOf(n)>-1?n:'th'}}if(w!==c&&(w==='th'||L.indexOf(w)>-1)){q.delete('lang');var s=q.toString();location.replace((w==='th'?'':'/'+w)+p.replace(/^\/(en|zh|ja|ko|my|ru)(?=\/)/,'')+(s?'?'+s:'')+location.hash)}}catch(e){}})();</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300;400;500;600;700&family=Sarabun:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/site.css?v=c11f69cc">
+  <link rel="stylesheet" href="/assets/site.css?v=8f333f18">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-RS5FRK6VMZ"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-RS5FRK6VMZ');</script>
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
@@ -38,8 +38,16 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0a1f44">
+  <link rel="alternate" hreflang="th" href="https://sukmartland.com/faq/">
+  <link rel="alternate" hreflang="en" href="https://sukmartland.com/en/faq/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://sukmartland.com/zh/faq/">
+  <link rel="alternate" hreflang="ja" href="https://sukmartland.com/ja/faq/">
+  <link rel="alternate" hreflang="ko" href="https://sukmartland.com/ko/faq/">
+  <link rel="alternate" hreflang="my" href="https://sukmartland.com/my/faq/">
+  <link rel="alternate" hreflang="ru" href="https://sukmartland.com/ru/faq/">
+  <link rel="alternate" hreflang="x-default" href="https://sukmartland.com/faq/">
 </head>
-<body class="site" data-page="faq" data-ver="c11f69cc">
+<body class="site" data-page="faq" data-ver="8f333f18" data-lang="th">
 <!-- ───── NAV (shared) ───── -->
 <nav class="nav">
   <div class="nav-inner">
@@ -262,6 +270,6 @@
   </button>
 </div>
 <div id="floatToast" class="float-toast" data-noi18n></div>
-<script src="/assets/site.js?v=c11f69cc"></script>
+<script src="/assets/site.js?v=8f333f18"></script>
 </body>
 </html>

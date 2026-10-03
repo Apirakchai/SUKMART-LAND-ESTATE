@@ -7,13 +7,15 @@
   var VER = BODY.dataset.ver || '1';
   var PROPS = ['phetchabun', 'salaya', 'kanchanaburi', 'farm1', 'farm3'];
   var params = new URLSearchParams(location.search);
+  var PAGE_LANG = BODY.dataset.lang || 'th';
+  var PREFIX = PAGE_LANG === 'th' ? '' : '/' + PAGE_LANG;
 
   function store(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
 
   /* ───── Old #hash links (sukmartland.com/#phetchabun) → real pages ───── */
   if (PAGE === 'home') {
     var h = location.hash.replace('#', '');
-    if (PROPS.indexOf(h) > -1) { location.replace('/' + h + '/' + location.search); return; }
+    if (PROPS.indexOf(h) > -1) { location.replace(PREFIX + '/' + h + '/' + location.search); return; }
   }
 
   /* ───── Solo mode: link shows only this property ───── */
@@ -24,8 +26,8 @@
     // keep nothing by default: language lives in localStorage
     return path;
   }
-  window.goDetail = function (id) { location.href = withParams('/' + id + '/'); };
-  window.goHome = function () { location.href = withParams('/'); };
+  window.goDetail = function (id) { location.href = withParams(PREFIX + '/' + id + '/'); };
+  window.goHome = function () { location.href = withParams(PREFIX + '/'); };
   if (SOLO) {
     document.querySelectorAll('[data-home]').forEach(function (a) {
       a.removeAttribute('href'); a.style.cursor = 'default';
@@ -174,7 +176,6 @@
   }
   function shareUrl() {
     var u = new URL(location.origin + location.pathname);
-    if (currentLang !== 'th') u.searchParams.set('lang', currentLang);
     if (SOLO) u.searchParams.set('solo', '1');
     return u.toString();
   }
@@ -210,164 +211,33 @@
     my: { name: 'မြန်မာ', html: 'my', locale: 'en-US', cur: 'USD' },
     ru: { name: 'Русский', html: 'ru', locale: 'ru-RU', cur: 'USD' }
   };
-  var dicts = { th: {} };
-  var currentLang = 'th';
-  var THAI_TITLE = document.title;
+  var currentLang = LANGS[PAGE_LANG] ? PAGE_LANG : 'th';
+  var STR = window.__T || {};
+  function t(th) { return STR[th] || th; }
 
-  function t(th) { var d = dicts[currentLang]; return (d && d[th]) || th; }
-
-  function pickInitialLang() {
+  // Every language has its own static pages: /phetchabun/ (Thai), /en/phetchabun/, /zh/phetchabun/ …
+  function urlFor(lang) {
+    var path = location.pathname.replace(/^\/(en|zh|ja|ko|my|ru)(?=\/)/, '');
+    var q = new URLSearchParams(location.search); q.delete('lang');
+    var qs = q.toString();
+    return (lang === 'th' ? '' : '/' + lang) + path + (qs ? '?' + qs : '');
+  }
+  function wantedLang() {
     var q = params.get('lang');
-    if (q && LANGS[q]) { store('sukmart-lang', q); return q; }
+    if (q && LANGS[q]) return q;                       // old-style ?lang=xx links
+    if (PAGE_LANG !== 'th') return PAGE_LANG;          // an explicit language URL always wins
     var saved = store('sukmart-lang');
     if (saved && LANGS[saved]) return saved;
-    var nav = (navigator.languages && navigator.languages[0]) || navigator.language || '';
-    var code = nav.slice(0, 2).toLowerCase();
-    // Only auto-switch for languages we translate fully and that are clearly not Thai/English setups
-    if (['zh', 'ja', 'ko', 'my', 'ru'].indexOf(code) > -1) return code;
-    return 'th';
+    var code = ((navigator.languages && navigator.languages[0]) || navigator.language || '').slice(0, 2).toLowerCase();
+    return ['zh', 'ja', 'ko', 'my', 'ru'].indexOf(code) > -1 ? code : 'th';
   }
-
-  function loadDict(lang) {
-    if (dicts[lang]) return Promise.resolve(dicts[lang]);
-    return fetch('/i18n/' + lang + '.json?v=' + VER).then(function (r) {
-      if (!r.ok) throw new Error('i18n ' + r.status);
-      return r.json();
-    }).then(function (d) { dicts[lang] = d; return d; });
-  }
-
-  var ATTRS = ['alt', 'aria-label', 'placeholder', 'title'];
-
-  /* Blocks: an element whose Thai text is split by inline tags (<em>, <br>, <span>) is translated
-     as ONE unit, so each language can use its own word order. Key = text with tags as <1>…</1>. */
-  var THAI = /[\u0E00-\u0E7F]/;
-  var INLINE = { EM: 1, B: 1, STRONG: 1, BR: 1, SPAN: 1, SUP: 1, SMALL: 1, I: 1 };
-  var blocks = null;
-  function serialize(el, tags) {
-    var out = '';
-    el.childNodes.forEach(function (n) {
-      if (n.nodeType === 3) out += n.nodeValue;
-      else if (n.nodeType === 1) {
-        if (n.tagName === 'BR') { out += '<br>'; return; }
-        tags.push(n.cloneNode(false).outerHTML.replace(/<\/[^>]+>$/, ''));
-        var i = tags.length;
-        out += '<' + i + '>' + serialize(n, tags) + '</' + i + '>';
-      }
-    });
-    return out;
-  }
-  function findBlocks() {
-    var list = [];
-    document.querySelectorAll('h1,h2,h3,h4,p,li,blockquote,div,span,a,button').forEach(function (el) {
-      if (el.closest('[data-noi18n], .lang-dd, [data-i18n-b], script, style')) return;
-      if (!el.children.length) return;
-      var ok = true, letters = 0;
-      el.querySelectorAll('*').forEach(function (d) {
-        if (!INLINE[d.tagName] || d.hasAttribute('data-noi18n') || d.hasAttribute('data-thb') || d.hasAttribute('onclick')) ok = false;
-      });
-      if (!ok) return;
-      var w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), n;
-      while ((n = w.nextNode())) if (THAI.test(n.nodeValue)) letters++;
-      if (letters < 2) return;
-      var tags = [];
-      var key = serialize(el, tags).replace(/\s+/g, ' ').trim();
-      el.setAttribute('data-i18n-b', '');
-      list.push({ el: el, key: key, tags: tags, html: el.innerHTML });
-    });
-    return list;
-  }
-  function applyBlocks(dict) {
-    if (!blocks) blocks = findBlocks();
-    blocks.forEach(function (b) {
-      var tr = currentLang === 'th' ? null : dict[b.key];
-      if (!tr) { if (b.cur) { b.el.innerHTML = b.html; b.cur = null; } return; }
-      if (b.cur === currentLang) return;
-      b.el.innerHTML = tr.replace(/<(\/?)(\d+)>/g, function (m, close, i) {
-        var t = b.tags[i - 1];
-        if (!t) return '';
-        return close ? '</' + t.match(/^<(\w+)/)[1] + '>' : t;
-      });
-      b.cur = currentLang;
-    });
-  }
-  window.__i18nKeys = function () {
-    if (!blocks) blocks = findBlocks();
-    var keys = blocks.map(function (b) { return b.key; });
-    var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT), n;
-    while ((n = w.nextNode())) {
-      var p = n.parentElement;
-      if (!p || p.closest('script,style,noscript,[data-noi18n],.lang-dd,[data-i18n-b]')) continue;
-      var k = (n._orig !== undefined ? n._orig : n.nodeValue).trim().replace(/\s+/g, ' ');
-      if (k && THAI.test(k)) keys.push(k);
-    }
-    keys.push(THAI_TITLE);
-    return keys;
-  };
-
-  function applyTranslations() {
-    var dict = dicts[currentLang] || {};
-    applyBlocks(dict);
-    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
-      acceptNode: function (node) {
-        var p = node.parentElement;
-        if (!p) return NodeFilter.FILTER_REJECT;
-        var tag = p.tagName;
-        if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'NOSCRIPT') return NodeFilter.FILTER_REJECT;
-        if (p.closest('[data-noi18n], .lang-dd, [data-i18n-b]')) return NodeFilter.FILTER_REJECT;
-        if (!node.nodeValue.trim() && !node._orig) return NodeFilter.FILTER_REJECT;
-        return NodeFilter.FILTER_ACCEPT;
-      }
-    });
-    var nodes = [], n;
-    while ((n = walker.nextNode())) nodes.push(n);
-    nodes.forEach(function (node) {
-      if (node._orig === undefined) node._orig = node.nodeValue;
-      var orig = node._orig, key = orig.trim().replace(/\s+/g, ' ');
-      if (currentLang === 'th' || !dict[key]) { node.nodeValue = orig; return; }
-      node.nodeValue = orig.match(/^\s*/)[0] + dict[key] + orig.match(/\s*$/)[0];
-    });
-    document.querySelectorAll('[alt],[aria-label],[placeholder]').forEach(function (el) {
-      if (el.closest('[data-noi18n], .lang-dd')) return;
-      ATTRS.forEach(function (a) {
-        if (!el.hasAttribute(a)) return;
-        var k = '_o_' + a;
-        if (el[k] === undefined) el[k] = el.getAttribute(a);
-        el.setAttribute(a, currentLang === 'th' ? el[k] : (dict[el[k]] || el[k]));
-      });
-    });
-    document.title = currentLang === 'th' ? THAI_TITLE : (dict[THAI_TITLE] || THAI_TITLE);
-  }
-
-  function setLang(lang, fromUser) {
+  function setLang(lang) {
     if (!LANGS[lang]) lang = 'th';
-    return loadDict(lang).catch(function () { lang = 'th'; }).then(function () {
-      currentLang = lang;
-      if (fromUser) {
-        store('sukmart-lang', lang);
-        store('sukmart-cur', '');           // language choice resets the currency to its default
-        if (params.has('lang')) {            // keep the address bar honest
-          var u = new URL(location.href); u.searchParams.set('lang', lang);
-          history.replaceState(null, '', u.toString());
-        }
-      }
-      document.documentElement.lang = LANGS[lang].html;
-      BODY.dataset.lang = lang;
-      if (lang === 'my' && !document.getElementById('font-my')) {
-        var l = document.createElement('link'); l.id = 'font-my'; l.rel = 'stylesheet';
-        l.href = 'https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar:wght@300;400;500;600;700&family=Noto+Serif+Myanmar:wght@400;500;600&display=swap';
-        document.head.appendChild(l);
-      }
-      var cur = document.getElementById('langDdCur');
-      if (cur) cur.textContent = LANGS[lang].name;
-      document.querySelectorAll('[data-lang-btn]').forEach(function (b) {
-        b.classList.toggle('active', b.dataset.langBtn === lang);
-      });
-      applyTranslations();
-      renderPrices();
-      document.documentElement.classList.remove('i18n-wait');
-    });
+    store('sukmart-lang', lang);
+    store('sukmart-cur', '');                           // language choice resets the currency to its default
+    if (lang !== currentLang) location.href = urlFor(lang);
   }
-  window.setLang = function (l) { return setLang(l, true); };
+  window.setLang = setLang;
 
   // dropdown
   (function () {
@@ -483,8 +353,7 @@
     var lang = document.getElementById('ltLang'), mode = document.getElementById('ltMode');
     var out = document.getElementById('ltUrl'), open = document.getElementById('ltOpen'), qr = document.getElementById('ltQr');
     function build() {
-      var u = new URL('https://sukmartland.com/' + (prop.value ? prop.value + '/' : ''));
-      if (lang.value !== 'th') u.searchParams.set('lang', lang.value);
+      var u = new URL('https://sukmartland.com/' + (lang.value !== 'th' ? lang.value + '/' : '') + (prop.value ? prop.value + '/' : ''));
       if (prop.value && mode.value === 'solo') u.searchParams.set('solo', '1');
       mode.disabled = !prop.value;
       out.value = u.toString();
@@ -514,7 +383,14 @@
   });
 
   /* ───── Init ───── */
-  var initial = pickInitialLang();
+  var want = wantedLang();
+  if (want !== currentLang) { location.replace(urlFor(want) + location.hash); return; }
+  if (params.has('lang')) { store('sukmart-lang', want); history.replaceState(null, '', urlFor(want) + location.hash); }
+  var curLabel = document.getElementById('langDdCur');
+  if (curLabel) curLabel.textContent = LANGS[currentLang].name;
+  document.querySelectorAll('[data-lang-btn]').forEach(function (b) {
+    b.classList.toggle('active', b.dataset.langBtn === currentLang);
+  });
   renderPrices();
-  setLang(initial, false).then(loadRates);
+  loadRates();
 })();
