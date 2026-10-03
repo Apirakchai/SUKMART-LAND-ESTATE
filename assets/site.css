@@ -3737,3 +3737,12 @@ body[data-lang="my"] em,body[data-lang="my"] .ital,body[data-lang="my"] .price-b
 /* Longer words in translated headings: step the hero size down so names don't break mid-word */
 body[data-lang="ja"] .hero-title,body[data-lang="ru"] .hero-title,body[data-lang="en"] .hero-title,body[data-lang="ko"] .hero-title,body[data-lang="zh"] .hero-title{font-size:clamp(32px,4.4vw,62px) !important;line-height:1.18 !important}
 body[data-lang="ja"] .hero-title,body[data-lang="ko"] .hero-title,body[data-lang="zh"] .hero-title{word-break:keep-all;line-break:strict}
+
+/* Farm certificates */
+.cert-head{font-family:var(--font-serif);font-weight:500;font-size:clamp(20px,2.2vw,26px);color:var(--navy-deep);text-align:center;margin:clamp(40px,5vw,64px) 0 22px}
+.deed-grid.cert-grid{max-width:900px;align-items:start;grid-template-columns:1fr}
+@media (min-width:700px){.deed-grid.cert-grid[data-count="2"]{grid-template-columns:1.414fr 1fr}}
+.deed-grid.cert-grid[data-count="1"]{grid-template-columns:minmax(0,560px);justify-content:center}
+.cert-grid .deed img{aspect-ratio:auto;object-fit:contain}
+.cert-grid .deed:last-child{grid-column:auto !important;max-width:none !important;justify-self:stretch !important}
+@media print{.deed-grid.cert-grid{grid-template-columns:1.414fr 1fr !important}.deed-grid.cert-grid[data-count="1"]{grid-template-columns:60% !important}.cert-head{font-size:11pt !important;margin:10pt 0 6pt !important}}
