@@ -28,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300;400;500;600;700&family=Sarabun:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/site.css?v=8f333f18">
+  <link rel="stylesheet" href="/assets/site.css?v=adff58f0">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-RS5FRK6VMZ"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-RS5FRK6VMZ');</script>
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
@@ -48,7 +48,7 @@
   <link rel="alternate" hreflang="ru" href="https://sukmartland.com/ru/farm3/">
   <link rel="alternate" hreflang="x-default" href="https://sukmartland.com/farm3/">
 </head>
-<body class="detail" data-page="farm3" data-ver="8f333f18" data-lang="th">
+<body class="detail" data-page="farm3" data-ver="adff58f0" data-lang="th">
 <!-- ───── NAV (shared) ───── -->
 <nav class="nav">
   <div class="nav-inner">
@@ -390,28 +390,103 @@
     </div>
   </section>
 
-  <section class="dim" id="sec-dim">
+  <section class="dim plot" id="sec-dim">
     <div class="container">
       <div class="section-head reveal">
         <div><div class="section-num">รูปแปลง</div></div>
         <div>
-          <h2 class="section-title">ผังฟาร์ม <em>มุมสูง</em></h2>
-          <p class="section-lead">ภาพดาวเทียมแสดงรูปแปลงและขอบเขตฟาร์ม 31 ไร่ 2 งาน 50 ตารางวา พร้อมโรงเรือน 12 โรง</p>
+          <h2 class="section-title">ขนาด <em>และรูปแปลง</em></h2>
+          <p class="section-lead">แนวเขตและขนาดโดยประมาณจากภาพถ่ายดาวเทียม ประกอบกับเอกสารสิทธิ์ เพื่อให้เห็นรูปแปลงและขนาดของที่ดินก่อนนัดดูพื้นที่</p>
         </div>
       </div>
 
-      <div class="dim-wrap">
-        <div class="dim-img reveal" data-zoom>
-          <img src="/images/farm3/dim-01.jpg" alt="ภาพดาวเทียมแสดงเขตฟาร์มไก่ไทย" loading="lazy" width="600" height="544" decoding="async">
+      <div class="plot-stats reveal">
+        <div class="plot-stat key">
+          <div class="plot-stat-k">หน้ากว้างติดถนน</div>
+          <div class="plot-stat-v"><div class="ap" data-noi18n>≈</div><div class="n" data-noi18n>208</div><div class="u">เมตร</div></div>
+          <div class="plot-stat-s"><div class="t">ถนนหน้าฟาร์ม</div><div class="t">ทิศตะวันตก</div></div>
         </div>
-        <div class="dim-list reveal reveal-delay-1">
-          <div class="dim-row"><div class="lbl">เนื้อที่รวม</div><div class="val">31 - 2 - 50 <em>ไร่</em></div></div>
-          <div class="dim-row"><div class="lbl">โรงเรือน</div><div class="val">12 <em>โรง</em></div></div>
-          <div class="dim-row"><div class="lbl">โรงเรือนตาข่าย</div><div class="val">9 <em>โรง</em></div></div>
-          <div class="dim-row"><div class="lbl">โรงเรือนอีแว๊บ</div><div class="val">3 <em>โรง</em></div></div>
-          <div class="dim-row"><div class="lbl">ความจุรวม</div><div class="val">66,000 <em>ตัว</em></div></div>
+        <div class="plot-stat ">
+          <div class="plot-stat-k">ความลึกจากถนน</div>
+          <div class="plot-stat-v"><div class="ap" data-noi18n>≈</div><div class="n" data-noi18n>221–234</div><div class="u">เมตร</div></div>
+          <div class="plot-stat-s"><div class="t">สั้นสุด–ยาวสุด</div></div>
+        </div>
+        <div class="plot-stat ">
+          <div class="plot-stat-k">ด้านหลัง</div>
+          <div class="plot-stat-v"><div class="ap" data-noi18n>≈</div><div class="n" data-noi18n>210</div><div class="u">เมตร</div></div>
+          <div class="plot-stat-s"><div class="t">ทิศตะวันออก</div></div>
+        </div>
+        <div class="plot-stat ">
+          <div class="plot-stat-k">เนื้อที่ตามเอกสารสิทธิ์</div>
+          <div class="plot-stat-v"><div class="n" data-noi18n>31-2-50</div><div class="u">ไร่</div></div>
+          <div class="plot-stat-s"><div class="n" data-noi18n>50,600</div><div class="t">ตร.ม.</div></div>
         </div>
       </div>
+
+      <div class="plot-stage reveal">
+        <div class="plot-tabs" role="tablist">
+          <button class="plot-tab on" type="button" role="tab" aria-selected="true" data-view="sat">ภาพดาวเทียม</button>
+          <button class="plot-tab" type="button" role="tab" aria-selected="false" data-view="plan">ผังแปลง</button>
+        </div>
+        <figure class="plot-view plot-sat on" data-view="sat">
+          <div class="plot-canvas" style="aspect-ratio:700/530">
+            <img src="/images/farm3/plot-sat.jpg" alt="ภาพถ่ายดาวเทียมพร้อมเส้นรูปแปลง" width="700" height="530" loading="lazy" decoding="async">
+            <svg class="plot-ov" viewBox="0 0 700 530" preserveAspectRatio="none" aria-hidden="true"><polygon class="ov-fill" points="549.3,111.2 511.6,442.0 131.8,416.9 190.2,90.9"/><polygon class="ov-halo" points="549.3,111.2 511.6,442.0 131.8,416.9 190.2,90.9"/><polygon class="ov-line" points="549.3,111.2 511.6,442.0 131.8,416.9 190.2,90.9"/><polyline class="ov-side" data-side="0" points="549.3,111.2 511.6,442.0"/><polyline class="ov-side" data-side="1" points="511.6,442.0 131.8,416.9"/><polyline class="ov-side front" data-side="2" points="131.8,416.9 190.2,90.9"/><polyline class="ov-side" data-side="3" points="190.2,90.9 549.3,111.2"/></svg>
+            <div class="pl pill minor" data-side="0" style="left:79.186%;top:52.686%;--a:-83.5deg"><div class="ap" data-noi18n>≈</div><div class="n" data-noi18n>210</div><div class="u">ม.</div></div><div class="pl pill" data-side="1" style="left:45.724%;top:85.546%;--a:3.8deg"><div class="ap" data-noi18n>≈</div><div class="n" data-noi18n>234</div><div class="u">ม.</div></div><div class="pl pill front" data-side="2" style="left:18.778%;top:46.932%;--a:-79.8deg"><div class="t">หน้ากว้าง</div><div class="ap" data-noi18n>≈</div><div class="n" data-noi18n>208</div><div class="u">ม.</div></div><div class="pl pill" data-side="3" style="left:53.019%;top:14.545%;--a:3.2deg"><div class="ap" data-noi18n>≈</div><div class="n" data-noi18n>221</div><div class="u">ม.</div></div>
+            <div class="pl-north" aria-hidden="true"><svg viewBox="0 0 20 30"><path d="M10 1 17 26 10 21 3 26Z"/></svg><div class="n" data-noi18n>N</div></div>
+          </div>
+          <figcaption class="plot-cap">ภาพถ่ายดาวเทียม © Google · เส้นสีทองคือแนวเขตโดยประมาณ</figcaption>
+        </figure>
+        <figure class="plot-view plot-plan" data-view="plan">
+          <div class="plot-canvas paper" style="aspect-ratio:1000/769">
+            <svg class="plan-svg" viewBox="0 0 1000 769" preserveAspectRatio="none" aria-hidden="true"><defs><pattern id="plgrid-farm3" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="currentColor" stroke-width=".6" opacity=".07"/></pattern></defs><rect width="1000" height="769" fill="url(#plgrid-farm3)"/><polygon class="pl-road" points="165.7,674.7 272.5,55.2 250.2,51.3 143.4,670.8"/><polygon class="pl-parcel" points="822.9,137.5 765.7,662.7 177.1,624.2 266.4,106.6"/><polyline class="pl-side" data-side="0" points="822.9,137.5 765.7,662.7"/><polyline class="pl-side" data-side="1" points="765.7,662.7 177.1,624.2"/><polyline class="pl-side front" data-side="2" points="177.1,624.2 266.4,106.6"/><polyline class="pl-side" data-side="3" points="266.4,106.6 822.9,137.5"/><circle class="pl-pt" cx="822.9" cy="137.5" r="3.2"/><circle class="pl-pt" cx="765.7" cy="662.7" r="3.2"/><circle class="pl-pt" cx="177.1" cy="624.2" r="3.2"/><circle class="pl-pt" cx="266.4" cy="106.6" r="3.2"/><rect class="pl-bar a" x="34" y="735.2" width="63.1" height="5"/><rect class="pl-bar b" x="97.1" y="735.2" width="63.1" height="5"/></svg>
+            <div class="pl road" style="left:20.793%;top:47.188%;--a:-80.2deg"><div class="t">ถนนหน้าฟาร์ม</div></div><div class="pl len" data-side="0" style="left:81.418%;top:52.294%;--a:-83.8deg"><div class="ap" data-noi18n>≈</div><div class="n" data-noi18n>210</div></div><div class="pl len" data-side="1" style="left:47.005%;top:86.243%;--a:3.7deg"><div class="ap" data-noi18n>≈</div><div class="n" data-noi18n>234</div></div><div class="pl len" data-side="3" style="left:54.579%;top:13.265%;--a:3.2deg"><div class="ap" data-noi18n>≈</div><div class="n" data-noi18n>221</div></div><div class="pl pill front" data-side="2" style="left:24.735%;top:48.082%;--a:-80.2deg"><div class="t">หน้ากว้าง</div><div class="ap" data-noi18n>≈</div><div class="n" data-noi18n>208</div><div class="u">ม.</div></div><div class="pl scale" style="left:3.400%;top:93.760%"><div class="n" data-noi18n>0</div></div><div class="pl scale" style="left:16.013%;top:93.760%"><div class="n" data-noi18n>50</div><div class="u">ม.</div></div>
+            <div class="pl-north dark" aria-hidden="true"><svg viewBox="0 0 20 30"><path d="M10 1 17 26 10 21 3 26Z"/></svg><div class="n" data-noi18n>N</div></div>
+          </div>
+          <figcaption class="plot-cap">ผังตามมาตราส่วน · ตัวเลขคือความยาวแต่ละช่วงเป็นเมตร · ทิศเหนืออยู่ด้านบน</figcaption>
+        </figure>
+      </div>
+
+      <div class="plot-grid reveal">
+        <div class="plot-sides">
+          <h3 class="plot-h">ระยะแต่ละด้าน</h3>
+          <ol class="ps-list">
+          <li class="ps front" data-side="2">
+            <div class="ps-dot"></div>
+            <div class="ps-name"><div class="t">ด้านทิศตะวันตก</div><div class="ps-road"><div class="t">ติดถนน</div><div class="t">ถนนหน้าฟาร์ม</div></div></div>
+            <div class="ps-len"><div class="ap" data-noi18n>≈</div><div class="n" data-noi18n>208</div><div class="u">ม.</div></div>
+          </li>
+          <li class="ps" data-side="3">
+            <div class="ps-dot"></div>
+            <div class="ps-name"><div class="t">ด้านทิศเหนือ</div></div>
+            <div class="ps-len"><div class="ap" data-noi18n>≈</div><div class="n" data-noi18n>221</div><div class="u">ม.</div></div>
+          </li>
+          <li class="ps" data-side="0">
+            <div class="ps-dot"></div>
+            <div class="ps-name"><div class="t">ด้านทิศตะวันออก</div></div>
+            <div class="ps-len"><div class="ap" data-noi18n>≈</div><div class="n" data-noi18n>210</div><div class="u">ม.</div></div>
+          </li>
+          <li class="ps" data-side="1">
+            <div class="ps-dot"></div>
+            <div class="ps-name"><div class="t">ด้านทิศใต้</div></div>
+            <div class="ps-len"><div class="ap" data-noi18n>≈</div><div class="n" data-noi18n>234</div><div class="u">ม.</div></div>
+          </li>
+          <li class="ps total">
+            <div class="ps-dot"></div>
+            <div class="ps-name"><div class="t">รวมเส้นรอบแปลง</div></div>
+            <div class="ps-len"><div class="ap" data-noi18n>≈</div><div class="n" data-noi18n>873</div><div class="u">ม.</div></div>
+          </li>
+          </ol>
+        </div>
+        <div class="plot-facts">
+          <h3 class="plot-h">ข้อมูลแปลง</h3>
+          <div class="pf-row"><div class="pf-k">เอกสารสิทธิ์</div><div class="pf-v"><div class="t">หนังสือรับรองการทำประโยชน์ (น.ส. 3 ข.)</div></div></div>
+          <div class="pf-row"><div class="pf-k">เลขที่</div><div class="pf-v"><div class="n" data-noi18n>148</div></div></div>
+          <div class="pf-row"><div class="pf-k">ขนาดตามเอกสาร</div><div class="pf-v"><div class="fd"><div class="t">ทิศเหนือ</div><div class="t">5 เส้น</div><div class="ap" data-noi18n>≈ 200</div><div class="t">ม.</div></div><div class="fd"><div class="t">ทิศใต้</div><div class="t">5 เส้น</div><div class="ap" data-noi18n>≈ 200</div><div class="t">ม.</div></div><div class="fd"><div class="t">ทิศตะวันออก</div><div class="t">6 เส้น 13 วา</div><div class="ap" data-noi18n>≈ 266</div><div class="t">ม.</div></div><div class="fd"><div class="t">ทิศตะวันตก</div><div class="t">6 เส้น</div><div class="ap" data-noi18n>≈ 240</div><div class="t">ม.</div></div></div></div>
+          <div class="pf-row"><div class="pf-k">ข้อมูลรูปแปลง</div><div class="pf-v"><div class="t">ประมาณจากภาพถ่ายดาวเทียม</div></div></div>
+        </div>
+      </div>
+      <p class="plot-note">เอกสารสิทธิ์ประเภท น.ส. 3 ยังไม่มีรูปแปลงดิจิทัลในระบบของกรมที่ดิน ระยะในส่วนนี้จึงเป็นค่าประมาณจากภาพถ่ายดาวเทียม ระยะที่ใช้อ้างอิงทางกฎหมายต้องรังวัดโดยเจ้าพนักงานที่ดิน</p>
     </div>
   </section>
 
@@ -618,6 +693,6 @@
   </button>
 </div>
 <div id="floatToast" class="float-toast" data-noi18n></div>
-<script src="/assets/site.js?v=8f333f18"></script>
+<script src="/assets/site.js?v=adff58f0"></script>
 </body>
 </html>

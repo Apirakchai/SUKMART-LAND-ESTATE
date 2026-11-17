@@ -372,6 +372,28 @@
     window.addEventListener('load', build);
   })();
 
+  /* ───── Plot & dimensions: view tabs + highlight a side from the list ───── */
+  document.querySelectorAll('.plot').forEach(function (sec) {
+    var tabs = sec.querySelectorAll('.plot-tab'), views = sec.querySelectorAll('.plot-view');
+    tabs.forEach(function (t) {
+      t.addEventListener('click', function () {
+        tabs.forEach(function (x) { var on = x === t; x.classList.toggle('on', on); x.setAttribute('aria-selected', on ? 'true' : 'false'); });
+        views.forEach(function (v) { v.classList.toggle('on', v.getAttribute('data-view') === t.getAttribute('data-view')); });
+      });
+    });
+    function mark(k, on) { sec.querySelectorAll('[data-side="' + k + '"]').forEach(function (el) { el.classList.toggle('hl', on); }); }
+    sec.querySelectorAll('.ps[data-side]').forEach(function (row) {
+      var k = row.getAttribute('data-side');
+      row.addEventListener('mouseenter', function () { mark(k, true); });
+      row.addEventListener('mouseleave', function () { if (!row.classList.contains('pin')) mark(k, false); });
+      row.addEventListener('click', function () {
+        var pinned = row.classList.contains('pin');
+        sec.querySelectorAll('.ps.pin').forEach(function (r) { r.classList.remove('pin'); mark(r.getAttribute('data-side'), false); });
+        if (!pinned) { row.classList.add('pin'); mark(k, true); }
+      });
+    });
+  });
+
   /* ───── Analytics events ───── */
   document.addEventListener('click', function (e) {
     if (typeof window.gtag !== 'function') return;

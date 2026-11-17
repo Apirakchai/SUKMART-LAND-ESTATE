@@ -246,3 +246,144 @@ body[data-lang="ja"] .hero-title,body[data-lang="ko"] .hero-title,body[data-lang
 .cert-grid .deed img{aspect-ratio:auto;object-fit:contain}
 .cert-grid .deed:last-child{grid-column:auto !important;max-width:none !important;justify-self:stretch !important}
 @media print{.deed-grid.cert-grid{grid-template-columns:1.414fr 1fr !important}.deed-grid.cert-grid[data-count="1"]{grid-template-columns:60% !important}.cert-head{font-size:11pt !important;margin:10pt 0 6pt !important}}
+
+/* ═══════════════════════════════════════════════════════════
+   2026-11: Plot & dimensions (รูปแปลง) — data from LandsMaps,
+   rendered by _src/landplan.py
+   ═══════════════════════════════════════════════════════════ */
+.plot{--gold-text:#8a6d32;--plot-gold:#efcd85}
+.plot .section-head{margin-bottom:clamp(36px,6vw,72px)}
+
+.plot-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:clamp(32px,5vw,56px)}
+.plot-stat{padding:clamp(18px,2.4vw,30px) clamp(12px,2vw,28px);min-width:0}
+.plot-stat:nth-child(odd){padding-left:0}
+.plot-stat:nth-child(even){border-left:1px solid var(--line)}
+.plot-stat:nth-child(n+3){border-top:1px solid var(--line)}
+@media (min-width:900px){
+  .plot-stats{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .plot-stat:nth-child(n+3){border-top:none}
+  .plot-stat + .plot-stat{border-left:1px solid var(--line);padding-left:clamp(14px,2vw,28px)}
+}
+.plot-stat-k{font-size:12.5px;letter-spacing:.06em;color:var(--ink-soft)}
+.plot-stat.key .plot-stat-k{color:var(--gold-text)}
+.plot-stat-v{display:flex;align-items:baseline;gap:8px;margin-top:8px;font-family:'Cormorant Garamond','Noto Serif Thai',serif;font-weight:400;font-size:clamp(34px,4.2vw,56px);line-height:1.05;color:var(--navy-deep);letter-spacing:-.01em;font-variant-numeric:lining-nums tabular-nums;flex-wrap:wrap}
+.plot-stat-v .u{font-family:'Cormorant Garamond','Noto Serif Thai',serif;font-style:italic;font-size:clamp(15px,1.6vw,20px);color:var(--gold);letter-spacing:0}
+.plot-stat-v .ap{font-size:.55em;color:var(--ink-soft);font-style:normal}
+.plot-stat-s{display:flex;flex-wrap:wrap;gap:0 6px;margin-top:10px;font-size:13px;line-height:1.6;color:var(--ink-soft)}
+.plot-stat-s > div + div::before{content:"·";margin-right:6px;color:var(--gold)}
+.plot-stat-s > .n + .t::before{content:none}
+
+.plot-stage{position:relative}
+.plot-tabs{display:inline-flex;gap:2px;padding:4px;margin-bottom:16px;border:1px solid var(--line);border-radius:999px;background:#fff;box-shadow:var(--shadow-sm)}
+.plot-tab{appearance:none;border:0;background:transparent;padding:8px 20px;border-radius:999px;font-size:13.5px;letter-spacing:.03em;color:var(--ink-soft);cursor:pointer;transition:background .28s cubic-bezier(.2,.8,.2,1),color .28s}
+.plot-tab:hover{color:var(--navy-deep)}
+.plot-tab.on{background:var(--navy-deep);color:var(--ivory)}
+.plot-tab:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.plot-view{display:none;margin:0}
+.plot-view.on{display:block;animation:plotIn .45s cubic-bezier(.2,.8,.2,1)}
+@keyframes plotIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.plot-canvas{position:relative;width:100%;border-radius:4px;overflow:hidden;background:#d9d3c7;box-shadow:var(--shadow-lg)}
+.plot-canvas img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.plot-canvas svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.plot-canvas.paper{background:var(--ivory);box-shadow:var(--shadow);color:var(--navy-deep);border:1px solid var(--line-soft)}
+.plot-cap{margin-top:12px;font-size:12.5px;line-height:1.6;color:var(--ink-soft)}
+
+/* satellite overlay */
+.ov-fill{fill:rgba(239,205,133,.12)}
+.ov-halo{fill:none;stroke:rgba(5,13,36,.5);stroke-width:5;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.ov-line{fill:none;stroke:var(--plot-gold);stroke-width:2.4;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.ov-deed{fill:none;stroke:rgba(255,255,255,.8);stroke-width:1.1;stroke-dasharray:5 4;vector-effect:non-scaling-stroke}
+.ov-extra{stroke:#fff;stroke-width:1.8;stroke-dasharray:6 5;vector-effect:non-scaling-stroke}
+.ov-side{fill:none;stroke:transparent;stroke-width:9;stroke-linecap:round;vector-effect:non-scaling-stroke;transition:stroke .25s}
+.ov-side.hl{stroke:rgba(239,205,133,.65)}
+
+/* labels shared by both views */
+.pl{position:absolute;display:flex;align-items:baseline;gap:4px;white-space:nowrap;pointer-events:none;
+  transform:translate(-50%,-50%) rotate(var(--a,0deg));font-variant-numeric:tabular-nums;line-height:1.2;transition:transform .25s,box-shadow .25s}
+.pl.pill{padding:4px 10px;border-radius:999px;background:rgba(10,31,68,.9);color:var(--ivory);font-size:clamp(11px,1.15vw,13.5px);font-weight:500;box-shadow:0 2px 12px rgba(5,13,36,.28)}
+.pl.pill .u{opacity:.75;font-weight:400}
+.pl.pill.front{background:var(--plot-gold);color:var(--navy-deep);font-weight:600}
+.pl.pill.front .t{font-weight:500}
+.pl.pill.soft{background:rgba(251,250,246,.94);color:var(--navy-deep)}
+.pl.pill.hl{box-shadow:0 0 0 3px rgba(239,205,133,.55),0 2px 12px rgba(5,13,36,.28)}
+.pl .ap{opacity:.75}
+.pl-north{position:absolute;top:14px;left:14px;width:26px;display:flex;flex-direction:column;align-items:center;gap:1px;color:#fff;font-size:11px;font-weight:600;letter-spacing:.06em;filter:drop-shadow(0 1px 2px rgba(0,0,0,.55))}
+.pl-north svg{position:static;width:14px;height:20px}
+.pl-north path{fill:currentColor}
+.pl-north.dark{left:auto;right:16px;top:14px;color:var(--navy-deep);filter:none}
+
+/* plan */
+.pl-road{fill:#e6e0d4}
+.pl-parcel{fill:rgba(10,31,68,.055);stroke:var(--navy-deep);stroke-width:1.5;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.pl-side{fill:none;stroke:transparent;stroke-width:8;stroke-linecap:round;vector-effect:non-scaling-stroke;transition:stroke .25s}
+.pl-side.front{stroke:var(--gold);stroke-width:3.5}
+.pl-side.hl{stroke:rgba(201,169,97,.55);stroke-width:9}
+.pl-deed{fill:none;stroke:var(--navy-soft);stroke-width:1;stroke-dasharray:4 4;opacity:.6;vector-effect:non-scaling-stroke}
+.pl-pt{fill:#fff;stroke:var(--navy-deep);stroke-width:1.2;vector-effect:non-scaling-stroke}
+.pl-bar.a{fill:var(--navy-deep)}
+.pl-bar.b{fill:#fff;stroke:var(--navy-deep);stroke-width:1;vector-effect:non-scaling-stroke}
+.pl-ctx{stroke:var(--ink-soft);stroke-width:1.2;vector-effect:non-scaling-stroke;color:var(--ink-soft)}
+.pl.len{font-size:clamp(10px,1.05vw,13px);font-weight:500;color:var(--navy-deep)}
+.pl.len.hl{color:var(--gold-text)}
+.pl.road{font-size:clamp(9px,.95vw,12px);letter-spacing:.04em;color:var(--ink-soft)}
+.pl.deed{flex-direction:column;align-items:center;gap:0;transform:translate(-50%,-50%);font-size:clamp(9px,.9vw,11.5px);color:var(--navy-soft);text-align:center}
+.pl.deed .t{font-size:.85em;opacity:.8}
+.pl.ctx{font-size:clamp(9.5px,.95vw,12px);color:var(--ink-soft);transform:translate(-50%,-100%)}
+.pl.scale{font-size:11px;color:var(--navy-deep);transform:translate(-50%,-50%)}
+.pl.ctx.r{transform:translate(-100%,-100%)}
+.pl.ctx.l{transform:translate(0,-100%)}
+@media (max-width:640px){
+  .pl.len.minor,.pl.pill.minor{display:none}
+  .pl.deed .t{display:none}
+  .pl.pill{padding:2px 7px;font-size:10.5px}
+  .pl.pill.front .t,.pl.pill.soft .t{display:none}
+  .plot-stat-v{font-size:clamp(28px,8.4vw,40px)}
+  .plot-tab{padding:7px 16px}
+}
+
+/* sides + facts */
+.plot-grid{display:grid;grid-template-columns:1fr;gap:clamp(36px,5vw,72px);margin-top:clamp(40px,6vw,72px)}
+@media (min-width:1024px){.plot-grid{grid-template-columns:1.12fr 1fr}}
+.plot-h{font-family:var(--font-serif);font-weight:400;font-size:clamp(20px,2.2vw,26px);color:var(--navy-deep);margin-bottom:16px;letter-spacing:-.005em}
+.ps-list{list-style:none;border-top:1px solid var(--line)}
+.ps{display:grid;grid-template-columns:12px minmax(0,1fr) auto;gap:14px;align-items:baseline;padding:13px 6px 13px 0;border-bottom:1px solid var(--line);transition:background .25s}
+.ps[data-side]{cursor:pointer}
+.ps-dot{width:8px;height:8px;border-radius:50%;border:1px solid var(--navy-soft);opacity:.7}
+.ps.front .ps-dot{background:var(--gold);border-color:var(--gold);opacity:1}
+.ps-name{display:flex;flex-wrap:wrap;gap:2px 8px;align-items:baseline;font-size:15px;color:var(--ink)}
+.ps-idx{font-size:11px;line-height:1.5;padding:0 7px;border:1px solid var(--line);border-radius:999px;color:var(--ink-soft)}
+.ps-road{display:flex;gap:4px;flex-basis:100%;font-size:12.5px;color:var(--gold-text)}
+.ps-road .t + .t::before{content:"·";margin-right:4px;opacity:.6}
+.ps-len{display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:baseline;gap:2px 5px;text-align:right;font-family:'Cormorant Garamond','Noto Serif Thai',serif;font-size:23px;line-height:1.2;color:var(--navy-deep);font-variant-numeric:lining-nums tabular-nums}
+.ps-len .u{font-family:var(--font-sans);font-size:12.5px;color:var(--ink-soft)}
+.ps-len .ap{font-size:.7em;color:var(--ink-soft)}
+.ps-parts{flex-basis:100%;font-family:var(--font-sans);font-size:11.5px;color:var(--ink-soft)}
+.ps.front .ps-len .n{color:var(--gold-text)}
+.ps.total{border-bottom:none}
+.ps.total .ps-dot{opacity:0}
+.ps.total .ps-name{font-weight:500}
+.ps.hl{background:linear-gradient(90deg,rgba(201,169,97,.13),rgba(201,169,97,0) 70%)}
+.pf-row{display:grid;grid-template-columns:minmax(104px,36%) minmax(0,1fr);gap:16px;padding:13px 0;border-bottom:1px solid var(--line);font-size:14.5px;line-height:1.6}
+.plot-facts .pf-row:first-of-type{border-top:1px solid var(--line)}
+.pf-row.sub{padding-top:0;margin-top:-6px}
+.pf-k{font-size:13px;color:var(--ink-soft)}
+.pf-v{color:var(--ink);min-width:0}
+.pf-v > .t,.pf-v > .n{display:inline}
+.fd{display:flex;flex-wrap:wrap;gap:2px 6px;align-items:baseline}
+.fd + .fd{margin-top:2px}
+.fd .sep{color:var(--gold)}
+.fd .ap{color:var(--ink-soft);font-size:.92em}
+.plot-note{margin-top:32px;max-width:760px;padding-left:14px;border-left:2px solid var(--gold);font-size:12.5px;line-height:1.75;color:var(--ink-soft)}
+body[data-lang="my"] .plot-stat-v,body[data-lang="my"] .ps-len{font-family:'Cormorant Garamond','Noto Serif Myanmar',serif}
+
+@media print{
+  .plot-tabs{display:none !important}
+  .plot-view{display:block !important;page-break-inside:avoid;animation:none !important}
+  .plot-view + .plot-view{margin-top:12pt}
+  .plot-canvas{box-shadow:none !important;width:84% !important;margin:0 auto !important}
+  .plot-cap{text-align:center}
+  .plot-canvas,.plot-canvas *,.pl.pill,.plot-stats{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important}
+  .plot-grid{display:block !important}
+  .plot-sides,.plot-facts{page-break-inside:avoid;margin-top:12pt}
+  .plot-stats{grid-template-columns:repeat(4,1fr) !important}
+}

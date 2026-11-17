@@ -10,6 +10,9 @@ Outputs: index.html, <page>/index.html, assets/, i18n/, sitemap.xml, robots.txt,
 import hashlib, json, os, re, shutil, sys
 from html.parser import HTMLParser
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import landplan  # noqa: E402
+
 SRC = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(SRC)
 SITE = 'https://sukmartland.com'
@@ -245,6 +248,11 @@ def page_html(slug, ver):
     body = body.replace('<!--HOME_EXTRA-->', read('partials/home-extra.html'))
     body = body.replace('{{FAQ}}', read('partials/faq-section.html').rstrip())
     body = body.replace('{{CONTACT}}', contact)
+    if '{{PLOT}}' in body:
+        plot = landplan.render(slug)
+        if not plot:
+            sys.exit(f'{slug}: {{{{PLOT}}}} but no _src/land/{slug}.json')
+        body = body.replace('{{PLOT}}', plot)
     if m['kind'] == 'detail':
         i = body.rindex('  <footer>')
         body = body[:i] + more_props(slug).lstrip('\n') + '\n' + body[i:]
