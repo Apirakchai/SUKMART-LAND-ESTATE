@@ -12,6 +12,7 @@ from html.parser import HTMLParser
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import landplan  # noqa: E402
+import landuse  # noqa: E402
 
 SRC = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(SRC)
@@ -253,6 +254,8 @@ def page_html(slug, ver):
         if not plot:
             sys.exit(f'{slug}: {{{{PLOT}}}} but no _src/land/{slug}.json')
         body = body.replace('{{PLOT}}', plot)
+    if '{{USE}}' in body:
+        body = body.replace('{{USE}}', landuse.render(slug))
     if m['kind'] == 'detail':
         i = body.rindex('  <footer>')
         body = body[:i] + more_props(slug).lstrip('\n') + '\n' + body[i:]
@@ -445,11 +448,12 @@ def translate_page(html, d, lang, slug):
 def main():
     css = read('site.css') + '\n' + read('extra.css')
     js = read('site.js')
+    js3d = read('plot3d.js')
     i18n = {}
     for l in LANGS:
         p = os.path.join(SRC, 'i18n', l + '.json')
         i18n[l] = json.load(open(p, encoding='utf8')) if os.path.exists(p) else {}
-    ver = hashlib.sha1((css + js + json.dumps(i18n, sort_keys=True)).encode()).hexdigest()[:8]
+    ver = hashlib.sha1((css + js + js3d + json.dumps(i18n, sort_keys=True)).encode()).hexdigest()[:8]
 
     keys, seen = [], set()
     def add(k):
@@ -468,6 +472,7 @@ def main():
 
     write('assets/site.css', css)
     write('assets/site.js', js)
+    write('assets/plot3d.js', js3d)
     shutil.copy(os.path.join(SRC, 'vendor', 'qrcode.js'), os.path.join(ROOT, 'assets', 'qrcode.js'))
     thai_pages = {slug: open(os.path.join(ROOT, m['path'], 'index.html'), encoding='utf8').read() for slug, m in PAGES.items()}
     for l in LANGS:

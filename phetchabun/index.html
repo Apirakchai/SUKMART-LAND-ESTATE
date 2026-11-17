@@ -28,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300;400;500;600;700&family=Sarabun:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/site.css?v=adff58f0">
+  <link rel="stylesheet" href="/assets/site.css?v=629f4d38">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-RS5FRK6VMZ"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-RS5FRK6VMZ');</script>
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
@@ -48,7 +48,7 @@
   <link rel="alternate" hreflang="ru" href="https://sukmartland.com/ru/phetchabun/">
   <link rel="alternate" hreflang="x-default" href="https://sukmartland.com/phetchabun/">
 </head>
-<body class="detail" data-page="phetchabun" data-ver="adff58f0" data-lang="th">
+<body class="detail" data-page="phetchabun" data-ver="629f4d38" data-lang="th">
 <!-- ───── NAV (shared) ───── -->
 <nav class="nav">
   <div class="nav-inner">
@@ -356,9 +356,20 @@
 
       <div class="plot-stage reveal">
         <div class="plot-tabs" role="tablist">
+          <button class="plot-tab" type="button" role="tab" aria-selected="false" data-view="3d">3 มิติ</button>
           <button class="plot-tab on" type="button" role="tab" aria-selected="true" data-view="sat">ภาพดาวเทียม</button>
           <button class="plot-tab" type="button" role="tab" aria-selected="false" data-view="plan">ผังแปลง</button>
         </div>
+        <figure class="plot-view plot-3d" data-view="3d">
+          <div class="plot-canvas p3d" data-p3d='{"tex":"/images/phetchabun/plot-3d.jpg","W":1200,"H":722,"g":[[-663.32,289.28],[587.71,302.06],[595.54,-475.71],[-655.49,-488.49]],"o":[[-379.31,157.4],[-99.61,138.84],[306.48,115.18],[304.38,-1.32],[298.09,-236.1],[174.11,-200.46],[2.51,-113.02],[-71.16,-97.45],[-139.73,-81.27],[-181.66,-69.6],[-368.53,-49.23]],"px":[[271.1,125.1],[539.2,145.0],[928.5,170.8],[925.3,278.9],[917.0,496.8],[798.5,462.5],[634.7,379.7],[564.2,364.6],[498.6,348.9],[458.5,337.7],[279.5,317.0]],"s":[0,0,1,1,2,2,2,2,2,2,3],"f":3,"fb":267.6,"r":410.7,"ir":600.5,"fade":[633.4,274.8,566.6,274.8],"x":[]}'>
+            <canvas class="p3d-gl" aria-hidden="true"></canvas>
+            <div class="pl pill" data-side="0" data-at="-34.7,159.7"><div class="n" data-noi18n>686.9</div><div class="u">ม.</div></div><div class="pl pill" data-side="2" data-at="-31.6,-130.9"><div class="n" data-noi18n>698.7</div><div class="u">ม.</div></div><div class="pl pill front" data-side="3" data-at="-404.7,52.8"><div class="t">หน้ากว้าง</div><div class="n" data-noi18n>206.9</div><div class="u">ม.</div></div>
+            <div class="pl-north p3d-north" aria-hidden="true"><svg viewBox="0 0 20 30"><path d="M10 1 17 26 10 21 3 26Z"/></svg><div class="n" data-noi18n>N</div></div>
+            <div class="p3d-hint"><div class="t">ลากเพื่อหมุนดูรอบแปลง</div></div>
+          </div>
+          <figcaption class="plot-cap">ภาพถ่ายดาวเทียม © Google · เส้นสีทองคือรูปแปลงจากกรมที่ดิน</figcaption>
+        </figure>
+
         <figure class="plot-view plot-sat on" data-view="sat">
           <div class="plot-canvas" style="aspect-ratio:910/590">
             <img src="/images/phetchabun/plot-sat.jpg" alt="ภาพถ่ายดาวเทียมพร้อมเส้นรูปแปลง" width="910" height="590" loading="lazy" decoding="async">
@@ -421,6 +432,55 @@
         </div>
       </div>
       <p class="plot-note">ระยะทั้งหมดคำนวณจากรูปแปลงดิจิทัลของกรมที่ดิน อาจคลาดเคลื่อนได้ราว 1–2 เมตร ระยะที่ใช้อ้างอิงทางกฎหมายต้องรังวัดโดยเจ้าพนักงานที่ดิน</p>
+    </div>
+  </section>
+
+  <section class="use" id="sec-use">
+    <div class="container">
+      <div class="section-head reveal">
+        <div><div class="section-num">ศักยภาพ</div></div>
+        <div>
+          <h2 class="section-title">ที่ดินนี้ <em>ทำอะไรได้บ้าง</em></h2>
+          <p class="section-lead">ประเภทที่ดินตามผังเมืองรวม ณ ที่ตั้งแปลง และแนวคิดการใช้ที่ดินพร้อมผังคร่าว ๆ</p>
+        </div>
+      </div>
+      <div class="zone-card reveal">
+        <div class="zone-main">
+          <div class="zone-swatch" style="--zc:#7fb069"></div>
+          <div>
+            <div class="zone-k">ประเภทที่ดินตามผังเมือง</div>
+            <div class="zone-name"><div class="t">ชนบทและเกษตรกรรม</div></div>
+            <div class="zone-meta"><div class="t">สีเขียว</div><div class="n" data-noi18n>2.13</div></div>
+          </div>
+        </div>
+        <div class="zone-body">
+          <p class="zone-intent">ที่ดินที่ผังเมืองกำหนดให้ใช้เพื่อเกษตรกรรม กิจการที่เกี่ยวกับเกษตรกรรม และการอยู่อาศัย</p>
+          <div class="zone-plan"><div class="t">ผังเมืองรวมจังหวัดเพชรบูรณ์</div><div class="t">กฎกระทรวง พ.ศ. 2560</div><div class="t">ราชกิจจานุเบกษา 18 มกราคม 2560</div></div>
+          
+          <div class="zone-cols"><div class="zone-col"><h3 class="zone-h">ใช้ประโยชน์ได้</h3><ul class="zone-list ok"><li><div class="t">เกษตรกรรมและกิจการที่เกี่ยวกับเกษตรกรรม</div></li><li><div class="t">ที่อยู่อาศัย</div></li><li><div class="t">สถาบันการศึกษา ศาสนา และราชการ</div></li><li><div class="t">สาธารณูปโภคและสาธารณูปการ</div></li></ul></div><div class="zone-col"><h3 class="zone-h">ข้อห้ามหลัก</h3><ul class="zone-list no"><li><div class="t">โรงงานบางประเภทตามบัญชีท้ายกฎกระทรวง</div></li><li><div class="t">คลังน้ำมันและคลังก๊าซเพื่อจำหน่าย</div></li><li><div class="t">จัดสรรที่ดินเพื่ออุตสาหกรรม พาณิชยกรรม หรือที่อยู่อาศัย</div></li></ul></div></div>
+        </div>
+      </div>
+      <div class="ideas reveal">
+        <article class="idea">
+          <div class="idea-plan" style="--ar:0.634"><svg class="idea-fig" viewBox="0 0 530.9 837.9" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><rect class="lf-road" x="0" y="754.5" width="530.9" height="34.2"/><path class="lf-zone gold" d="M60.6,683.4 L269.5,683.4 L261.6,736.0 L54.7,738.1 L60.6,683.4Z"/><path class="lf-zone green" d="M84.9,459.4 L125.6,54.7 L241.9,61.7 L476.2,77.8 L435.4,200.1 L340.8,367.9 L322.2,440.9 L303.2,508.7 L289.8,550.1 L269.5,683.4 L60.6,683.4 L84.9,459.4Z"/><path class="lf-plot" d="M54.7,738.1 L84.9,459.4 L125.6,54.7 L241.9,61.7 L476.2,77.8 L435.4,200.1 L340.8,367.9 L322.2,440.9 L303.2,508.7 L289.8,550.1 L261.6,736.0 L54.7,738.1Z"/><line class="lf-sep" x1="60.6" y1="683.4" x2="269.5" y2="683.4"/></svg><div class="lf-l" style="left:30.45%;top:84.70%"><div class="t">ลานรับซื้อ · โรงเก็บ</div></div><div class="lf-l" style="left:39.74%;top:48.27%"><div class="t">สวนผลไม้ · แปลงปลูก</div></div><div class="lf-l road" style="left:50%;top:92.09%"><div class="t">ถนน</div></div></div>
+          <div class="idea-n" data-noi18n>01</div>
+          <h3 class="idea-t">สวนผลไม้และเกษตรแปลงใหญ่</h3>
+          <p class="idea-d">ต่อยอดสวนมะม่วงและแปลงยูคาลิปตัสเดิม ที่ดินผืนเดียว 110 ไร่ จัดการง่าย</p>
+        </article>
+        <article class="idea">
+          <div class="idea-plan" style="--ar:0.634"><svg class="idea-fig" viewBox="0 0 530.9 837.9" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><rect class="lf-road" x="0" y="754.5" width="530.9" height="34.2"/><path class="lf-zone gold" d="M65.1,642.4 L275.8,642.4 L261.6,736.0 L54.7,738.1 L65.1,642.4Z"/><path class="lf-zone navy" d="M84.4,464.7 L315.5,464.7 L303.2,508.7 L289.8,550.1 L275.8,642.4 L65.1,642.4 L84.4,464.7Z"/><path class="lf-zone green" d="M84.9,459.4 L125.6,54.7 L241.9,61.7 L476.2,77.8 L435.4,200.1 L340.8,367.9 L322.2,440.9 L315.5,464.7 L84.4,464.7 L84.9,459.4Z"/><path class="lf-plot" d="M54.7,738.1 L84.9,459.4 L125.6,54.7 L241.9,61.7 L476.2,77.8 L435.4,200.1 L340.8,367.9 L322.2,440.9 L303.2,508.7 L289.8,550.1 L261.6,736.0 L54.7,738.1Z"/><line class="lf-sep" x1="65.1" y1="642.4" x2="275.8" y2="642.4"/><line class="lf-sep" x1="84.4" y1="464.7" x2="315.5" y2="464.7"/></svg><div class="lf-l" style="left:30.95%;top:82.26%"><div class="t">ร้านอาหาร · ลานจอด</div></div><div class="lf-l" style="left:33.23%;top:71.16%"><div class="t">บ้านพักกลางสวน</div></div><div class="lf-l" style="left:46.21%;top:33.90%"><div class="t">สวนเกษตร</div></div><div class="lf-l road" style="left:50%;top:92.09%"><div class="t">ถนน</div></div></div>
+          <div class="idea-n" data-noi18n>02</div>
+          <h3 class="idea-t">ฟาร์มสเตย์ริมทางหลวง</h3>
+          <p class="idea-d">หน้ากว้างกว่า 200 เมตรติดทางหลวง 2275 ทำที่พักและร้านอาหารด้านหน้า สวนเกษตรด้านหลังเป็นจุดขาย</p>
+        </article>
+        <article class="idea">
+          <div class="idea-plan" style="--ar:0.634"><svg class="idea-fig" viewBox="0 0 530.9 837.9" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><rect class="lf-road" x="0" y="754.5" width="530.9" height="34.2"/><path class="lf-zone gold" d="M69.5,601.4 L282.0,601.4 L261.6,736.0 L54.7,738.1 L69.5,601.4Z"/><path class="lf-zone green" d="M84.9,459.4 L125.6,54.7 L241.9,61.7 L476.2,77.8 L435.4,200.1 L340.8,367.9 L322.2,440.9 L303.2,508.7 L289.8,550.1 L282.0,601.4 L69.5,601.4 L84.9,459.4Z"/><path class="lf-plot" d="M54.7,738.1 L84.9,459.4 L125.6,54.7 L241.9,61.7 L476.2,77.8 L435.4,200.1 L340.8,367.9 L322.2,440.9 L303.2,508.7 L289.8,550.1 L261.6,736.0 L54.7,738.1Z"/><line class="lf-sep" x1="69.5" y1="601.4" x2="282.0" y2="601.4"/></svg><div class="lf-l" style="left:31.46%;top:79.81%"><div class="t">คัดบรรจุ · โกดังผลผลิต</div></div><div class="lf-l" style="left:46.21%;top:33.90%"><div class="t">แปลงเกษตร</div></div><div class="lf-l road" style="left:50%;top:92.09%"><div class="t">ถนน</div></div></div>
+          <div class="idea-n" data-noi18n>03</div>
+          <h3 class="idea-t">ศูนย์ธุรกิจเกษตร</h3>
+          <p class="idea-d">จุดรวบรวมและคัดบรรจุผลผลิตติดถนนใหญ่ ส่วนที่เหลือเป็นแปลงเกษตรของตัวเอง</p>
+        </article>
+      </div>
+      <p class="plot-note use-note">ข้อมูลผังเมืองจากชั้นข้อมูลของกรมโยธาธิการและผังเมืองในระบบ LandsMaps ตรวจสอบเมื่อพฤศจิกายน 2569 ผังด้านบนเป็นแนวคิดเบื้องต้นเพื่อให้เห็นภาพ ก่อนลงทุนควรตรวจสอบข้อกำหนดกับสำนักงานโยธาธิการและผังเมืองจังหวัด</p>
     </div>
   </section>
 
@@ -617,6 +677,6 @@
   </button>
 </div>
 <div id="floatToast" class="float-toast" data-noi18n></div>
-<script src="/assets/site.js?v=adff58f0"></script>
+<script src="/assets/site.js?v=629f4d38"></script>
 </body>
 </html>

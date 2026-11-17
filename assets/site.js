@@ -373,15 +373,54 @@
   })();
 
   /* ───── Plot & dimensions: view tabs + highlight a side from the list ───── */
-  document.querySelectorAll('.plot').forEach(function (sec) {
-    var tabs = sec.querySelectorAll('.plot-tab'), views = sec.querySelectorAll('.plot-view');
-    tabs.forEach(function (t) {
-      t.addEventListener('click', function () {
-        tabs.forEach(function (x) { var on = x === t; x.classList.toggle('on', on); x.setAttribute('aria-selected', on ? 'true' : 'false'); });
-        views.forEach(function (v) { v.classList.toggle('on', v.getAttribute('data-view') === t.getAttribute('data-view')); });
-      });
+  var p3dSrc = (function () {
+    var s = document.querySelector('script[src*="/assets/site.js"]');
+    return '/assets/plot3d.js' + (s && s.src.indexOf('?') > 0 ? s.src.slice(s.src.indexOf('?')) : '');
+  })();
+  var p3dLoading = null;
+  function loadPlot3D() {
+    if (window.SukmartPlot3D) return Promise.resolve();
+    if (!p3dLoading) p3dLoading = new Promise(function (ok, bad) {
+      var s = document.createElement('script'); s.src = p3dSrc; s.async = true; s.onload = ok; s.onerror = bad;
+      document.head.appendChild(s);
     });
-    function mark(k, on) { sec.querySelectorAll('[data-side="' + k + '"]').forEach(function (el) { el.classList.toggle('hl', on); }); }
+    return p3dLoading;
+  }
+  function webglOK() {
+    try { var c = document.createElement('canvas'); return !!(window.WebGLRenderingContext && (c.getContext('webgl2') || c.getContext('webgl'))); }
+    catch (e) { return false; }
+  }
+  document.querySelectorAll('.plot').forEach(function (sec) {
+    var tabs = [].slice.call(sec.querySelectorAll('.plot-tab')), views = sec.querySelectorAll('.plot-view');
+    var v3d = sec.querySelector('.plot-view[data-view="3d"]');
+    function show(name) {
+      tabs.forEach(function (x) { var on = x.getAttribute('data-view') === name; x.classList.toggle('on', on); x.setAttribute('aria-selected', on ? 'true' : 'false'); });
+      views.forEach(function (v) { v.classList.toggle('on', v.getAttribute('data-view') === name); });
+      if (name === '3d') start3d();
+      sec.dispatchEvent(new CustomEvent('plot:view', { detail: { view: name } }));
+    }
+    function drop3d() {
+      tabs = tabs.filter(function (t) { if (t.getAttribute('data-view') === '3d') { t.remove(); return false; } return true; });
+      if (v3d) { v3d.remove(); v3d = null; }
+      show('sat');
+    }
+    function start3d() {
+      if (!v3d || v3d.__started) return;
+      var el = v3d.querySelector('.p3d');
+      var go = function () {
+        v3d.__started = true;
+        loadPlot3D().then(function () { if (!window.SukmartPlot3D.mount(el)) drop3d(); }, drop3d);
+      };
+      if (!('IntersectionObserver' in window)) return go();
+      var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { io.disconnect(); go(); } }, { rootMargin: '600px' });
+      io.observe(el);
+    }
+    tabs.forEach(function (t) { t.addEventListener('click', function () { show(t.getAttribute('data-view')); }); });
+    if (v3d) { if (webglOK()) show('3d'); else drop3d(); }
+    function mark(k, on) {
+      sec.querySelectorAll('[data-side="' + k + '"]').forEach(function (el) { el.classList.toggle('hl', on); });
+      sec.dispatchEvent(new CustomEvent('plot:hl', { detail: { k: +k, on: on } }));
+    }
     sec.querySelectorAll('.ps[data-side]').forEach(function (row) {
       var k = row.getAttribute('data-side');
       row.addEventListener('mouseenter', function () { mark(k, true); });

@@ -3797,6 +3797,25 @@ body[data-lang="ja"] .hero-title,body[data-lang="ko"] .hero-title,body[data-lang
 .ov-side{fill:none;stroke:transparent;stroke-width:9;stroke-linecap:round;vector-effect:non-scaling-stroke;transition:stroke .25s}
 .ov-side.hl{stroke:rgba(239,205,133,.65)}
 
+/* 3D view (WebGL, /assets/plot3d.js) — the satellite "island" floats on the page, so no frame */
+.plot-canvas.p3d{aspect-ratio:2/1;background:transparent;box-shadow:none;border-radius:0;overflow:hidden}
+.p3d canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:pan-y;cursor:grab;-webkit-tap-highlight-color:transparent}
+.p3d.grab canvas{cursor:grabbing}
+.p3d .pl{left:0;top:0;opacity:0;transform:translate(var(--x,-9999px),var(--y,-9999px)) translate(-50%,-50%);transition:opacity .35s,box-shadow .25s;will-change:transform}
+.p3d .p3d-north{color:var(--navy-deep);filter:none;top:6px;left:6px}
+.p3d .p3d-north svg{transform-origin:50% 60%}
+.p3d-hint{position:absolute;left:50%;bottom:clamp(10px,2.4vw,22px);transform:translateX(-50%);display:flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;
+  background:rgba(251,250,246,.92);border:1px solid var(--line);box-shadow:var(--shadow-sm);font-size:12.5px;letter-spacing:.02em;color:var(--ink-soft);white-space:nowrap;pointer-events:none;transition:opacity .6s}
+.p3d-hint::before{content:"";width:22px;height:10px;flex:none;background:no-repeat center/contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 20' fill='none' stroke='%238a6d32' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 10h40M8 4 2 10l6 6M36 4l6 6-6 6'/%3E%3C/svg%3E")}
+.p3d-hint.gone,.p3d:not(.p3d-ready) .p3d-hint{opacity:0}
+.p3d:not(.p3d-ready)::before{content:"";position:absolute;left:50%;top:50%;width:min(56%,560px);aspect-ratio:2/1;transform:translate(-50%,-50%);border-radius:50%;
+  background:radial-gradient(closest-side,rgba(201,169,97,.16),rgba(201,169,97,0));animation:p3dPulse 1.6s ease-in-out infinite}
+@keyframes p3dPulse{50%{opacity:.45}}
+.p3d.p3d-fail{display:none}
+@media (max-width:1023px){.plot-canvas.p3d{aspect-ratio:16/10}}
+@media (max-width:640px){.plot-canvas.p3d{aspect-ratio:5/4}.p3d-hint{font-size:11.5px;padding:5px 12px}.p3d .pl.pill.soft .t{display:block}}
+@media (prefers-reduced-motion:reduce){.p3d:not(.p3d-ready)::before{animation:none}}
+
 /* labels shared by both views */
 .pl{position:absolute;display:flex;align-items:baseline;gap:4px;white-space:nowrap;pointer-events:none;
   transform:translate(-50%,-50%) rotate(var(--a,0deg));font-variant-numeric:tabular-nums;line-height:1.2;transition:transform .25s,box-shadow .25s}
@@ -3879,6 +3898,7 @@ body[data-lang="my"] .plot-stat-v,body[data-lang="my"] .ps-len{font-family:'Corm
 @media print{
   .plot-tabs{display:none !important}
   .plot-view{display:block !important;page-break-inside:avoid;animation:none !important}
+  .plot-view.plot-3d{display:none !important}
   .plot-view + .plot-view{margin-top:12pt}
   .plot-canvas{box-shadow:none !important;width:84% !important;margin:0 auto !important}
   .plot-cap{text-align:center}
@@ -3887,3 +3907,49 @@ body[data-lang="my"] .plot-stat-v,body[data-lang="my"] .ps-len{font-family:'Corm
   .plot-sides,.plot-facts{page-break-inside:avoid;margin-top:12pt}
   .plot-stats{grid-template-columns:repeat(4,1fr) !important}
 }
+
+/* 2026-11: ทำอะไรได้บ้าง — zoning + land-use ideas (landuse.py) */
+.use{background:var(--ivory)}
+.zone-card{display:grid;grid-template-columns:1fr;gap:clamp(20px,3vw,48px);padding:clamp(24px,3.4vw,48px);background:var(--paper);border:1px solid var(--line);border-radius:6px;box-shadow:var(--shadow-sm);margin-bottom:clamp(36px,5vw,64px)}
+@media (min-width:900px){.zone-card{grid-template-columns:minmax(300px,1fr) 2fr}}
+.zone-main{display:flex;gap:18px;align-items:flex-start}
+.zone-swatch{flex:none;width:52px;height:52px;border-radius:50%;background:var(--zc);box-shadow:inset 0 0 0 1px rgba(0,0,0,.06),0 0 0 7px rgba(10,31,68,.04)}
+.zone-k{font-size:12.5px;letter-spacing:.06em;color:var(--ink-soft);margin-bottom:4px}
+.zone-name{font-family:var(--font-serif);font-weight:400;font-size:clamp(25px,2.7vw,34px);line-height:1.3;color:var(--navy-deep)}
+.zone-meta{display:flex;gap:8px;align-items:center;margin-top:8px;font-size:14px;color:var(--ink-soft)}
+.zone-meta .n{padding:0 10px;border:1px solid var(--line);border-radius:999px;font-size:12.5px;line-height:1.8;color:var(--navy-deep)}
+.zone-intent{font-size:15.5px;line-height:1.8;color:var(--ink);max-width:660px}
+.zone-plan{display:flex;flex-wrap:wrap;gap:2px 8px;margin-top:10px;font-size:13px;line-height:1.7;color:var(--ink-soft)}
+.zone-plan > .t + .t::before,.zone-plan > .n + .t::before{content:"·";margin-right:8px;color:var(--gold)}
+.zone-near{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center;margin-top:16px;padding-top:14px;border-top:1px solid var(--line-soft);font-size:13.5px;line-height:1.7;color:var(--ink-soft)}
+.zone-near .t + .t{color:var(--ink)}
+.zone-near .n{font-size:12px;padding:0 8px;border:1px solid var(--line);border-radius:999px}
+.zone-dot{flex:none;width:12px;height:12px;border-radius:50%;background:var(--zc)}
+.zone-cols{display:grid;grid-template-columns:1fr;gap:18px 44px;margin-top:22px}
+@media (min-width:640px){.zone-cols{grid-template-columns:1fr 1fr}}
+.zone-h{font-size:13px;letter-spacing:.06em;font-weight:500;color:var(--navy-deep);margin-bottom:6px}
+.zone-list{list-style:none;border-top:1px solid var(--line-soft)}
+.zone-list li{position:relative;padding:8px 0 8px 24px;border-bottom:1px solid var(--line-soft);font-size:14.5px;line-height:1.6;color:var(--ink)}
+.zone-list li::before{content:"";position:absolute;left:3px;top:14px;width:10px;height:5px;border-left:1.6px solid var(--gold);border-bottom:1.6px solid var(--gold);transform:rotate(-45deg)}
+.zone-list.no li::before{left:2px;top:19px;width:11px;height:0;border-left:0;border-bottom:1.6px solid #b0675a;transform:none}
+.ideas{display:grid;grid-template-columns:1fr;gap:clamp(18px,2.4vw,30px)}
+@media (min-width:760px){.ideas{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1100px){.ideas{grid-template-columns:repeat(3,1fr)}.ideas.two{grid-template-columns:repeat(2,1fr)}}
+.idea{position:relative;display:flex;flex-direction:column;padding:clamp(20px,2.4vw,30px);background:var(--paper);border:1px solid var(--line);border-radius:6px;transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s}
+@media (hover:hover){.idea:hover{transform:translateY(-2px);box-shadow:var(--shadow)}}
+.idea-plan{position:relative;width:min(100%,calc(236px * var(--ar)));aspect-ratio:var(--ar);margin:4px auto 22px}
+.idea-fig{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.lf-zone.gold{fill:rgba(201,169,97,.34)}
+.lf-zone.green{fill:rgba(127,176,105,.30)}
+.lf-zone.navy{fill:rgba(30,58,111,.15)}
+.lf-plot{fill:none;stroke:var(--navy-deep);stroke-width:1.5;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.lf-sep{stroke:rgba(10,31,68,.4);stroke-width:1;stroke-dasharray:4 3;vector-effect:non-scaling-stroke}
+.lf-road{fill:rgba(10,31,68,.07)}
+.lf-l{position:absolute;transform:translate(-50%,-50%);padding:1px 8px;border-radius:999px;background:rgba(251,250,246,.9);font-size:11.5px;line-height:1.6;color:var(--navy-deep);white-space:nowrap;pointer-events:none}
+.lf-l.road{background:none;padding:0;font-size:10.5px;letter-spacing:.14em;color:var(--ink-soft)}
+.idea-n{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;line-height:1;color:var(--gold);margin-bottom:8px}
+.idea-t{font-family:var(--font-serif);font-weight:400;font-size:clamp(19px,1.8vw,22px);line-height:1.4;color:var(--navy-deep);margin-bottom:8px}
+.idea-d{font-size:14.5px;line-height:1.75;color:var(--ink-soft)}
+.use-note{margin-top:36px}
+@media (max-width:640px){.lf-l{font-size:10.5px;padding:0 6px}.zone-swatch{width:44px;height:44px}}
+@media print{.idea{break-inside:avoid}.zone-card{box-shadow:none}}

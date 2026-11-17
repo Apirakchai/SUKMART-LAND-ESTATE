@@ -214,6 +214,17 @@ def render(slug):
 
     sat = render_sat(d, approx)
     plan = render_plan(d, approx)
+    v3d = render_3d(d, approx)
+    aerial = render_aerial(d, approx)
+    tabs = []
+    if v3d:
+        tabs.append(("3d", "3 มิติ", False))
+    if aerial:
+        tabs.append(("aerial", "มุมสูง", False))
+    tabs += [("sat", "ภาพดาวเทียม", True), ("plan", "ผังแปลง", False)]
+    tab_html = "\n".join(
+        f'          <button class="plot-tab{" on" if on else ""}" type="button" role="tab" aria-selected="{"true" if on else "false"}" data-view="{k}">{label}</button>'
+        for k, label, on in tabs)
 
     return f'''  <section class="dim plot" id="sec-dim">
     <div class="container">
@@ -231,9 +242,10 @@ def render(slug):
 
       <div class="plot-stage reveal">
         <div class="plot-tabs" role="tablist">
-          <button class="plot-tab on" type="button" role="tab" aria-selected="true" data-view="sat">ภาพดาวเทียม</button>
-          <button class="plot-tab" type="button" role="tab" aria-selected="false" data-view="plan">ผังแปลง</button>
+{tab_html}
         </div>
+{v3d}
+{aerial}
 {sat}
 {plan}
       </div>
@@ -257,7 +269,12 @@ def render(slug):
 
 # ───────────────────────────── satellite view ─────────────────────────────
 def render_sat(d, approx):
-    s = d["sat"]
+    cap = ("ภาพถ่ายดาวเทียม © Google · เส้นสีทองคือรูปแปลงจากกรมที่ดิน" if not approx else
+           "ภาพถ่ายดาวเทียม © Google · เส้นสีทองคือแนวเขตโดยประมาณ")
+    return render_overlay(d, approx, d["sat"], "sat", cap, "ภาพถ่ายดาวเทียมพร้อมเส้นรูปแปลง", on=True)
+
+
+def render_overlay(d, approx, s, view, cap, alt, on=False):
     W, H = s["w"], s["h"]
     o = s["outline"]
     n = len(o)
@@ -322,14 +339,125 @@ def render_sat(d, approx):
         labels.append(f'<div class="pl pill soft" style="left:{pct(x, W)};top:{pct(y, H)};--a:{ang:.1f}deg">'
                       f'<div class="t">{e["label"]}</div><div class="ap" data-noi18n>≈</div><div class="n" data-noi18n>{e["value"]}</div><div class="u">ม.</div></div>')
     north = '<div class="pl-north" aria-hidden="true"><svg viewBox="0 0 20 30"><path d="M10 1 17 26 10 21 3 26Z"/></svg><div class="n" data-noi18n>N</div></div>'
-    cap = ("ภาพถ่ายดาวเทียม © Google · เส้นสีทองคือรูปแปลงจากกรมที่ดิน" if not approx else
-           "ภาพถ่ายดาวเทียม © Google · เส้นสีทองคือแนวเขตโดยประมาณ")
-    return f'''        <figure class="plot-view plot-sat on" data-view="sat">
+    return f'''        <figure class="plot-view plot-{view}{' on' if on else ''}" data-view="{view}">
           <div class="plot-canvas" style="aspect-ratio:{W}/{H}">
-            <img src="/{s['img']}" alt="ภาพถ่ายดาวเทียมพร้อมเส้นรูปแปลง" width="{W}" height="{H}" loading="lazy" decoding="async">
+            <img src="/{s['img']}" alt="{alt}" width="{W}" height="{H}" loading="lazy" decoding="async">
             {"".join(svg)}
             {"".join(labels)}
             {north}
+          </div>
+          <figcaption class="plot-cap">{cap}</figcaption>
+        </figure>'''
+
+
+# ───────────────────────────── aerial photo with the outline ─────────────────────────────
+def render_aerial(d, approx):
+    a = d.get("aerial")
+    if not a:
+        return ""
+    cap = ("ภาพถ่ายโดรน · เส้นสีทองคือรูปแปลงจากกรมที่ดิน" if not approx else
+           "ภาพถ่ายโดรน · เส้นสีทองคือแนวเขตโดยประมาณ")
+    return render_overlay(d, approx, a, "aerial", cap, "ภาพถ่ายโดรนพร้อมเส้นรูปแปลง")
+
+
+# ───────────────────────────── 3D view (WebGL, see /js/plot3d.js) ─────────────────────────────
+def poly_centroid(o):
+    a = cx = cy = 0.0
+    n = len(o)
+    for i in range(n):
+        (x0, y0), (x1, y1) = o[i], o[(i + 1) % n]
+        c = x0 * y1 - x1 * y0
+        a += c
+        cx += (x0 + x1) * c
+        cy += (y0 + y1) * c
+    a *= 0.5
+    return cx / (6 * a), cy / (6 * a)
+
+
+def render_3d(d, approx):
+    t = d.get("tex3d")
+    if not t:
+        return ""
+    o = d["outline"]
+    n = len(o)
+    cx, cy = poly_centroid(o)
+    a, b, c, dd, e, f = t["A"]
+    det = a * e - b * dd
+
+    def px2m(u, v):
+        u, v = u - c, v - f
+        return ((e * u - b * v) / det, (-dd * u + a * v) / det)
+
+    W, H = t["w"], t["h"]
+    corners = [px2m(0, 0), px2m(W, 0), px2m(W, H), px2m(0, H)]
+    r = max(math.dist((cx, cy), p) for p in o)
+    # fade ellipse in texture px, centred on the plot and kept inside the texture
+    cu = a * cx + b * cy + c
+    cv = dd * cx + e * cy + f
+    sc = math.sqrt(abs(det))                  # texture px per metre
+    cap = 1.6 * r * sc                        # keep the island in proportion to the plot
+    rx, ry = min(cu, W - cu, cap), min(cv, H - cv, cap)
+    island = max(rx, ry) / sc                 # metres, for framing the camera
+
+    e2s = [0] * n
+    for s in d["sides"]:
+        for i in s["edges"]:
+            e2s[i] = s["k"]
+    front = next((s for s in d["sides"] if s["front"]), None)
+    longest = max(sd["len"] for sd in d["sides"])
+    ranked = [sd["k"] for sd in sorted(d["sides"], key=lambda q: -q["len"]) if not sd["front"]]
+    keep = set(ranked[:2])
+
+    R2 = lambda p: [round(p[0] - cx, 2), round(p[1] - cy, 2)]  # noqa: E731
+    labels = []
+    for s in d["sides"]:
+        if not (s["front"] or s["k"] in keep or (s["road"] and s["len"] >= 0.22 * longest)):
+            continue
+        (mx, my), _ = polyline_mid(side_points(d, s))
+        nx, ny = out_normal(s["out"])
+        off = r * (0.075 if s["front"] else 0.06)
+        x, y = mx + nx * off - cx, my + ny * off - cy
+        val = num(s["len"], False, 0 if approx else 1)
+        ap = '<div class="ap" data-noi18n>≈</div>' if approx else ""
+        if s["front"]:
+            inner = f'<div class="t">หน้ากว้าง</div>{ap}<div class="n" data-noi18n>{val}</div><div class="u">ม.</div>'
+            cls = "pl pill front"
+        else:
+            inner = f'{ap}<div class="n" data-noi18n>{val}</div><div class="u">ม.</div>'
+            cls = "pl pill" + ("" if s["k"] in keep else " minor")
+        labels.append(f'<div class="{cls}" data-side="{s["k"]}" data-at="{x:.1f},{y:.1f}">{inner}</div>')
+
+    extra = []
+    for ex_px, ex in zip(t.get("extra_px", []), d["sat"].get("extra", [])):
+        p0, p1 = (px2m(*q) for q in ex_px)
+        extra.append([R2(p0), R2(p1)])
+        mx, my = (p0[0] + p1[0]) / 2 - cx, (p0[1] + p1[1]) / 2 - cy
+        labels.append(f'<div class="pl pill soft" data-at="{mx:.1f},{my:.1f}">'
+                      f'<div class="t">{ex["label"]}</div><div class="ap" data-noi18n>≈</div><div class="n" data-noi18n>{ex["value"]}</div><div class="u">ม.</div></div>')
+
+    cfg = {
+        "tex": "/" + t["img"], "W": W, "H": H,
+        "g": [R2(p) for p in corners],            # texture corners (TL, TR, BR, BL) in metres from the centroid
+        "o": [R2(p) for p in o],                  # outline, metres from the centroid (x east, y north)
+        "px": t["outline_px"],                    # outline in texture px (mask)
+        "s": e2s,                                 # side index of every edge
+        "f": front["k"] if front else -1,
+        "fb": front["out"] if front else (d["sides"][0]["out"]),
+        "r": round(r, 1),
+        "ir": round(island, 1),
+        "fade": [round(cu, 1), round(cv, 1), round(rx, 1), round(ry, 1)],
+        "x": extra,
+    }
+    data = json.dumps(cfg, separators=(",", ":"), ensure_ascii=False)
+    north = '<div class="pl-north p3d-north" aria-hidden="true"><svg viewBox="0 0 20 30"><path d="M10 1 17 26 10 21 3 26Z"/></svg><div class="n" data-noi18n>N</div></div>'
+    cap = ("ภาพถ่ายดาวเทียม © Google · เส้นสีทองคือรูปแปลงจากกรมที่ดิน" if not approx else
+           "ภาพถ่ายดาวเทียม © Google · เส้นสีทองคือแนวเขตโดยประมาณ")
+    return f'''        <figure class="plot-view plot-3d" data-view="3d">
+          <div class="plot-canvas p3d" data-p3d='{data}'>
+            <canvas class="p3d-gl" aria-hidden="true"></canvas>
+            {"".join(labels)}
+            {north}
+            <div class="p3d-hint"><div class="t">ลากเพื่อหมุนดูรอบแปลง</div></div>
           </div>
           <figcaption class="plot-cap">{cap}</figcaption>
         </figure>'''
